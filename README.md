@@ -20,7 +20,7 @@ A description of dithering, as it relates to images: https://en.wikipedia.org/wi
 ## Series of examples of the program's output: 
 ### using the parrot image frequently used to for image color testing
 
-original image (25255 colors):  
+original image - 25255 colors:  
 ![](http://i.imgur.com/xAVwUMC.jpg)
 
 
