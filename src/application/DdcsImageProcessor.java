@@ -102,10 +102,6 @@ public class DdcsImageProcessor {
 
         int paletteIndex = Math.max(0, (int) Math.round(scaledToPalette));
 
-//        System.out.println(palette.size() + "\t" + scale + "\t\t\t" + intensity + "\t\t\t\t\t" + scaledToPalette + "\t\t\t\t\t" + paletteIndex + "\t\t" + currentColor[0] + "," + currentColor[1] + "," + currentColor[2]);
-
-
-
         int nRed = palette.get(paletteIndex, 0);
         int nGreen = palette.get(paletteIndex, 1);
         int nBlue = palette.get(paletteIndex, 2);
@@ -174,7 +170,7 @@ public class DdcsImageProcessor {
 
 			bridgeClass.updateProgress(imageHeight);
 
-			switch (dither.getDitherType()) {
+			switch (dither.type()) {
 				case "ordered":
 					for (int row = 0; row < imageHeight; row++) {
 						for (int column = 0; column < imageWidth; column++) {
@@ -249,7 +245,7 @@ public class DdcsImageProcessor {
 	private void addThreshold(int column, int row) {	//adds the threshold value from the ordered dither matrix ("bayer matrix") to the pixel values
 		try {
 
-			int matrixSize = dither.getGridSize();
+			int matrixSize = dither.gridSize();
 			int threshold = dither.get((row % matrixSize), column % matrixSize);
 
 			currentColor[0] += threshold;	//row % matrix size; 324 % 8 = 4; uses remainder to determine location on matrix, ensures uniform use of threshold matrix
@@ -309,11 +305,11 @@ public class DdcsImageProcessor {
 			int greenError = (int) (currentColor[1] - newColor[1]);
 			int blueError = (int) (currentColor[2] - newColor[2]);
 			int numerator;									//each error-diffusion method splits the error into fractions to spread it around the current pixel; this is the numerator in the fraction (i.e. 2/X or 1/X)
-			int denominator = dither.getSplit();			//this is the denominator in the fraction (i.e. X/48 or X/16)
+			int denominator = dither.split();			//this is the denominator in the fraction (i.e. X/48 or X/16)
 			int column_new;
 			int row_new;
 
-			for (int i = 0; i < dither.getArraySize(); i++) {	//goes through the list of locations to spread the error to
+			for (int i = 0; i < dither.arraySize(); i++) {	//goes through the list of locations to spread the error to
 
 				numerator = dither.get(i, 2);				//defines how much of the error is going to be placed at the location (i.e. 4/X or 5/X)
 			    column_new = column + (dither.get(i, 1));	//defines X/Y of locations; values from the dither array are coordinates relative to the current pixel

@@ -10,14 +10,14 @@ public class DdcsAdaptivePalette {
 	private DdcsBridge bridgeClass = DdcsBridge.getInstance();
 	private DdcsImage image = DdcsImage.getInstance();
 
-    private int lastProcessedImage = -1;    //the number of the previously processed image
+    private int lastProcessedImage = -1;                                            //the number of the previously processed image
 	private int colorCount = 1;
 
 	private int[][] calculatedPalette;
 
-    private int origColorCount = 0;	//the number of colors the original image has
+    private int origColorCount = 0;                                                 //the number of colors the original image has
 
-    private final ArrayList<int[][]> listColorArrays = new ArrayList<>();	//this list is the main container for all the color 'cubes'
+    private final ArrayList<int[][]> listColorArrays = new ArrayList<>();           //this list is the main container for all the color 'cubes'
 
 
 
@@ -27,7 +27,6 @@ public class DdcsAdaptivePalette {
         	if(lastProcessedImage == image.imageNumber() && colorCount == colors) {	//if the user hasn't changed the base image or the number of colors they want, just return the existing result
         		return calculatedPalette;
         	} else {
-//        		bridgeClass.updateProgress(-1);	//sets the progress bar to 'indeterminate'; seems to randomly cause strange visual bugs with the stack pane, so disable for now
     			bridgeClass.updateProgressInfo("generating adaptive palette . . .");
 
                 lastProcessedImage = image.imageNumber();
@@ -53,15 +52,15 @@ public class DdcsAdaptivePalette {
     private int[][] findAdaptivePalette() {
         try {
 
-            listColorArrays.clear();                                //make sure the list is empty
-            listColorArrays.add(createInitialArray());                //populate the list with a single array of all the colors of the image
-            int[][] colorArray;                                        //this is an array to hold the values of the first sub-array of the list so we can work with it easier
+            listColorArrays.clear();                                        //make sure the list is empty
+            listColorArrays.add(createInitialArray());                      //populate the list with a single array of all the colors of the image
+            int[][] colorArray;                                             //this is an array to hold the values of the first sub-array of the list so we can work with it easier
 
-            if (listColorArrays.get(0).length < colorCount) {        //if there are already fewer colors in the image than the number we want to create it will break things, so trim it down if needed
+            if (listColorArrays.get(0).length < colorCount) {               //if there are already fewer colors in the image than the number we want to create it will break things, so trim it down if needed
 
                 int[][] arrayColorArrays = new int[listColorArrays.get(0).length][3];
 
-                for (int i = 0; i < listColorArrays.get(0).length; i++) {    //convert the ArrayList into the kind of array we need
+                for (int i = 0; i < listColorArrays.get(0).length; i++) {   //convert the ArrayList into the kind of array we need
                     arrayColorArrays[i][0] = listColorArrays.get(0)[i][0];
                     arrayColorArrays[i][1] = listColorArrays.get(0)[i][1];
                     arrayColorArrays[i][2] = listColorArrays.get(0)[i][2];
@@ -69,46 +68,46 @@ public class DdcsAdaptivePalette {
                 return arrayColorArrays;
             }
 
-            while (listColorArrays.size() < colorCount) {            //run through this until you've reached the number of color 'cubes' you want (the number of colors in the adaptive palette)
+            while (listColorArrays.size() < colorCount) {                   //run through this until you've reached the number of color 'cubes' you want (the number of colors in the adaptive palette)
 
-                colorArray = listColorArrays.get(0);                //grab the first sub-array from the list
+                colorArray = listColorArrays.get(0);                        //grab the first sub-array from the list
 
-                sortByLargestRange(colorArray);                        //function that sorts the array by the sub-value with the largest range
+                sortByLargestRange(colorArray);                             //function that sorts the array by the sub-value with the largest range
 
-                int[] subArrayLengths = getSubarrayLengths();        //determine the size of the arrays we are going to make
+                int[] subArrayLengths = getSubarrayLengths();               //determine the size of the arrays we are going to make
 
                 int[][] subArray1 = new int[Objects.requireNonNull(subArrayLengths)[0]][3];    //create the new sub-arrays
                 int[][] subArray2 = new int[subArrayLengths[1]][3];
 
-                System.arraycopy(colorArray, 0, subArray1, 0, subArrayLengths[0]);                    //copy first half of the sub-array to first new sub-array
+                System.arraycopy(colorArray, 0, subArray1, 0, subArrayLengths[0]);              //copy first half of the sub-array to first new sub-array
                 System.arraycopy(colorArray, subArrayLengths[0], subArray2, 0, subArrayLengths[1]);    //second half to second new sub-array
 
-                listColorArrays.add(subArray1);                        //add the new sub-arrays into the list
+                listColorArrays.add(subArray1);                         //add the new sub-arrays into the list
                 listColorArrays.add(subArray2);
 
-                listColorArrays.remove(0);                            //remove the sub-array we just split into two separate arrays
+                listColorArrays.remove(0);                        //remove the sub-array we just split into two separate arrays
             }
 
             int[][] adaptiveColorArray = new int[colorCount][3];        //make an array to put the adaptive color values in
-            int count = 0;                                            //counter for convenience, since we are using a FOR EACH loop instead of standard FOR loop in the next step
+            int count = 0;                                              //counter for convenience, since we are using a FOR EACH loop instead of standard FOR loop in the next step
 
-            for (int[][] array : listColorArrays) {                    //iterate through all the sub-arrays in the list (the color 'cubes')
+            for (int[][] array : listColorArrays) {                     //iterate through all the sub-arrays in the list (the color 'cubes')
 
                 int red = 0;
                 int green = 0;
                 int blue = 0;
 
                 for (int[] colors : array) {            //iterate through the colors in the current color 'cube'
-                    red += colors[0];                //add up all the color values in the 'cube'
+                    red += colors[0];                   //add up all the color values in the 'cube'
                     green += colors[1];
                     blue += colors[2];
                 }
 
-                red = red / array.length;            //get the average color values
+                red = red / array.length;               //get the average color values
                 green = green / array.length;
                 blue = blue / array.length;
 
-                adaptiveColorArray[count][0] = red;        //averaged color values are the RGB values for this color in the adaptive palette
+                adaptiveColorArray[count][0] = red;     //averaged color values are the RGB values for this color in the adaptive palette
                 adaptiveColorArray[count][1] = green;
                 adaptiveColorArray[count++][2] = blue;
             }

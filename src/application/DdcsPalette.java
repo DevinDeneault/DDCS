@@ -5,9 +5,6 @@ import java.util.Map;
 
 public class DdcsPalette {
 
-    //======================RENAME METHODS
-
-
     //---------------------------------------------------singleton
     private static volatile DdcsPalette instance = null;
 

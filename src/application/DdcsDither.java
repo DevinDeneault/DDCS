@@ -2,10 +2,6 @@ package application;
 
 public class DdcsDither {
 
-
-    //======================RENAME METHODS
-
-
     //---------------------------------------------------singleton
     private static volatile DdcsDither instance = null;
 
@@ -37,7 +33,7 @@ public class DdcsDither {
         ditherArraySize = ditherArray.length;
     }
 
-    public String getDitherType() {	//determine is the dither is ordered, error-diffusion, or none
+    public String type() {	//determine is the dither is ordered, error-diffusion, or none
         if(ditherName.contains("Ordered")) {
             return "ordered";
         } else if(ditherName.contains("None")) {
@@ -47,9 +43,9 @@ public class DdcsDither {
         }
     }
 
-    public int getSplit() { return split; }
-    public int getGridSize() { return gridSize; }
-    public int getArraySize() { return ditherArraySize; }
+    public int split() { return split; }
+    public int gridSize() { return gridSize; }
+    public int arraySize() { return ditherArraySize; }
 
     public int get(int y, int x) { return ditherArray[y][x]; }
 

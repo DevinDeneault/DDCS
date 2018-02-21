@@ -65,10 +65,7 @@ public class DdcsFileManager {
 		try {
 
 			ArrayList<int[]> colorList = new ArrayList<>();		//values will be stored here while being read from the file
-			int[][] colorArray;                     			//values will be stored here for further use                    // = new int[][]{{0,0,0}};
-//			String[] colorString;								//stores the color as 3 strings
-//			int[] colorInt;										//stores the color as 3 integers
-
+			int[][] colorArray;                     			//values will be stored here for further use
 			InputStream inputStream = null;
 			BufferedReader bufferedReader = null;
 
@@ -125,15 +122,20 @@ public class DdcsFileManager {
 
             colorInt = new int[3];
 
-            colorInt[0] = Integer.parseInt(colorString[0]);			//red value
-            colorInt[1] = Integer.parseInt(colorString[1]);			//green value
-            colorInt[2] = Integer.parseInt(colorString[2]);			//blue value
+            int red = Integer.parseInt(colorString[0]);
+            int green = Integer.parseInt(colorString[1]);
+            int blue = Integer.parseInt(colorString[2]);
 
-            colorList.add(colorInt);
+            //the regex already guarantees that there won't be any negative numbers, but we also need to make sure that no value is above the maximum of 255
+            if(red < 256 && green < 256 && blue < 256) {
+                colorInt[0] = red;			//red value
+                colorInt[1] = green;		//green value
+                colorInt[2] = blue;			//blue value
 
-        } else {
-            //line was formatted improperly, ignore it and move on
+                colorList.add(colorInt);
+            }
         }
+        //if the line was formatted improperly, ignore it and move on
     }
 
 
