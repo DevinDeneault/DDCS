@@ -45,10 +45,6 @@ public class DdcsLogicController {
 	public Image getNullImage() { return image.nullImage(); }
 
 	public void loadUserPalette() {						//load and validate the user defined palette, also get it's size
-//		palette.addPaletteData("- User defined palette -", fileManager.loadUserPalette());
-
-        //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        //return loaded palette to be displayed
 
         int[][] userPalette = fileManager.loadUserPalette();
 
@@ -91,21 +87,7 @@ public class DdcsLogicController {
 	    bridgeClass.updateColorList(palette.paletteArray());
     }
 
-//	public void setPaletteArray() {	//take the name of the palette currently selected and make that the palette to work with
-//		try {
-//		    String name = palette.selectedPalette();
-//
-//			if (name.equals("Adaptive Palette")) {
-//                palette.setAdaptivePalette(adaptivePaletteCalc.getAdaptivePalette(palette.size()));
-//            } else {
-////				palette.loadPalette(name);
-//			}
-//
-//			//--------update text area
-////            bridgeClass.updateColorList(palette.paletteArray());
-//
-//        } catch(Exception e) { bridgeClass.handleError(classID, "00", e); }
-//	}
+
 
 
     public void saveUserColorList(String colorsString) {

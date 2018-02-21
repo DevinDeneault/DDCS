@@ -55,18 +55,9 @@ public class DdcsPalette {
     }
     public String selectedPalette() { return paletteName; }
 
-//    public void loadPalette(String name) { paletteArray = paletteMap.get(name); }
-//    public void setAdaptivePalette(int[][] colors) { paletteArray = colors; }
-
     public int size() { return paletteSize; }
 
     public void addPaletteData(String name) { paletteMap.put(name, PALETTE_NULL); }
     public void addPaletteData(String name, int[][] colors) { paletteMap.put(name, colors); }
     public void addPaletteData(int adaptivePaletteSize, int[][] colors) { paletteSize = adaptivePaletteSize; paletteMap.put("Adaptive Palette", colors); }
-
-
-
-//    public void setAdaptivePaletteSize(int size) { paletteSize = size; }
-
-
 }

@@ -16,17 +16,17 @@ public class DdcsImageProcessor {
 	private DdcsDither dither = DdcsDither.getInstance();
     private DdcsPalette palette = DdcsPalette.getInstance();
 
-	private KDTree kdTree;						//KDTree for searching for closest matching colors
+	private KDTree kdTree;                          //KDTree for searching for closest matching colors
 
-	private WritableImage imageNew;		//the variable of the new blank, writable, image
+	private WritableImage imageNew;		            //the variable of the new blank, writable, image
 
-    private PixelReader pixelReader;	//object that reads pixel data
-    private PixelWriter pixelWriter;	//object that writes pixel data
+    private PixelReader pixelReader;	            //object that reads pixel data
+    private PixelWriter pixelWriter;	            //object that writes pixel data
 
     private double[] currentColor = new double[3];	//the current pixel's color values
     private double[] newColor = new double[3];		//the new pixel's color values
 
-    private int[][][] errorMatrix;  //the matrix that will be used to store the error data for error-diffusion dithering
+    private int[][][] errorMatrix;                  //the matrix that will be used to store the error data for error-diffusion dithering
 
 
 
