@@ -41,8 +41,6 @@ public class DdcsBridge {
 
 
 
-
-
     public void updateColorList (int[][] palette) {
         try {
 
@@ -62,9 +60,6 @@ public class DdcsBridge {
             handleError(classID, "01", e);
         }
     }
-
-
-
 
 
 

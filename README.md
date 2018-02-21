@@ -16,8 +16,6 @@ The built in dithers offer a variety of error diffusion and ordered dither optio
 
 A description of dithering, as it relates to images: https://en.wikipedia.org/wiki/Dither#Digital_photography_and_image_processing
 
-Some helpful hints about the usage of this program can be found at the bottom of this readme.
-
 
 ## Series of examples of the program's output: 
 ### using the parrot image frequently used to for image color testing
@@ -32,14 +30,3 @@ original image (25255 colors):
 |6-bit (64 colors)|![](http://i.imgur.com/syg0tTP.png)|![](http://i.imgur.com/zORpVYo.png)|![](http://i.imgur.com/03XABGw.png)|
 |custom palette (32 colors)|![](http://i.imgur.com/qoZOuys.png)|![](http://i.imgur.com/1xa9rBT.png)|![](http://i.imgur.com/suYYTv0.png)|
 |Adaptive palette (32 colors)|![](http://i.imgur.com/Q3jhIkA.png)|![](http://i.imgur.com/bC04lIv.png)|![](http://i.imgur.com/S34ZtUw.png)|
-
-
-
-
-
-### Helpful hints
-- The open button is a 'Split menu button', clicking on the arrow will open a menu with the options for loading a custom palette and accessing the in-program help and about information  
-![](http://i.imgur.com/rKs1EPG.png)
-- The Help and About overlay can be removed by going into the menu and selecting "Help & About" a second time.
-- The text field to the right of the palette selection combo box displays the number of colors in the selected palette. Selecting "Adaptive Palette" makes the text field editable, allowing you to define the number of colors you want  
-![](http://i.imgur.com/iKJeiTk.png)

@@ -1,0 +1,80 @@
+.root {
+    -fx-base: #828078;
+    -fx-accent: #98A0A8; /*items highlighted in menus, etc   #656463;*/
+    -fx-focus-color: #828078;
+}
+
+.progress-indicator .percentage {
+    -fx-fill:null;
+}
+
+
+.progress-bar > .track {
+    -fx-background-color: #32302E;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+}
+
+.progress-bar > .bar {
+    -fx-background-insets: 1 1 1 1;
+    -fx-background-radius: 2;
+    -fx-padding: 0.5em;
+}
+
+.scroll-pane:focused {
+    -fx-border-width: 0;
+    -fx-padding: 0;
+}
+.scroll-pane {
+    -fx-padding: 0;
+}
+
+.scroll-bar > .thumb {
+    -fx-base: #494847;
+}
+
+.top-pane {
+	-fx-base: #666462;
+    -fx-control-inner-background: #D6D0CA;
+}
+
+.top-pane .scroll-pane > .viewport {
+    -fx-background-color: #42403E;
+}
+
+
+.label {
+	-fx-text-fill: #A2A09E;
+}
+
+.button,
+.combo-box > .list-cell,
+.split-menu-button > .label {
+	-fx-text-fill: #D3D2D1;
+}
+
+.menu-item >.label {
+    -fx-text-fill: #242424;
+}
+
+.section-label {
+    -fx-background-color: #201816;
+}
+
+.section-box {
+    -fx-border-width: 2px;
+    -fx-border-color: #201816;
+}
+
+
+#help-text {
+	-fx-base: black;
+	-fx-text-fill: #D3D2D1;
+	-fx-background-insets: 0;
+    -fx-background-radius: 0;
+}
+
+#help-text .content{
+	-fx-background-color: black;
+}
+

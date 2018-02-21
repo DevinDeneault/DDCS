@@ -1,0 +1,128 @@
+.root {
+    -fx-base: #828078;
+    -fx-accent: #98A0A8; /*items highlighted in menus, etc   #656463;*/
+    -fx-focus-color: #828078;
+}
+
+
+.progress-bar > .track {
+    -fx-background-color: #32302E;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+}
+
+.progress-bar > .bar {
+	/*-fx-background-color: #4F687C;*/
+
+    /*blue*/
+    /*-fx-background-color: linear-gradient(#4080B0, #00000000);*/
+
+    /*red*/
+    /*-fx-background-color: linear-gradient(#00000000, #A02010);*/
+
+    -fx-background-insets: 1 1 1 1;
+    -fx-background-radius: 2;
+    -fx-padding: 0.5em;
+}
+
+.scroll-pane:focused {
+    /*-fx-background-color: #6E6C66;*/
+    -fx-border-width: 0;
+    -fx-padding: 0;
+}
+.scroll-pane {
+    -fx-padding: 0;
+}
+
+
+
+
+
+
+
+
+
+.scroll-bar > .thumb {
+    -fx-base: #494847;
+}
+
+
+
+
+.top-pane {
+	-fx-base: #666462;
+    -fx-control-inner-background: #D6D0CA;
+}
+
+.top-pane .scroll-pane > .viewport {
+    -fx-background-color: #42403E;
+}
+
+
+.label {
+	-fx-text-fill: #A2A09E;
+}
+
+.button,
+.combo-box > .list-cell,
+.split-menu-button > .label {
+	-fx-text-fill: #D3D2D1;
+}
+
+.menu-item >.label {
+    -fx-text-fill: #242424;
+}
+
+
+
+
+#help-text {
+	-fx-base: black;
+	-fx-text-fill: #D3D2D1;
+	-fx-background-insets: 0;
+    -fx-background-radius: 0;
+}
+
+#help-text .content{
+	-fx-background-color: black;
+}
+
+
+/*.progress-bar {
+    -fx-indeterminate-bar-length: 512;
+    -fx-indeterminate-bar-animation-time: 4;
+}
+
+.progress-bar:indeterminate > .bar {
+    -fx-background-color: linear-gradient(to left, transparent, #4080B0);
+}*/
+
+
+
+/*
+
+
+
+
+.button > .label,
+.split-menu-button > .label {
+	-fx-base: #828078;
+}
+
+
+
+
+.toggle-button {
+	-fx-background-radius: 0;
+}
+
+.text-input:disabled{
+	-fx-base: #333231;
+}
+.button:disabled,
+.toggle-button:disabled {
+	-fx-base: #656463;
+	-fx-text-fill: #828078;
+}
+
+*/

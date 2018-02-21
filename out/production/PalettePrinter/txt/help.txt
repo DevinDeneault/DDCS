@@ -1,0 +1,58 @@
+Program by Devin Deneault
+version: 0.4.0
+
+3rd party libraries:
+JavaML (Java Machine Learning) - used for it's Kd-Tree implementation
+
+3rd party resources:
+DawnBringer's 16 color palette - http://www.pixeljoint.com/forum/forum_posts.asp?TID=12795
+DawnBringer's 32 color palette - http://www.pixeljoint.com/forum/forum_posts.asp?TID=16247
+Icons by Yusuke Kamiyamane, Creative Commons Attribution 3.0 License - http://p.yusukekamiyamane.com
+
+========================================================================
+==== making a custom palette ====
+========================================================================
+
+External custom palettes should be written in a plain text file with the following formatting:
+
+1,45,234
+255,255,241
+132,231,42
+
+-these are the rgb values of your chosen colors
+-no spaces or any other formatting should be used
+-there is no limit on the number of colors you can have
+-duplicate colors will not effect output results
+
+========================================================================
+==== explanation of Dithering (via Wikipedia) ====
+========================================================================
+
+Dithering is used in computer graphics to create the illusion of \color depth\ in images with a limited color
+palette - a technique also known as color quantization. In a dithered image, colors that are not available in
+the palette are approximated by a diffusion of colored pixels from within the available palette. The human eye
+perceives the diffusion as a mixture of the colors within it (see color vision). Dithered images, particularly
+those with relatively few colors, can often be distinguished by a characteristic graininess or speckled appearance.
+
+By its nature, dithering introduces pattern into an image - the theory being that the image will be viewed from
+such a distance that the pattern is not discernible to the human eye. Unfortunately this is often not the case,
+and often the patterning is visible - for example, often with images found on the web. In these circumstances it
+has been shown that a blue noise dither pattern is the least unsightly and distracting.[13] The error diffusion
+techniques were some of the first methods to generate blue noise dithering patterns. However, other techniques
+such as ordered dithering can also generate blue noise dithering without the tendency to degenerate into areas
+with artifacts.
+
+------------------------------------------------------------------------
+
+Ordered dithering dithers using a \dither matrix\. For every pixel in the image the value of the pattern at the
+corresponding location is used as a threshold. Neighboring pixels do not affect each other, making this form of
+dithering suitable for use in animations. Different patterns can generate completely different dithering effects.
+Though simple to implement, this dithering algorithm is not easily changed to work with free-form, arbitrary palettes.
+
+------------------------------------------------------------------------
+
+Error-diffusion dithering is a feedback process that diffuses the quantization error to neighboring pixels.
+
+------------------------------------------------------------------------
+
+==== NOTE: all dithers presented in this program that are not explicitly marked 'Ordered' are error diffusion ====
