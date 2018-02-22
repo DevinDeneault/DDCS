@@ -208,25 +208,6 @@ public class DdcsDocumentController implements Initializable {
 
 
 
-//    Task<Void> task = new Task<Void>() {
-//        @Override
-//        public Void call() throws Exception {
-//            Thread.sleep(2000);
-//            return null ;
-//        }
-//    };
-//
-//        task.setOnSucceeded(event -> {
-//
-//    });
-//
-//        new Thread(task).run();
-
-
-//    Platform.runLater(() -> {
-//
-//    });
-//
 
 
 	//this will 'reset' the task after it has been run, not doing this breaks the thread
@@ -365,12 +346,12 @@ public class DdcsDocumentController implements Initializable {
             "Color  [9-bit]",
             //---------------------------
             "Gradient  [sepia]",
-            "Gradient  [indigo]",		//electric indigo
+            "Gradient  [electric indigo]",
             "Gradient  [chartreuse]",
-            "Gradient  [orange]",		//dark orange
-            "Gradient  [pink]",			//deep pink
-            "Gradient  [blue]",			//dodger blue
-            "Gradient  [green]",		//spring green
+            "Gradient  [dark orange]",
+            "Gradient  [deep pink]",
+            "Gradient  [dodger blue]",
+            "Gradient  [spring green]",
             //---------------------------
             "Retro  [Game Boy]",
             "Retro  [NES]",
@@ -443,3 +424,24 @@ public class DdcsDocumentController implements Initializable {
 
     private final String classID = "01";	//used as a reference when displaying errors
 }
+
+
+//    Task<Void> task = new Task<Void>() {
+//        @Override
+//        public Void call() throws Exception {
+//            Thread.sleep(2000);
+//            return null ;
+//        }
+//    };
+//
+//        task.setOnSucceeded(event -> {
+//
+//    });
+//
+//        new Thread(task).run();
+
+
+//    Platform.runLater(() -> {
+//
+//    });
+//

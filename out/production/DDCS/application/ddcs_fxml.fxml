@@ -81,7 +81,7 @@
                   <Insets bottom="8.0" top="8.0" />
                </VBox.margin>
             </Label>
-            <VBox maxWidth="244.0" minWidth="244.0" styleClass="section-box">
+            <VBox alignment="CENTER" maxWidth="244.0" minWidth="244.0" styleClass="section-box">
                <VBox.margin>
                   <Insets left="6.0" right="6.0" top="12.0" />
                </VBox.margin>
@@ -94,19 +94,16 @@
                         <Insets bottom="8.0" />
                      </VBox.margin>
                   </Label>
-                  <HBox alignment="CENTER_LEFT">
-                     <ComboBox fx:id="cmbPaletteSelect" maxHeight="28.0" maxWidth="160.0" minHeight="28.0" minWidth="160.0" onAction="#handlerComboSelect" visibleRowCount="16">
-                        <HBox.margin>
-                           <Insets left="6.0" right="4.0" />
-                        </HBox.margin>
-                     </ComboBox>
-                     <ImageView fx:id="imgPalettePreview" fitHeight="32.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" />
-                  </HBox>
+                  <ComboBox fx:id="cmbPaletteSelect" maxHeight="28.0" maxWidth="224.0" minHeight="28.0" minWidth="224.0" onAction="#handlerComboSelect" visibleRowCount="16" />
                   <HBox alignment="CENTER">
                      <VBox.margin>
-                        <Insets bottom="4.0" top="4.0" />
+                        <Insets bottom="8.0" top="8.0" />
                      </VBox.margin>
-                     <Label text="Number of palette colors: " textAlignment="CENTER">
+                     <ImageView fx:id="imgPalettePreview" fitHeight="32.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                        <HBox.margin>
+                           <Insets right="32.0" />
+                        </HBox.margin></ImageView>
+                     <Label text="# of colors: " textAlignment="CENTER">
                         <font>
                            <Font size="14.0" />
                         </font>
@@ -114,7 +111,7 @@
                            <Insets />
                         </HBox.margin>
                      </Label>
-                     <TextField fx:id="txtColorCount" alignment="CENTER" maxHeight="28.0" maxWidth="42.0" minHeight="28.0" minWidth="42.0" prefHeight="28.0" prefWidth="42.0" promptText="5120">
+                     <TextField fx:id="txtColorCount" alignment="CENTER" maxHeight="30.0" maxWidth="42.0" minHeight="30.0" minWidth="42.0" promptText="5120">
                         <HBox.margin>
                            <Insets />
                         </HBox.margin>
@@ -149,7 +146,7 @@
                   <Insets bottom="12.0" />
                </padding>
             </VBox>
-            <VBox maxWidth="244.0" minWidth="244.0" styleClass="section-box">
+            <VBox alignment="CENTER" maxWidth="244.0" minWidth="244.0" styleClass="section-box">
                <VBox.margin>
                   <Insets left="6.0" right="6.0" top="12.0" />
                </VBox.margin>
@@ -164,7 +161,7 @@
                   </Label>
                   <ComboBox fx:id="cmbDitherSelect" maxHeight="28.0" maxWidth="224.0" minHeight="28.0" minWidth="224.0" onAction="#handlerComboSelect" visibleRowCount="16">
                      <VBox.margin>
-                        <Insets left="6.0" />
+                        <Insets />
                      </VBox.margin>
                   </ComboBox>
                </children>
@@ -211,15 +208,5 @@
             </ScrollPane>
          </AnchorPane>
       </SplitPane>
-      <StackPane layoutX="10.0" layoutY="22.0">
-         <children>
-            <Separator />
-            <Line endY="3.0" scaleX="2.0" smooth="false" startY="1.0" stroke="#555555">
-               <StackPane.margin>
-                  <Insets />
-               </StackPane.margin>
-            </Line>
-         </children>
-      </StackPane>
    </VBox>
 </SplitPane>

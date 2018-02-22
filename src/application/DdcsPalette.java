@@ -46,9 +46,7 @@ public class DdcsPalette {
     public void setSelectedPalette(String name) {
         paletteName = name;
         paletteSize = paletteMap.get(name).length;
-        //----
         paletteArray = paletteMap.get(name);
-        //----
     }
     public String selectedPalette() { return paletteName; }
 
