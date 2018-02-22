@@ -99,10 +99,14 @@
                      <VBox.margin>
                         <Insets bottom="8.0" top="8.0" />
                      </VBox.margin>
-                     <ImageView fx:id="imgPalettePreview" fitHeight="32.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                     <AnchorPane maxHeight="34.0" maxWidth="66.0" minHeight="34.0" minWidth="66.0" styleClass="palette-preview">
+                        <children>
+                           <ImageView fx:id="imgPalettePreview" fitHeight="32.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        </children>
                         <HBox.margin>
                            <Insets right="32.0" />
-                        </HBox.margin></ImageView>
+                        </HBox.margin>
+                     </AnchorPane>
                      <Label text="# of colors: " textAlignment="CENTER">
                         <font>
                            <Font size="14.0" />

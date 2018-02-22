@@ -41,12 +41,15 @@ public class DdcsPalette {
     public int get(int a, int b) { return paletteArray[a][b]; }
     public int[] get(int a) { return paletteArray[a]; }
 
-    public int[][] paletteArray() { return paletteArray; }
+    public int[][] loadedPaletteArray() { return paletteArray; }
+    public int[][] selectedPaletteArray() { return paletteMap.get(paletteName); }
 
     public void setSelectedPalette(String name) {
         paletteName = name;
         paletteSize = paletteMap.get(name).length;
-        paletteArray = paletteMap.get(name);
+    }
+    public void loadSelectedPalette() {
+        paletteArray = paletteMap.get(paletteName);
     }
     public String selectedPalette() { return paletteName; }
 

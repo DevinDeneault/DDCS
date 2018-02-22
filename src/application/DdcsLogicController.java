@@ -24,6 +24,8 @@ public class DdcsLogicController {
 
 	public Image processImage() {	//process the image according to the currently selected instructions
 
+        palette.loadSelectedPalette();
+
 		imageProcessor.processImage();
 
 		//setting the loading progress to say complete or, if you used an adaptive palette, the number of colors in the original image
@@ -70,7 +72,7 @@ public class DdcsLogicController {
     }
 
     public void updateColorListDisplay() {
-	    bridgeClass.updateColorList(palette.paletteArray());
+	    bridgeClass.updateColorList(palette.selectedPaletteArray());
     }
 
     public void saveUserColorList(String colorsString) {

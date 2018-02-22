@@ -44,7 +44,7 @@ public class DdcsPngSaver {
 			} else {
 			    try {
 			    	if(palette.size() < 257) {													//if the number of colors used is less than 257
-			    		saveImageAsIndexed(file, palette.paletteArray());				//save as a PNG with a indexed palette
+			    		saveImageAsIndexed(file, palette.loadedPaletteArray());				//save as a PNG with a indexed palette
 			    	} else {
 			    		ImageIO.write(SwingFXUtils.fromFXImage(image.processedImage(), null), "PNG", file);	//save as a normal PNG (PNGs can only have up to 256 colors in a palette index)
 			    	}
