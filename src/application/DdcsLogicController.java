@@ -24,7 +24,6 @@ public class DdcsLogicController {
 
 	public Image processImage() {	//process the image according to the currently selected instructions
 
-
 		imageProcessor.processImage();
 
 		//setting the loading progress to say complete or, if you used an adaptive palette, the number of colors in the original image
@@ -57,38 +56,22 @@ public class DdcsLogicController {
         }
 	}
 
-
-
-
-
-
-//	public int getUserPaletteSize() {
-//	    return palette.getPaletteSize("- User defined palette -");
-//	}
-
 	public void updateSelectedPalette(String name) {
 	    palette.setSelectedPalette(name);
 	}
 
 	public void updateSelectedDither(String name) { dither.setDitherName(name); }
-//	public void updateAdaptivePaletteSize(int value) { palette.setAdaptivePaletteSize(value); }
+
 	public int getPaletteSize() { return palette.size(); }
-
-
 
 	public void generateAdaptivePalette(int colorCount) {
         palette.addPaletteData(colorCount, adaptivePaletteCalc.getAdaptivePalette(colorCount));
         updateSelectedPalette("Adaptive Palette");  //call to update the palette array with the new data
     }
 
-
-
     public void updateColorListDisplay() {
 	    bridgeClass.updateColorList(palette.paletteArray());
     }
-
-
-
 
     public void saveUserColorList(String colorsString) {
 	    fileManager.savePalette(colorsString);

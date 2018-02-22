@@ -67,6 +67,7 @@
             </ImageView>
          </HBox>
       </ToolBar>
+      <ProgressBar fx:id="prgProgress" maxHeight="12.0" maxWidth="256.0" minHeight="12.0" minWidth="256.0" progress="0.6" />
       <ScrollPane focusTraversable="false" hbarPolicy="NEVER" maxWidth="256.0" minWidth="256.0" VBox.vgrow="ALWAYS">
          <VBox maxWidth="256.0" minWidth="256.0">
             <Label fx:id="lblProgress" alignment="CENTER" maxWidth="256.0" minWidth="256.0" opacity="0.6" text="[Loading Information]" textAlignment="CENTER">
@@ -175,9 +176,6 @@
       </ScrollPane>
    </VBox>
    <VBox>
-      <AnchorPane>
-         <ProgressBar fx:id="prgProgress" maxHeight="12.0" minHeight="12.0" prefHeight="12.0" progress="0.6" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      </AnchorPane>
       <StackPane>
          <Separator />
          <Line endY="3.0" scaleX="2.0" smooth="false" startY="1.0" stroke="#555555">
@@ -213,5 +211,15 @@
             </ScrollPane>
          </AnchorPane>
       </SplitPane>
+      <StackPane layoutX="10.0" layoutY="22.0">
+         <children>
+            <Separator />
+            <Line endY="3.0" scaleX="2.0" smooth="false" startY="1.0" stroke="#555555">
+               <StackPane.margin>
+                  <Insets />
+               </StackPane.margin>
+            </Line>
+         </children>
+      </StackPane>
    </VBox>
 </SplitPane>
