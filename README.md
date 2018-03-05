@@ -2,7 +2,7 @@
 
 #### Note: If you are attempting to run the executable JAR file on Windows you may need to unblock it. (right click > go to "Properties" >  "General" tab > at the bottom will be "This file came from another computer and might be blocked to help protect this computer." with an "Unlock" checkbox next to it.) Failing to do this will cause the program to be unable to load or save images.
 
-#### Current version supports Windows only.
+#### Current version requires Windows and the Java SE runtime version 9.
 
 A Java program that will take an image, convert it to a new palette of colors, and apply dithering.
 

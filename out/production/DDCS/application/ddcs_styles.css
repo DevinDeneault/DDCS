@@ -47,8 +47,10 @@
 }
 
 
-.label {
-	-fx-text-fill: #A2A09E;
+.label,
+.radio-button,
+.check-box {
+    -fx-text-fill: #A2A09E;
 }
 
 .button,

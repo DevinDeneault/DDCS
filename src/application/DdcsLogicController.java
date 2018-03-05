@@ -16,7 +16,6 @@ public class DdcsLogicController {
 	private DdcsImageProcessor imageProcessor = new DdcsImageProcessor();			//class that will handle processing the image
 	private DdcsAdaptivePalette adaptivePaletteCalc = new DdcsAdaptivePalette();	//class that will calculate the adaptive palette
 
-
 	public Image getNewImage() {	//get and send off a selected image from a FileChooser; also remember it so it can be be used later
 		fileManager.loadBaseImage();
 		return image.image();
@@ -101,6 +100,13 @@ public class DdcsLogicController {
     }
 
 
+
+    public void sortPalette(boolean sort) {
+	    palette.setSortPaletteFlag(sort);
+    }
+    public void matchingStyleOverride(String type) {
+	    palette.setMatchOverride(type);
+    }
 
 
 

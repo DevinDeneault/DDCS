@@ -88,7 +88,6 @@ public class DdcsFileManager {
                     line = bufferedReader.readLine();
 				}
 
-//			    colorArray = new int[colorList.size()][3];
 			    colorArray = colorList.toArray(new int[colorList.size()][3]);
 
 			} catch (Exception err) {

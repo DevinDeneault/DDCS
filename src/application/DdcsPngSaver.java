@@ -31,7 +31,7 @@ public class DdcsPngSaver {
 
 			File previousDirectory = null;
 
-			if(savedFile != null) {															//make sure there was a previously saved file that can be used
+			if(savedFile != null) {															                //make sure there was a previously saved file that can be used
 				previousDirectory = new File(savedFile.substring(0, savedFile.lastIndexOf("\\") + 1));	//cut off the file name, leaving just the directory
 			}
 
@@ -39,12 +39,12 @@ public class DdcsPngSaver {
 
 			File file = saver.showSaveDialog(null);											//open the file saver and set the file name/directory to be saved
 
-			if (file == null || !file.getPath().matches(fileMatcher)) {						//make sure something is defined
+			if (file == null || !file.getPath().matches(fileMatcher)) {						                //make sure something is defined
 				return;
 			} else {
 			    try {
-			    	if(palette.size() < 257) {													//if the number of colors used is less than 257
-			    		saveImageAsIndexed(file, palette.loadedPaletteArray());				//save as a PNG with a indexed palette
+			    	if(palette.size() < 257) {													            //if the number of colors used is less than 257
+			    		saveImageAsIndexed(file, palette.loadedPaletteArray());				                //save as a PNG with a indexed palette
 			    	} else {
 			    		ImageIO.write(SwingFXUtils.fromFXImage(image.processedImage(), null), "PNG", file);	//save as a normal PNG (PNGs can only have up to 256 colors in a palette index)
 			    	}

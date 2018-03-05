@@ -112,6 +112,10 @@ public class DdcsAdaptivePalette {
                 adaptiveColorArray[count++][2] = blue;
             }
 
+
+
+
+
             return adaptiveColorArray;
 
         } catch (Exception e) { bridgeClass.handleError(classID, "04", e); }

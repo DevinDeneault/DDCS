@@ -47,6 +47,8 @@ public class DdcsDocumentController implements Initializable {
 		txtHelpAbout.setDisable(true);
 		txtHelpAbout.setVisible(false);
 
+		cbSortPalette.setDisable(true);
+
 		txaColorList.clear();
 		txaColorList.setText("0,0,0");
 		cmbPaletteSelect.setItems(paletteOptions);
@@ -148,11 +150,11 @@ public class DdcsDocumentController implements Initializable {
 		Object source = e.getSource();
 		String paletteName;
 
-		if (source == cmbPaletteSelect) {
+		if(source == cmbPaletteSelect) {
 
 			paletteName = cmbPaletteSelect.getValue();
 
-			if (paletteName.equals("Adaptive Palette")) {		    //if the user selects the optimized palette option, enable txtColorCount so they can define their own palette size
+			if(paletteName.equals("Adaptive Palette")) {		    //if the user selects the optimized palette option, enable txtColorCount so they can define their own palette size
 				txtColorCount.setDisable(false);
 			} else {
 				txtColorCount.setDisable(true);
@@ -160,16 +162,36 @@ public class DdcsDocumentController implements Initializable {
 
             logicController.updateSelectedPalette(paletteName);
 
-			if (!paletteName.equals("- User defined palette -")) {
+			if(!paletteName.equals("- User defined palette -")) {
                 txtColorCount.setText("" + logicController.getPaletteSize());
                 logicController.updateColorListDisplay();
             }
 
 			imgPalettePreview.setImage(logicController.getPaletteImage(paletteName));
 
-		} else if (source == cmbDitherSelect) {
+		} else if(source == cmbDitherSelect) {
 			logicController.updateSelectedDither(cmbDitherSelect.getValue());
 		}
+    }
+
+    @FXML private void handlerSearchOverrideOptions(ActionEvent e) {
+        Object source = e.getSource();
+
+        if (source == rbtMatchDefault){
+            logicController.matchingStyleOverride("none");
+            cbSortPalette.setDisable(true);
+            logicController.sortPalette(false);
+        } else if (source == rbtMatchMap) {
+            logicController.matchingStyleOverride("map");
+            cbSortPalette.setDisable(false);
+            logicController.sortPalette(cbSortPalette.isSelected());
+        } else if (source == rbtMatchSearch) {
+            logicController.matchingStyleOverride("search");
+            cbSortPalette.setDisable(true);
+            logicController.sortPalette(false);
+        } else if (source == cbSortPalette) {
+            logicController.sortPalette(cbSortPalette.isSelected());
+        }
     }
 
 	//================================================================================================================================================
@@ -300,6 +322,11 @@ public class DdcsDocumentController implements Initializable {
     @FXML private ImageView imgBtnRun;
     @FXML private ImageView imgBtnSave;
     @FXML private ImageView imgInfo;
+
+    @FXML private RadioButton rbtMatchDefault;
+    @FXML private RadioButton rbtMatchSearch;
+    @FXML private RadioButton rbtMatchMap;
+    @FXML private CheckBox cbSortPalette;
 
 	@FXML private ProgressBar prgProgress;
 
