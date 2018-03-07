@@ -109,6 +109,11 @@ public class DdcsLogicController {
     }
 
 
+    public void setColorIntensityValues(double iR, double iG, double iB) {
+        palette.setColorIntensityValues(iR, iG, iB);
+        imageProcessor.setColorIntensityValues(iR, iG, iB);
+    }
+
 
 
 	public Image getPaletteImage(String name) {	//take the name of the palette currently selected and return the preview image

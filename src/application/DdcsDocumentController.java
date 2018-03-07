@@ -21,7 +21,7 @@ import javafx.scene.input.MouseEvent;
 
 public class DdcsDocumentController implements Initializable {
 
-	@Override
+    @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
 		System.out.println(Runtime.getRuntime().availableProcessors()); //--------------------------------------------------------------------------------------------------------------
@@ -33,6 +33,7 @@ public class DdcsDocumentController implements Initializable {
         imgBtnRun.setImage(new Image(this.getClass().getResourceAsStream("/images/run.png")));
         imgBtnSave.setImage(new Image(this.getClass().getResourceAsStream("/images/save.png")));
         imgInfo.setImage(new Image(this.getClass().getResourceAsStream("/images/about.png")));
+        imgResetIntensity.setImage(new Image(this.getClass().getResourceAsStream("/images/reset.png")));
 
         sppBasePane.setDividerPositions(1);
 
@@ -48,6 +49,15 @@ public class DdcsDocumentController implements Initializable {
 		txtHelpAbout.setVisible(false);
 
 		cbSortPalette.setDisable(true);
+
+		txtIntensityRed.setText("0.2989");
+		txtIntensityGreen.setText("0.5870");
+		txtIntensityBlue.setText("0.1140");
+        lblIntensity.setText(String.format("%.4f", (0.2989 + 0.5870 + 0.1140)));
+
+        txtIntensityRed.textProperty().addListener((observable, oldValue, newValue) -> intensityValidateUpdate() );
+        txtIntensityGreen.textProperty().addListener((observable, oldValue, newValue) -> intensityValidateUpdate() );
+        txtIntensityBlue.textProperty().addListener((observable, oldValue, newValue) -> intensityValidateUpdate() );
 
 		txaColorList.clear();
 		txaColorList.setText("0,0,0");
@@ -139,10 +149,12 @@ public class DdcsDocumentController implements Initializable {
         Object source = e.getSource();
 
         if (source == imgInfo) {
-
             txtHelpAbout.setDisable(!txtHelpAbout.isDisable());
             txtHelpAbout.setVisible(!txtHelpAbout.isVisible());
-
+        } else if (source == imgResetIntensity) {
+            txtIntensityRed.setText("0.2989");
+            txtIntensityGreen.setText("0.5870");
+            txtIntensityBlue.setText("0.1140");
         }
     }
 
@@ -196,6 +208,36 @@ public class DdcsDocumentController implements Initializable {
 
 	//================================================================================================================================================
 	//================================================================================================================================================
+
+    private void intensityValidateUpdate() {
+        double iR;
+        double iG;
+        double iB;
+
+        try{
+            iR = Double.parseDouble(txtIntensityRed.getText());
+            iG = Double.parseDouble(txtIntensityGreen.getText());
+            iB = Double.parseDouble(txtIntensityBlue.getText());
+            lblIntensity.setText(String.format("%.4f", (iR + iG + iB)));
+            if ((iR + iG + iB) <= 1.0) {
+                lblIntensity.setStyle("-fx-text-fill: #A2A09E");
+            } else {
+                iR = 0.2989;
+                iG = 0.5870;
+                iB = 0.1140;
+                lblIntensity.setStyle("-fx-text-fill: red");
+            }
+        } catch(NumberFormatException e) {
+            iR = 0.2989;
+            iG = 0.5870;
+            iB = 0.1140;
+            lblIntensity.setText("ERROR");
+            lblIntensity.setStyle("-fx-text-fill: red");
+        }
+
+        logicController.setColorIntensityValues(iR, iG, iB);
+
+    }
 
 	private int validateColorCount() {                              //makes sure the value in the txtColorCount textField is valid
 		int colorCount;
@@ -322,11 +364,17 @@ public class DdcsDocumentController implements Initializable {
     @FXML private ImageView imgBtnRun;
     @FXML private ImageView imgBtnSave;
     @FXML private ImageView imgInfo;
+    @FXML private ImageView imgResetIntensity;
 
     @FXML private RadioButton rbtMatchDefault;
     @FXML private RadioButton rbtMatchSearch;
     @FXML private RadioButton rbtMatchMap;
     @FXML private CheckBox cbSortPalette;
+
+    @FXML private Label lblIntensity;
+    @FXML private TextField txtIntensityRed;
+    @FXML private TextField txtIntensityGreen;
+    @FXML private TextField txtIntensityBlue;
 
 	@FXML private ProgressBar prgProgress;
 

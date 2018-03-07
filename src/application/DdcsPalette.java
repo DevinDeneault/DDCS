@@ -31,6 +31,10 @@ public class DdcsPalette {
     private int matchOverride = 0;
     private boolean sortPalette = false;
 
+    private double intensityRed = 0.2989;
+    private double intensityGreen = 0.5870;
+    private double intensityBlue = 0.1140;
+
     private int[][] paletteArray = PALETTE_NULL;
 
     public String paletteType() {
@@ -72,9 +76,11 @@ public class DdcsPalette {
         paletteSize = paletteMap.get(name).length;
     }
     public void loadSelectedPalette() {
-        paletteArray = paletteMap.get(paletteName).clone(); //deep copy so we don't end up sorting the base palette array
         if(sortPalette) {
+            paletteArray = paletteMap.get(paletteName).clone(); //deep copy so we don't end up sorting the base palette array
             sortPaletteByIntensity(0, paletteArray.length - 1);
+        } else {
+            paletteArray = paletteMap.get(paletteName);
         }
     }
     public String selectedPalette() { return paletteName; }
@@ -88,6 +94,13 @@ public class DdcsPalette {
         paletteMap.put("Adaptive Palette", colors);
     }
 
+
+
+    public void setColorIntensityValues(double iR, double iG, double iB) {
+        intensityRed = iR;
+        intensityGreen = iG;
+        intensityBlue = iB;
+    }
 
 
 
@@ -113,6 +126,6 @@ public class DdcsPalette {
     }
 
     private double calculateIntensity(int[] color) {
-        return 0.2989 * color[0] + 0.5870 * color[1] + 0.1140 * color[2];
+        return intensityRed * color[0] + intensityGreen * color[1] + intensityBlue * color[2];
     }
 }

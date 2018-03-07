@@ -28,6 +28,8 @@ public class DdcsBridge {
 
 
 
+
+
     //this class should be given references to a few things so it can create a line of communication between classes
     private Label lblOutput;							    //javaFX label to output information to
     private BlockingQueue<Integer> progressQueue;			//a blocking queue for working with the progress bar

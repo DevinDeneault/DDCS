@@ -28,6 +28,10 @@ public class DdcsImageProcessor {
 
     private int[][][] errorMatrix;                  //the matrix that will be used to store the error data for error-diffusion dithering
 
+    private double intensityRed = 0.2989;
+    private double intensityGreen = 0.5870;
+    private double intensityBlue = 0.1140;
+
 
 
 	public void processImage() {
@@ -96,7 +100,7 @@ public class DdcsImageProcessor {
 	private Color mapColor() {
         double scale = (double) (palette.size() - 1) / 255;
 
-        double intensity = 0.2989 * currentColor[0] + 0.5870 * currentColor[1] + 0.1140 * currentColor[2];
+        double intensity = intensityRed * currentColor[0] + intensityGreen * currentColor[1] + intensityBlue * currentColor[2];
 
         double scaledToPalette = scale * intensity;
 
@@ -350,6 +354,15 @@ public class DdcsImageProcessor {
 		}
 		return -1;
 	}
+
+
+
+    public void setColorIntensityValues(double iR, double iG, double iB) {
+        intensityRed = iR;
+        intensityGreen = iG;
+        intensityBlue = iB;
+    }
+
 
 
 	private final String classID = "07";	//used as a reference when displaying errors

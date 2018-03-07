@@ -28,12 +28,15 @@ public class DdcsAdaptivePalette {
         		return calculatedPalette;
         	} else {
     			bridgeClass.updateProgressInfo("generating adaptive palette . . .");
+    			bridgeClass.updateProgress(-1);
 
                 lastProcessedImage = image.imageNumber();
         		colorCount = colors;
 
         		calculatedPalette = findAdaptivePalette();
 
+
+                bridgeClass.updateProgress(0);
         		return calculatedPalette;
         	}
 
