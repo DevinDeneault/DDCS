@@ -23,7 +23,7 @@ original image - 25255 colors:
 ![](http://i.imgur.com/xAVwUMC.jpg)
 
 
-|              |no dithering|error diffusion (Floyd-Steinberg)|ordered dither (8x8 matrix)
+|              |no dithering|error diffusion (Floyd-Steinberg)|ordered dither (8x8 matrix)|
 |:---:|:---:|:---:|:---:|
 |1-bit (black and white)|![](http://i.imgur.com/R8bWPA9.png)|![](http://i.imgur.com/RmcQZvW.png)|![](http://i.imgur.com/hwVXAOX.png)|
 |6-bit (64 colors)|![](http://i.imgur.com/syg0tTP.png)|![](http://i.imgur.com/zORpVYo.png)|![](http://i.imgur.com/03XABGw.png)|
@@ -32,7 +32,7 @@ original image - 25255 colors:
 
 ## Other output examples using various palettes, dithers, and advanced settings:
 
-||||_
+|||||
 |:---:|:---:|:---:|:---:|
 |![](https://i.imgur.com/WOgIS0L.png)|![](https://i.imgur.com/2ot28jq.png)|![](https://i.imgur.com/qxn5zgM.png)|![](https://i.imgur.com/2dKaObP.png)|
 |![](https://i.imgur.com/hSjc3qo.png)|![](https://i.imgur.com/ocCHp5W.png)|![](https://i.imgur.com/OhmKemh.png)|![](https://i.imgur.com/s1Kv77M.png)|
