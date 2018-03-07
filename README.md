@@ -10,7 +10,7 @@ A number of built-in palettes are offered, you may define your own using a .txt 
 
 Some examples of color palettes: https://en.wikipedia.org/wiki/List_of_color_palettes
 
-Matching old colors to colors from a new palette is done through a K-d tree for large palettes and an exhaustive search for small palettes; this provides the best performance for each scenario.
+Matching old colors to colors from a new palette is done through a K-d tree for large palettes and an exhaustive search for small palettes, as well as direct color intensity mapping for palettes like grayscales and gradients; this provides the best performance for each type of situation.
 
 The built in dithers offer a variety of error diffusion and ordered dither options.
 
@@ -29,3 +29,9 @@ original image - 25255 colors:
 |6-bit (64 colors)|![](http://i.imgur.com/syg0tTP.png)|![](http://i.imgur.com/zORpVYo.png)|![](http://i.imgur.com/03XABGw.png)|
 |custom palette (32 colors)|![](http://i.imgur.com/qoZOuys.png)|![](http://i.imgur.com/1xa9rBT.png)|![](http://i.imgur.com/suYYTv0.png)|
 |Adaptive palette (32 colors)|![](http://i.imgur.com/Q3jhIkA.png)|![](http://i.imgur.com/bC04lIv.png)|![](http://i.imgur.com/S34ZtUw.png)|
+
+## Other output examples using various palettes, dithers, and advanced settings:
+
+|:---:|:---:|:---:|:---:|
+|![](https://i.imgur.com/WOgIS0L.png)|![](https://i.imgur.com/2ot28jq.png)|![](https://i.imgur.com/qxn5zgM.png)|![](https://i.imgur.com/2dKaObP.png)|
+|![](https://i.imgur.com/hSjc3qo.png)|![](https://i.imgur.com/ocCHp5W.png)|![](https://i.imgur.com/OhmKemh.png)|![](https://i.imgur.com/s1Kv77M.png)|
