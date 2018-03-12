@@ -19,7 +19,7 @@ public class DdcsPngSaver {
 
 	private DdcsBridge bridgeClass = DdcsBridge.getInstance();
 	private DdcsImage image = DdcsImage.getInstance();
-	private DdcsPalette palette = DdcsPalette.getInstance();
+	private DdcsPaletteManager palette = DdcsPaletteManager.getInstance();
 
 	private FileChooser saver = new FileChooser();
 	private String savedFile = null;		//the full directory to the previously saved file

@@ -14,7 +14,7 @@ public class DdcsImageProcessor {
 	private DdcsBridge bridgeClass = DdcsBridge.getInstance();
 	private DdcsImage image = DdcsImage.getInstance();
 	private DdcsDither dither = DdcsDither.getInstance();
-    private DdcsPalette palette = DdcsPalette.getInstance();
+    private DdcsPaletteManager palette = DdcsPaletteManager.getInstance();
 
 	private KDTree kdTree;                          //KDTree for searching for closest matching colors
 

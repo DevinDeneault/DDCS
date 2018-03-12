@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.PixelWriter;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -61,8 +60,6 @@ public class Main extends Application {
 
         popupStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/images/palette.png")));
         popupStage.setTitle("Palette Viewer");
-
-        popupScene.getStylesheets().add(getClass().getResource("ddcs_popup_styles.css").toExternalForm());
 
         GraphicsContext gc = popupCanvas.getGraphicsContext2D();
         gc.setStroke(Color.BLACK);

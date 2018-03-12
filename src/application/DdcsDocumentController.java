@@ -253,9 +253,9 @@ public class DdcsDocumentController implements Initializable {
 			if(colorCount < 1) {
 				txtColorCount.setText("1");	                        //make sure the number falls within an acceptable range
 				return 1;
-			} else if(colorCount > 8192) {
-				txtColorCount.setText("8192");
-				return 8192;
+			} else if(colorCount > 9999) {
+				txtColorCount.setText("9999");
+				return 9999;
 			} else {
 				return colorCount;
 			}

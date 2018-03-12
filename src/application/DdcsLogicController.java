@@ -1,6 +1,5 @@
 package application;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +10,7 @@ public class DdcsLogicController {
 	private DdcsBridge bridgeClass = DdcsBridge.getInstance();
 	private DdcsImage image = DdcsImage.getInstance();
 	private DdcsDither dither = DdcsDither.getInstance();
-    private DdcsPalette palette = DdcsPalette.getInstance();
+    private DdcsPaletteManager palette = DdcsPaletteManager.getInstance();
 
 	private DdcsFileManager fileManager = new DdcsFileManager();					//class that will be managing all the file operations (opening, validating, etc.)
 	private DdcsImageProcessor imageProcessor = new DdcsImageProcessor();			//class that will handle processing the image
@@ -80,15 +79,6 @@ public class DdcsLogicController {
     }
 
 	public void validateUserColorList(String colorsString) {
-//	    String[] colorStringArray = colorsString.split("\n");
-//        ArrayList<int[]> colorList = new ArrayList<>();
-//        int[][] colorArray;
-//
-//        for (String color: colorStringArray) {
-//            DdcsFileManager.colorStringToArray(colorList, color);
-//        }
-//
-//        colorArray = colorList.toArray(new int[colorList.size()][3]);
 
         int[][] colorArray = validateColors(colorsString);
 
@@ -133,7 +123,6 @@ public class DdcsLogicController {
     private int[][] validateColors(String colorsString) {
         String[] colorStringArray = colorsString.split("\n");
         ArrayList<int[]> colorList = new ArrayList<>();
-//        int[][] colorArray;
 
         for (String color: colorStringArray) {
             DdcsFileManager.colorStringToArray(colorList, color);
