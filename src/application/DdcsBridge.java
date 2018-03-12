@@ -6,6 +6,7 @@ import java.util.concurrent.BlockingQueue;
 import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.stage.Stage;
 
 public class DdcsBridge {
 
@@ -25,6 +26,29 @@ public class DdcsBridge {
         return instance;
     }
     //---------------------------------------------------
+
+
+
+    Stage stage;
+    private int[][] colorArray = new int[][]{{0,0,0}};
+
+    public void setStage(Stage derp) {
+        stage = derp;
+    }
+
+    public void showStage() {
+        stage.showAndWait();
+    }
+
+    public int[][] getColors() {
+        return colorArray;
+    }
+
+    public void setColors(int[][] colors) {
+        colorArray = colors;
+    }
+
+
 
 
 

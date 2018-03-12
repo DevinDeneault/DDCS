@@ -21,7 +21,7 @@ import javafx.scene.input.MouseEvent;
 
 public class DdcsDocumentController implements Initializable {
 
-    @Override
+	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
 		System.out.println(Runtime.getRuntime().availableProcessors()); //--------------------------------------------------------------------------------------------------------------
@@ -34,6 +34,7 @@ public class DdcsDocumentController implements Initializable {
         imgBtnSave.setImage(new Image(this.getClass().getResourceAsStream("/images/save.png")));
         imgInfo.setImage(new Image(this.getClass().getResourceAsStream("/images/about.png")));
         imgResetIntensity.setImage(new Image(this.getClass().getResourceAsStream("/images/reset.png")));
+        imgBtnViewPalette.setImage(new Image(this.getClass().getResourceAsStream("/images/view.png")));
 
         sppBasePane.setDividerPositions(1);
 
@@ -142,6 +143,10 @@ public class DdcsDocumentController implements Initializable {
         } else if (source == btnSavePalette) {
 
 		    logicController.saveUserColorList(txaColorList.getText());
+
+        } else if (source == btnViewPalette) {
+
+            logicController.showPaletteViewer(txaColorList.getText());
         }
 	}
 
@@ -346,6 +351,8 @@ public class DdcsDocumentController implements Initializable {
 
     @FXML private Button btnOpenPalette;
     @FXML private Button btnSavePalette;
+	@FXML private Button btnViewPalette;
+
 
 	@FXML private ComboBox<String> cmbPaletteSelect;	//ComboBox to select a palette
 	@FXML private ImageView imgPalettePreview;			//small image showing a preview of the palette
@@ -358,6 +365,7 @@ public class DdcsDocumentController implements Initializable {
 	@FXML private ImageView imgBase;		//pre-processed image, shown on the left panel
 	@FXML private ImageView imgProcessed;	//post-processed image, shown on the right panel
 
+	@FXML private ImageView imgBtnViewPalette;
     @FXML private ImageView imgBtnOpenPalette;
     @FXML private ImageView imgBtnSavePalette;
     @FXML private ImageView imgBtnOpen;

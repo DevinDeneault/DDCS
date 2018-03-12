@@ -1,5 +1,6 @@
 package application;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,15 +80,17 @@ public class DdcsLogicController {
     }
 
 	public void validateUserColorList(String colorsString) {
-	    String[] colorStringArray = colorsString.split("\n");
-        ArrayList<int[]> colorList = new ArrayList<>();
-        int[][] colorArray;
+//	    String[] colorStringArray = colorsString.split("\n");
+//        ArrayList<int[]> colorList = new ArrayList<>();
+//        int[][] colorArray;
+//
+//        for (String color: colorStringArray) {
+//            DdcsFileManager.colorStringToArray(colorList, color);
+//        }
+//
+//        colorArray = colorList.toArray(new int[colorList.size()][3]);
 
-        for (String color: colorStringArray) {
-            DdcsFileManager.colorStringToArray(colorList, color);
-        }
-
-        colorArray = colorList.toArray(new int[colorList.size()][3]);
+        int[][] colorArray = validateColors(colorsString);
 
         if (colorArray.length == 0) {
             palette.addPaletteData("- User defined palette -");
@@ -113,6 +116,35 @@ public class DdcsLogicController {
         palette.setColorIntensityValues(iR, iG, iB);
         imageProcessor.setColorIntensityValues(iR, iG, iB);
     }
+
+
+
+
+    public void showPaletteViewer(String colorsString) {
+
+        int[][] colorArray = validateColors(colorsString);
+        bridgeClass.setColors(colorArray);
+	    bridgeClass.showStage();
+    }
+
+
+
+
+    private int[][] validateColors(String colorsString) {
+        String[] colorStringArray = colorsString.split("\n");
+        ArrayList<int[]> colorList = new ArrayList<>();
+//        int[][] colorArray;
+
+        for (String color: colorStringArray) {
+            DdcsFileManager.colorStringToArray(colorList, color);
+        }
+
+        return colorList.toArray(new int[colorList.size()][3]);
+    }
+
+
+
+
 
 
 

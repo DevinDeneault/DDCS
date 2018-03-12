@@ -132,6 +132,14 @@
                         </VBox.margin>
                      </TextArea>
                      <HBox alignment="CENTER_RIGHT" spacing="2.0">
+                        <Button fx:id="btnViewPalette" maxHeight="28.0" maxWidth="28.0" minHeight="28.0" minWidth="28.0" mnemonicParsing="false" onAction="#handlerButtons">
+                           <graphic>
+                              <ImageView fx:id="imgBtnViewPalette" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic>
+                           <HBox.margin>
+                              <Insets right="16.0" />
+                           </HBox.margin>
+                        </Button>
                         <Button fx:id="btnOpenPalette" maxHeight="28.0" maxWidth="28.0" minHeight="28.0" minWidth="28.0" mnemonicParsing="false" onAction="#handlerButtons">
                            <graphic>
                               <ImageView fx:id="imgBtnOpenPalette" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">

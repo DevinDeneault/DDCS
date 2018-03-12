@@ -69,7 +69,16 @@ public class DdcsPalette {
     public int[] get(int a) { return paletteArray[a]; }
 
     public int[][] loadedPaletteArray() { return paletteArray; }
-    public int[][] selectedPaletteArray() { return paletteMap.get(paletteName); }
+    public int[][] selectedPaletteArray() {
+        if(sortPalette) {
+            int[][] tmpArray = paletteMap.get(paletteName).clone(); //deep copy so we don't end up sorting the base palette array
+            sortPaletteByIntensity(tmpArray, 0, paletteArray.length - 1);
+            return tmpArray;
+        } else {
+            return paletteMap.get(paletteName);
+        }
+//        return paletteMap.get(paletteName);
+    }
 
     public void setSelectedPalette(String name) {
         paletteName = name;
@@ -78,7 +87,7 @@ public class DdcsPalette {
     public void loadSelectedPalette() {
         if(sortPalette) {
             paletteArray = paletteMap.get(paletteName).clone(); //deep copy so we don't end up sorting the base palette array
-            sortPaletteByIntensity(0, paletteArray.length - 1);
+            sortPaletteByIntensity(paletteArray, 0, paletteArray.length - 1);
         } else {
             paletteArray = paletteMap.get(paletteName);
         }
@@ -104,25 +113,25 @@ public class DdcsPalette {
 
 
 
-    private void sortPaletteByIntensity(int lowerIndex, int upperIndex) {   //quicksort
+    private void sortPaletteByIntensity(int[][] array, int lowerIndex, int upperIndex) {   //quicksort
 
         int a = lowerIndex;
         int b = upperIndex;
-        double pivot = calculateIntensity(paletteArray[lowerIndex + ( upperIndex - lowerIndex ) / 2 ]);
+        double pivot = calculateIntensity(array[lowerIndex + ( upperIndex - lowerIndex ) / 2 ]);
         while (a <= b) {
-            while (calculateIntensity(paletteArray[a]) < pivot) { a++; }
-            while (calculateIntensity(paletteArray[b]) > pivot) { b--; }
-            if (a <= b) { swap(a++, b--); }
+            while (calculateIntensity(array[a]) < pivot) { a++; }
+            while (calculateIntensity(array[b]) > pivot) { b--; }
+            if (a <= b) { swap(array, a++, b--); }
         }
         //call method recursively
-        if (lowerIndex < b) sortPaletteByIntensity(lowerIndex, b);
-        if (a < upperIndex) sortPaletteByIntensity(a, upperIndex);
+        if (lowerIndex < b) sortPaletteByIntensity(array, lowerIndex, b);
+        if (a < upperIndex) sortPaletteByIntensity(array, a, upperIndex);
     }
 
-    private void swap(int a, int b) {
-        int[] temp = paletteArray[a];
-        paletteArray[a] = paletteArray[b];
-        paletteArray[b] = temp;
+    private void swap(int[][] array, int a, int b) {
+        int[] temp = array[a];
+        array[a] = array[b];
+        array[b] = temp;
     }
 
     private double calculateIntensity(int[] color) {

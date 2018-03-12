@@ -1,0 +1,3 @@
+.scroll-pane:focused {
+    -fx-focus-color: #C8C8C8;
+}
