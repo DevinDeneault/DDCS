@@ -32,8 +32,8 @@ public class DdcsBridge {
     Stage stage;
     private int[][] colorArray = new int[][]{{0,0,0}};
 
-    public void setStage(Stage derp) {
-        stage = derp;
+    public void setStage(Stage popupStage) {
+        stage = popupStage;
     }
 
     public void showStage() {

@@ -1,0 +1,9 @@
+meta:name:Greyscale  [2-bit]
+meta:id:g2b
+meta:mapped:true
+meta:image:grey_2b
+meta:hidden:false
+0,0,0
+85,85,85
+170,170,170
+255,255,255

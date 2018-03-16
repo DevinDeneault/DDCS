@@ -14,7 +14,6 @@ public class DdcsImageProcessor {
 	private DdcsBridge bridgeClass = DdcsBridge.getInstance();
 	private DdcsImage image = DdcsImage.getInstance();
 	private DdcsDither dither = DdcsDither.getInstance();
-    private DdcsPaletteManager palette = DdcsPaletteManager.getInstance();
 
 	private KDTree kdTree;                          //KDTree for searching for closest matching colors
 
@@ -33,9 +32,12 @@ public class DdcsImageProcessor {
     private double intensityBlue = 0.1140;
 
 
+    private DdcsPalette palette;
 
-	public void processImage() {
+	public void processImage(DdcsPalette _palette) {
 		try {
+
+			palette = _palette;
 
 			pixelReader = image.image().getPixelReader();
 			imageNew = new WritableImage(image.width(), image.height());	//make a new, blank writable image
@@ -156,7 +158,7 @@ public class DdcsImageProcessor {
 
             int matcher;
 
-            if (palette.paletteType().equals("mapped")) {
+            if (palette.mapped()) {
                 matcher = 2;
             } else if (useKdTree) {
                 matcher = 0;

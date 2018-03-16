@@ -1,0 +1,9 @@
+meta:name:Retro  [CGA mode4-2h]
+meta:id:rCga2
+meta:mapped:false
+meta:image:ret_cga2
+meta:hidden:false
+0,0,0
+85,255,85
+255,85,85
+255,255,85

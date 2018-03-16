@@ -1,7 +1,6 @@
 package application;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import javafx.scene.image.Image;
 
@@ -10,7 +9,6 @@ public class DdcsLogicController {
 	private DdcsBridge bridgeClass = DdcsBridge.getInstance();
 	private DdcsImage image = DdcsImage.getInstance();
 	private DdcsDither dither = DdcsDither.getInstance();
-    private DdcsPaletteManager palette = DdcsPaletteManager.getInstance();
 
 	private DdcsFileManager fileManager = new DdcsFileManager();					//class that will be managing all the file operations (opening, validating, etc.)
 	private DdcsImageProcessor imageProcessor = new DdcsImageProcessor();			//class that will handle processing the image
@@ -23,13 +21,13 @@ public class DdcsLogicController {
 
 	public Image processImage() {	//process the image according to the currently selected instructions
 
-        palette.loadSelectedPalette();
+        workingPalette = selectedPalette;
 
-		imageProcessor.processImage();
+		imageProcessor.processImage(workingPalette);
 
 		//setting the loading progress to say complete or, if you used an adaptive palette, the number of colors in the original image
 		//doing this here out of convenience, might be appropriate to move it to the document controller in the future
-		if(palette.selectedPalette().equals("Adaptive Palette")) {
+		if(selectedPalette.id().equals("adaptive")) {
 			adaptivePaletteCalc.displayOriginalColorCount();
 		} else {
 	        bridgeClass.updateProgressInfo("complete !");
@@ -38,7 +36,7 @@ public class DdcsLogicController {
 		return image.processedImage();
 	}
 
-	public void saveImage() { fileManager.saveImage(); }
+	public void saveImage() { fileManager.saveImage(workingPalette); }
 
 
 
@@ -57,21 +55,31 @@ public class DdcsLogicController {
         }
 	}
 
-	public void updateSelectedPalette(String name) {
-	    palette.setSelectedPalette(name);
-	}
+	public void updateSelectedPalette(int index) { selectedPalette = paletteList.get(index); }
 
 	public void updateSelectedDither(String name) { dither.setDitherName(name); }
 
-	public int getPaletteSize() { return palette.size(); }
+	public int getPaletteSize() { return selectedPalette.size(); }
 
 	public void generateAdaptivePalette(int colorCount) {
-        palette.addPaletteData(colorCount, adaptivePaletteCalc.getAdaptivePalette(colorCount));
-        updateSelectedPalette("Adaptive Palette");  //call to update the palette array with the new data
+
+        int index = getPaletteIndex("adaptive");
+
+        paletteList.remove(index);
+
+        paletteList.add(index, new DdcsPalette(
+                "Adaptive Palette",
+                "adaptive",
+                false,
+                "adaptive",
+                false,
+                adaptivePaletteCalc.getAdaptivePalette(colorCount)));
+
+        updateSelectedPalette(index);
     }
 
     public void updateColorListDisplay() {
-	    bridgeClass.updateColorList(palette.selectedPaletteArray());
+	    bridgeClass.updateColorList(selectedPalette.get());
     }
 
     public void saveUserColorList(String colorsString) {
@@ -82,28 +90,35 @@ public class DdcsLogicController {
 
         int[][] colorArray = validateColors(colorsString);
 
-        if (colorArray.length == 0) {
-            palette.addPaletteData("- User defined palette -");
-        } else {
-            palette.addPaletteData("- User defined palette -", colorArray);
-        }
+        if (colorArray.length == 0) { colorArray = new int[][]{{0,0,0}}; }
 
-        updateSelectedPalette("- User defined palette -");
+        int index = getPaletteIndex("user");
 
+        paletteList.remove(index);
+
+        paletteList.add(index, new DdcsPalette(
+                "- User defined palette -",
+                "user",
+                false,
+                "user",
+                false,
+                colorArray));
+
+        updateSelectedPalette(index);
     }
 
 
 
     public void sortPalette(boolean sort) {
-	    palette.setSortPaletteFlag(sort);
+        paletteList.get(0).setSortOverride(sort);   //static value, setting it in one carries to all
     }
-    public void matchingStyleOverride(String type) {
-	    palette.setMatchOverride(type);
+    public void matchingStyleOverride(int type) {
+	    paletteList.get(0).setMachOverride(type);   //static value, setting it in one carries to all
     }
 
 
     public void setColorIntensityValues(double iR, double iG, double iB) {
-        palette.setColorIntensityValues(iR, iG, iB);
+        paletteList.get(0).setIntensities(iR, iG, iB);  //static values, setting it in one carries to all
         imageProcessor.setColorIntensityValues(iR, iG, iB);
     }
 
@@ -136,22 +151,75 @@ public class DdcsLogicController {
 
 
 
+    private int getPaletteIndex(String idOrName) {
+	    int index = 0;
+	    while( !idOrName.equals(paletteList.get(index).id()) ) { index++; }
+	    return index;
+    }
 
-	public Image getPaletteImage(String name) {	//take the name of the palette currently selected and return the preview image
+
+
+
+	public Image getPaletteImage(int index) {	//take the name of the palette currently selected and return the preview image
 		try {
-			return new Image(this.getClass().getResourceAsStream("/palette_images/" + name + ".png"));
-        } catch(Exception e) { bridgeClass.handleError(classID, "01", e); } return getNullImage();
+			return new Image(this.getClass().getResourceAsStream("/palette_images/" + paletteList.get(index).imageName() + ".png"));
+        } catch(Exception e) { bridgeClass.handleError(classID, "01", e); }
+        return new Image(this.getClass().getResourceAsStream("/palette_images/error.png"));
 	}
 
-    public void loadPalettes(List<String> palettes) {	//load all the palette data from the text files into the HashMap
-        for (String subPalette : palettes) {
-            if (subPalette.equals("- None -") || subPalette.equals("Adaptive Palette") || subPalette.equals("- User defined palette -")) {	//these palettes are defined elsewhere, so just put in the place holder null palette (the 'none' palette will remain null of course)
-                palette.addPaletteData(subPalette);
-            } else {
-                palette.addPaletteData(subPalette, fileManager.validatePalette("/palette_txt/" + subPalette + ".txt", "internal"));
+	public String[] toggleExtraPalettes(boolean showAll) {
+        ArrayList<String> paletteNames = new ArrayList<>();
+
+        for(DdcsPalette palette : paletteList) {
+            if( (!palette.hidden()) || (palette.hidden() && showAll) ) { paletteNames.add(palette.name()); }
+        }
+
+        visiblePalettes = new String[paletteNames.size()];
+        visiblePalettes = paletteNames.toArray(visiblePalettes);
+
+        return visiblePalettes;
+    }
+
+
+    public String[] loadPalettes() {	//load all the palette data from the text files into the HashMap
+
+        String[] internalPaletteList = fileManager.getBuiltInPaletteList();
+        Map<String, String> metaData;
+        String paletteFile;
+        ArrayList<String> paletteNames = new ArrayList<>();
+
+        for(String palette : internalPaletteList) {
+
+            paletteFile = "/palette_txt/" + palette + ".txt";
+
+            metaData = fileManager.getMetaData(paletteFile, false);
+
+            paletteList.add(new DdcsPalette(
+                    metaData.get("name"),
+                    metaData.get("id"),
+                    metaData.get("mapped").equals("true"),
+                    metaData.get("image"),
+                    metaData.get("hidden").equals("true"),
+                    fileManager.validatePalette(paletteFile, false)));
+
+            if( metaData.get("hidden").equals("false") ) {
+                paletteNames.add(metaData.get("name"));
             }
         }
+
+        visiblePalettes = new String[paletteNames.size()];
+        visiblePalettes = paletteNames.toArray(visiblePalettes);
+
+        return visiblePalettes;
     }
+
+
+
+    private DdcsPalette selectedPalette;
+	private DdcsPalette workingPalette;
+
+	private ArrayList<DdcsPalette> paletteList = new ArrayList<>();
+	private String[] visiblePalettes;
 
     private final String classID = "02";	//used as a reference when displaying errors
 }

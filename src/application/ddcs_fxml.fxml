@@ -12,6 +12,7 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.effect.DropShadow?>
@@ -290,6 +291,33 @@
                            </font>
                         </TextField>
                      </HBox>
+                  </VBox>
+                  <VBox alignment="CENTER" maxWidth="220.0" minWidth="220.0" styleClass="section-box">
+                     <VBox.margin>
+                        <Insets top="4.0" />
+                     </VBox.margin>
+                     <padding>
+                        <Insets bottom="6.0" top="4.0" />
+                     </padding>
+                     <children>
+                        <HBox alignment="CENTER_LEFT">
+                           <children>
+                              <Label text="Show Extra Palettes:">
+                                 <padding>
+                                    <Insets left="4.0" />
+                                 </padding>
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <ToggleButton fx:id="tgbExtraPalettesToggle" maxHeight="28.0" maxWidth="34.0" minHeight="28.0" minWidth="34.0" mnemonicParsing="false" onAction="#handlerButtons">
+                                 <HBox.margin>
+                                    <Insets left="8.0" />
+                                 </HBox.margin>
+                              </ToggleButton>
+                           </children>
+                        </HBox>
+                     </children>
                   </VBox>
                </children>
             </VBox>

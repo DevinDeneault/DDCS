@@ -21,7 +21,7 @@ import javafx.scene.input.MouseEvent;
 
 public class DdcsDocumentController implements Initializable {
 
-	@Override
+    @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
 		System.out.println(Runtime.getRuntime().availableProcessors()); //--------------------------------------------------------------------------------------------------------------
@@ -35,6 +35,8 @@ public class DdcsDocumentController implements Initializable {
         imgInfo.setImage(new Image(this.getClass().getResourceAsStream("/images/about.png")));
         imgResetIntensity.setImage(new Image(this.getClass().getResourceAsStream("/images/reset.png")));
         imgBtnViewPalette.setImage(new Image(this.getClass().getResourceAsStream("/images/view.png")));
+
+        tgbExtraPalettesToggle.setText("Off");
 
         sppBasePane.setDividerPositions(1);
 
@@ -90,12 +92,15 @@ public class DdcsDocumentController implements Initializable {
 
 		imgBase.setImage(logicController.getNullImage());
 		imgProcessed.setImage(logicController.getNullImage());
-		imgPalettePreview.setImage(logicController.getPaletteImage("- None -"));
+		imgPalettePreview.setImage(new Image(this.getClass().getResourceAsStream("/palette_images/blank.png")));
 
 		progressWorker.setDaemon(true);									//thread will end with program close (if only daemon threads remain, JVM will close them all and terminate)
 		progressWorker.start();											//start the thread that handles the updating of the progress bar
 
-		logicController.loadPalettes(paletteOptions);					//load all of the built in palettes (converting them from text files into entries in a HashMap)
+//		logicController.loadPalettes(paletteOptions);					//load all of the built in palettes (converting them from text files
+		paletteOptions.addAll(logicController.loadPalettes());   //change to directory, not list in file <--------------------------------------------------------------------------------------
+		cmbPaletteSelect.setValue(paletteOptions.get(0));
+		logicController.updateSelectedPalette(0);
 	}
 
 	//======== event handlers for UI controls ========================================================================================================
@@ -147,7 +152,23 @@ public class DdcsDocumentController implements Initializable {
         } else if (source == btnViewPalette) {
 
             logicController.showPaletteViewer(txaColorList.getText());
-        }
+
+        } else if (source == tgbExtraPalettesToggle) {
+
+            paletteOptions.clear();
+
+		    if(tgbExtraPalettesToggle.isSelected()) {
+		        tgbExtraPalettesToggle.setText("On");
+                paletteOptions.addAll(logicController.toggleExtraPalettes(true));
+            } else {
+                tgbExtraPalettesToggle.setText("Off");
+                paletteOptions.addAll(logicController.toggleExtraPalettes(false));
+            }
+
+            cmbPaletteSelect.setValue(paletteOptions.get(0));
+            logicController.updateSelectedPalette(0);
+
+		}
 	}
 
     @FXML private void handlerImgButton(MouseEvent e) {
@@ -166,10 +187,12 @@ public class DdcsDocumentController implements Initializable {
 	@FXML private void handlerComboSelect(ActionEvent e) {          //when a ComboBox selection is changed
 		Object source = e.getSource();
 		String paletteName;
+		int paletteNumber;
 
-		if(source == cmbPaletteSelect) {
+		if(source == cmbPaletteSelect && cmbPaletteSelect.getValue() != null) {
 
 			paletteName = cmbPaletteSelect.getValue();
+			paletteNumber = paletteOptions.indexOf(paletteName);
 
 			if(paletteName.equals("Adaptive Palette")) {		    //if the user selects the optimized palette option, enable txtColorCount so they can define their own palette size
 				txtColorCount.setDisable(false);
@@ -177,14 +200,14 @@ public class DdcsDocumentController implements Initializable {
 				txtColorCount.setDisable(true);
 			}
 
-            logicController.updateSelectedPalette(paletteName);
+            logicController.updateSelectedPalette(paletteNumber);
 
 			if(!paletteName.equals("- User defined palette -")) {
                 txtColorCount.setText("" + logicController.getPaletteSize());
                 logicController.updateColorListDisplay();
             }
 
-			imgPalettePreview.setImage(logicController.getPaletteImage(paletteName));
+			imgPalettePreview.setImage(logicController.getPaletteImage(paletteNumber));
 
 		} else if(source == cmbDitherSelect) {
 			logicController.updateSelectedDither(cmbDitherSelect.getValue());
@@ -195,15 +218,15 @@ public class DdcsDocumentController implements Initializable {
         Object source = e.getSource();
 
         if (source == rbtMatchDefault){
-            logicController.matchingStyleOverride("none");
+            logicController.matchingStyleOverride(0);
             cbSortPalette.setDisable(true);
             logicController.sortPalette(false);
         } else if (source == rbtMatchMap) {
-            logicController.matchingStyleOverride("map");
+            logicController.matchingStyleOverride(2);
             cbSortPalette.setDisable(false);
             logicController.sortPalette(cbSortPalette.isSelected());
         } else if (source == rbtMatchSearch) {
-            logicController.matchingStyleOverride("search");
+            logicController.matchingStyleOverride(1);
             cbSortPalette.setDisable(true);
             logicController.sortPalette(false);
         } else if (source == cbSortPalette) {
@@ -352,7 +375,7 @@ public class DdcsDocumentController implements Initializable {
     @FXML private Button btnOpenPalette;
     @FXML private Button btnSavePalette;
 	@FXML private Button btnViewPalette;
-
+    @FXML private ToggleButton tgbExtraPalettesToggle;
 
 	@FXML private ComboBox<String> cmbPaletteSelect;	//ComboBox to select a palette
 	@FXML private ImageView imgPalettePreview;			//small image showing a preview of the palette
@@ -412,42 +435,44 @@ public class DdcsDocumentController implements Initializable {
 
 	private DdcsBridge bridgeClass = null;
 
-    private final ObservableList<String> paletteOptions = FXCollections.observableArrayList(   //the options for the palette choicebox
-    		"- None -",	//<None>
-            "Adaptive Palette",
-            //---------------------------
-            "Greyscale  [1-bit]",
-            "Greyscale  [2-bit]",
-            "Greyscale  [4-bit]",
-            "Greyscale  [8-bit]",
-            //---------------------------
-            "Color  [3-bit]",
-            "Color  [4-bit]",
-            "Color  [3-level]",
-            "Color  [6-bit]",
-            "Color  [3-3-2-bit]",
-            "Color  [9-bit]",
-            //---------------------------
-            "Gradient  [sepia]",
-            "Gradient  [electric indigo]",
-            "Gradient  [chartreuse]",
-            "Gradient  [dark orange]",
-            "Gradient  [deep pink]",
-            "Gradient  [dodger blue]",
-            "Gradient  [spring green]",
-            //---------------------------
-            "Retro  [Game Boy]",
-            "Retro  [NES]",
-            "Retro  [Atari 2600]",
-            "Retro  [CGA mode4-1h]",
-            "Retro  [CGA mode4-2h]",
-            "Retro  [Apple II]",
-            //---------------------------
-            "[DawnBringer's 16]",
-            "[DawnBringer's 32]",
-            //---------------------------
-            "- User defined palette -"	//<User defined palette>
-    );
+//    private final ObservableList<String> paletteOptions = FXCollections.observableArrayList(   //the options for the palette choicebox
+//    		"- None -",	//<None>
+//            "Adaptive Palette",
+//            //---------------------------
+//            "Greyscale  [1-bit]",
+//            "Greyscale  [2-bit]",
+//            "Greyscale  [4-bit]",
+//            "Greyscale  [8-bit]",
+//            //---------------------------
+//            "Color  [3-bit]",
+//            "Color  [4-bit]",
+//            "Color  [3-level]",
+//            "Color  [6-bit]",
+//            "Color  [3-3-2-bit]",
+//            "Color  [9-bit]",
+//            //---------------------------
+//            "Gradient  [sepia]",
+//            "Gradient  [electric indigo]",
+//            "Gradient  [chartreuse]",
+//            "Gradient  [dark orange]",
+//            "Gradient  [deep pink]",
+//            "Gradient  [dodger blue]",
+//            "Gradient  [spring green]",
+//            //---------------------------
+//            "Retro  [Game Boy]",
+//            "Retro  [NES]",
+//            "Retro  [Atari 2600]",
+//            "Retro  [CGA mode4-1h]",
+//            "Retro  [CGA mode4-2h]",
+//            "Retro  [Apple II]",
+//            //---------------------------
+//            "[DawnBringer's 16]",
+//            "[DawnBringer's 32]",
+//            //---------------------------
+//            "- User defined palette -"	//<User defined palette>
+//    );
+
+    private final ObservableList<String> paletteOptions = FXCollections.observableArrayList();   //the options for the palette choicebox
 
     private final ObservableList<String> ditherOptions = FXCollections.observableArrayList(  //the options for the dither choicebox
             "- None -",

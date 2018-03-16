@@ -1,0 +1,6 @@
+meta:name:Adaptive Palette
+meta:id:adaptive
+meta:mapped:false
+meta:image:adaptive
+meta:hidden:false
+0,0,0
