@@ -1,5 +1,5 @@
-meta:name:[b2c2b2c] Teal to Blue
-meta:id:b2c2b2cTB
+meta:name:[b2s2b2p] Teal to Blue
+meta:id:b2s2b2pTB
 meta:mapped:true
 meta:image:extra
 meta:hidden:true

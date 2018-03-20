@@ -310,7 +310,7 @@
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
-                              <ToggleButton fx:id="tgbExtraPalettesToggle" maxHeight="28.0" maxWidth="34.0" minHeight="28.0" minWidth="34.0" mnemonicParsing="false" onAction="#handlerButtons">
+                              <ToggleButton fx:id="tgbExtraPalettesToggle" focusTraversable="false" maxHeight="28.0" maxWidth="34.0" minHeight="28.0" minWidth="34.0" mnemonicParsing="false" onAction="#handlerButtons">
                                  <HBox.margin>
                                     <Insets left="8.0" />
                                  </HBox.margin>

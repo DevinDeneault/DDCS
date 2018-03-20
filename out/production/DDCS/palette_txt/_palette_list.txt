@@ -25,10 +25,6 @@ ret_cga2
 ret_apple_ii
 db_16
 db_32
-b2c2b2c_green_blue
-b2c2b2c_purple_red
-b2c2b2c_teal_blue
-b2c2b2c_yellow_red
 mono_blue
 mono_green
 mono_purple
@@ -41,4 +37,16 @@ s2p_teal_blue
 s2p_teal_green
 s2p_yellow_green
 s2p_yellow_red
+b2p2b2p_blue_green
+b2p2b2p_blue_red
+b2p2b2p_green_blue
+b2p2b2p_green_red
+b2p2b2p_red_blue
+b2p2b2p_red_green
+b2s2b2p_purple_blue
+b2s2b2p_purple_red
+b2s2b2p_teal_blue
+b2s2b2p_teal_green
+b2s2b2p_yellow_green
+b2s2b2p_yellow_red
 user
