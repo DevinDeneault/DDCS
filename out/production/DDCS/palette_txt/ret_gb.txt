@@ -1,9 +1,0 @@
-meta:name:Retro  [Game Boy]
-meta:id:rGb
-meta:mapped:false
-meta:image:ret_gb
-meta:hidden:false
-80,80,50
-124,121,79
-194,195,164
-236,239,210
