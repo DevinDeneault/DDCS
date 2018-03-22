@@ -1,9 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="DDCS:jar">
-    <output-path>$USER_HOME$/Desktop</output-path>
-    <root id="archive" name="DDCS.jar">
-      <element id="module-output" name="DDCS" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/lib/javaml-0.1.5.jar" path-in-jar="/" />
-    </root>
-  </artifact>
-</component>
