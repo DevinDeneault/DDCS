@@ -1,6 +1,7 @@
 package application;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -12,11 +13,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 
 public class DdcsDocumentController implements Initializable {
@@ -101,6 +105,12 @@ public class DdcsDocumentController implements Initializable {
 		paletteOptions.addAll(logicController.loadPalettes());   //change to directory, not list in file <--------------------------------------------------------------------------------------
 		cmbPaletteSelect.setValue(paletteOptions.get(0));
 		logicController.updateSelectedPalette(0);
+
+
+
+		File test = new File(String.valueOf(this.getClass().getResourceAsStream("/palette_text/")));
+		System.out.println(test.listFiles());
+
 	}
 
 	//======== event handlers for UI controls ========================================================================================================
