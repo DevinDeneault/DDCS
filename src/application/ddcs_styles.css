@@ -1,7 +1,10 @@
 .root {
     -fx-base: #828078;
-    -fx-accent: #98A0A8; /*items highlighted in menus, etc   #656463;*/
+    -fx-accent: #98A0A8; /*items highlighted in menus, etc   #656463; #98A0A8; */
+
     -fx-focus-color: #828078;
+    -fx-faint-focus-color: #D3D10322;
+
 }
 
 .progress-indicator .percentage {
@@ -28,6 +31,9 @@
 .scroll-pane:focused {
     -fx-border-width: 0;
     -fx-padding: 0;
+
+    -fx-focus-color: #00000000;
+    -fx-faint-focus-color: #00000000;
 }
 .scroll-pane {
     -fx-padding: 0;

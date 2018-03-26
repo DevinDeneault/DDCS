@@ -153,7 +153,7 @@ public class DdcsLogicController {
 
     private int getPaletteIndex(String idOrName) {
 	    int index = 0;
-	    while( !idOrName.equals(paletteList.get(index).id()) ) { index++; }
+	    while( !idOrName.equals(paletteList.get(index).id()) && !idOrName.equals(paletteList.get(index).name()) ) { index++; }
 	    return index;
     }
 
@@ -162,7 +162,7 @@ public class DdcsLogicController {
 
 	public Image getPaletteImage(int index) {	//take the name of the palette currently selected and return the preview image
 		try {
-			return new Image(this.getClass().getResourceAsStream("/palette_images/" + paletteList.get(index).imageName() + ".png"));
+			return new Image(this.getClass().getResourceAsStream("/palette_images/" + paletteList.get(getPaletteIndex(visiblePalettes[index])).imageName() + ".png"));
         } catch(Exception e) { bridgeClass.handleError(classID, "01", e); }
         return new Image(this.getClass().getResourceAsStream("/palette_images/error.png"));
 	}

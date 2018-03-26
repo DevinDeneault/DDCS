@@ -312,8 +312,8 @@ public class DdcsImageProcessor {
 			int blueError = (int) (currentColor[2] - newColor[2]);
 			int numerator;									//each error-diffusion method splits the error into fractions to spread it around the current pixel; this is the numerator in the fraction (i.e. 2/X or 1/X)
 			int denominator = dither.split();			//this is the denominator in the fraction (i.e. X/48 or X/16)
-			int column_new;
-			int row_new;
+            int column_new;
+            int row_new;
 
 			for (int i = 0; i < dither.arraySize(); i++) {	//goes through the list of locations to spread the error to
 
@@ -321,15 +321,11 @@ public class DdcsImageProcessor {
 			    column_new = column + (dither.get(i, 1));	//defines X/Y of locations; values from the dither array are coordinates relative to the current pixel
 			    row_new = row + (dither.get(i, 0));
 
-			    //attempt at speed optimization, instead of using conditionals, just let it error out when the pixel it's looking for is outside of the image bounds and continue (no noticeable difference, but much easier to read the code)
-			    //it's either this or a 4 argument conditional for every single point
-			    try {
-			    	errorMatrix[row_new][column_new][0] += getErrorPortion(redError, numerator, denominator);
-			    	errorMatrix[row_new][column_new][1] += getErrorPortion(greenError, numerator, denominator);
-			    	errorMatrix[row_new][column_new][2] += getErrorPortion(blueError, numerator, denominator);
-			    } catch (Exception err) {
-			    	//pixel out of bounds; do nothing
-			    }
+			    if( column_new < image.width() && column_new > 0 && row_new < image.height() ) {
+                    errorMatrix[row_new][column_new][0] += getErrorPortion(redError, numerator, denominator);
+                    errorMatrix[row_new][column_new][1] += getErrorPortion(greenError, numerator, denominator);
+                    errorMatrix[row_new][column_new][2] += getErrorPortion(blueError, numerator, denominator);
+                }
 			}
 
         } catch(Exception e) { bridgeClass.handleError(classID, "01", e); }
