@@ -1,7 +1,6 @@
 package application;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -13,14 +12,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 
 public class DdcsDocumentController implements Initializable {
@@ -87,7 +83,7 @@ public class DdcsDocumentController implements Initializable {
 		scpRightPane.hvalueProperty().addListener(
 				(observable, oldValue, newValue) -> scpLeftPane.setHvalue(1 - (double) newValue));
 
-		//pass a direct reference to a label in this class to the bridge class
+		//pass references to controls in this class to the bridge class
 		//initializing the class here because only 'null' is passed prior to the javaFX document controller initializer being reached;
 		bridgeClass = DdcsBridge.getInstance();
 		bridgeClass.initialize(lblProgress, progressInfo, txaColorList);
@@ -101,15 +97,9 @@ public class DdcsDocumentController implements Initializable {
 		progressWorker.setDaemon(true);									//thread will end with program close (if only daemon threads remain, JVM will close them all and terminate)
 		progressWorker.start();											//start the thread that handles the updating of the progress bar
 
-//		logicController.loadPalettes(paletteOptions);					//load all of the built in palettes (converting them from text files
-		paletteOptions.addAll(logicController.loadPalettes());   //change to directory, not list in file <--------------------------------------------------------------------------------------
+		paletteOptions.addAll(logicController.loadPalettes());          //load all of the built in palettes (converting them from text files
 		cmbPaletteSelect.setValue(paletteOptions.get(0));
 		logicController.updateSelectedPalette(0);
-
-
-
-		File test = new File(String.valueOf(this.getClass().getResourceAsStream("/palette_text/")));
-		System.out.println(test.listFiles());
 
 	}
 
@@ -142,7 +132,7 @@ public class DdcsDocumentController implements Initializable {
 	        cmbDitherSelect.setDisable(true);
 
 			refreshTask();
-			imageProcessorThread = new Thread(imageProcessorTask);
+			Thread imageProcessorThread = new Thread(imageProcessorTask);
 			imageProcessorThread.setDaemon(true);				    //a daemon thread closes when the main program does
 			imageProcessorThread.start();
 
@@ -307,46 +297,41 @@ public class DdcsDocumentController implements Initializable {
 
 
 
-
-
-
-
-
-	//this will 'reset' the task after it has been run, not doing this breaks the thread
-	//(re-using the task without this causes the thread to hang)
-	//this is not an ideal way of handling the threading if more threads for other tasks are planned in the future, but works for now
+	//this will 'reset' the task after it has been run, re-using the task without this causes the thread to hang
+	//this is not an ideal way of handling the threading if more threads for other tasks are planned in the future, but is simple for now
 	private void refreshTask() {
-		imageProcessorTask = new Task<Void>() {
-		    @Override
-            public Void call() {
+		imageProcessorTask = new Task<>() {
+			@Override
+			public Void call() {
 
-                if(cmbPaletteSelect.getValue().equals("Adaptive Palette")) {		//if the user wants an optimized palette we'll need to send the up-to-date color count
-                    logicController.generateAdaptivePalette(validateColorCount());
-                    logicController.updateColorListDisplay();
-                } else if (cmbPaletteSelect.getValue().equals("- User defined palette -")) {
-                    logicController.validateUserColorList(txaColorList.getText());
-                    txtColorCount.setText("" + logicController.getPaletteSize());
-                }
+				if (cmbPaletteSelect.getValue().equals("Adaptive Palette")) {        //if the user wants an optimized palette we'll need to send the up-to-date color count
+					logicController.generateAdaptivePalette(validateColorCount());
+					logicController.updateColorListDisplay();
+				} else if (cmbPaletteSelect.getValue().equals("- User defined palette -")) {
+					logicController.validateUserColorList(txaColorList.getText());
+					txtColorCount.setText("" + logicController.getPaletteSize());
+				}
 
-		    	imgProcessed.setImage(logicController.processImage());
+				imgProcessed.setImage(logicController.processImage());
 
-		        return null;
-		    }
-		    @Override
-            protected void succeeded() {	                                        //things to do when the task has completed successfully
-		        super.succeeded();
+				return null;
+			}
 
-		        //enable all the disabled buttons now that it's safe to use them again
-		        btnRun.setDisable(false);
-		        btnSaveImage.setDisable(false);
-		        btnOpenImage.setDisable(false);
-		        cmbPaletteSelect.setDisable(false);
-		        cmbDitherSelect.setDisable(false);
+			@Override
+			protected void succeeded() {                                            //things to do when the task has completed successfully
+				super.succeeded();
 
-		        refreshBugWorkaround();
+				//enable all the disabled buttons now that it's safe to use them again
+				btnRun.setDisable(false);
+				btnSaveImage.setDisable(false);
+				btnOpenImage.setDisable(false);
+				cmbPaletteSelect.setDisable(false);
+				cmbDitherSelect.setDisable(false);
 
-		        progressInfo.offer(0);
-		    }
+				refreshBugWorkaround();
+
+				progressInfo.offer(0);
+			}
 		};
 	}
 
@@ -357,7 +342,7 @@ public class DdcsDocumentController implements Initializable {
     	@Override
     	public void run() {
 
-    	    while (true) { 										//this thread will be continually running
+    	    while(true) { 										//this thread will be continually running
     	    	try {
         	    	int num = progressInfo.take();				//will attempt to take the next value from the queue, if nothing is present it will 'block', essentially making the thread sleep
 
@@ -435,7 +420,6 @@ public class DdcsDocumentController implements Initializable {
 	//future versions may implement a service to manage multiple tasks for various other things (like opening images and reading user defined palettes/dithers)
 	//this change is currently a low priority issue as those tasks will only cause the UI thread to hang in exceptionally extreme circumstances
 	private Task<Void> imageProcessorTask;
-	private Thread imageProcessorThread;
 
 	//basically a stack to be processed, items are added and a thread can pull the items out
 	//blocking queues are specifically made for cross thread communication
@@ -444,43 +428,6 @@ public class DdcsDocumentController implements Initializable {
     private BlockingQueue<Integer> progressInfo = new LinkedBlockingQueue<>();
 
 	private DdcsBridge bridgeClass = null;
-
-//    private final ObservableList<String> paletteOptions = FXCollections.observableArrayList(   //the options for the palette choicebox
-//    		"- None -",	//<None>
-//            "Adaptive Palette",
-//            //---------------------------
-//            "Greyscale  [1-bit]",
-//            "Greyscale  [2-bit]",
-//            "Greyscale  [4-bit]",
-//            "Greyscale  [8-bit]",
-//            //---------------------------
-//            "Color  [3-bit]",
-//            "Color  [4-bit]",
-//            "Color  [3-level]",
-//            "Color  [6-bit]",
-//            "Color  [3-3-2-bit]",
-//            "Color  [9-bit]",
-//            //---------------------------
-//            "Gradient  [sepia]",
-//            "Gradient  [electric indigo]",
-//            "Gradient  [chartreuse]",
-//            "Gradient  [dark orange]",
-//            "Gradient  [deep pink]",
-//            "Gradient  [dodger blue]",
-//            "Gradient  [spring green]",
-//            //---------------------------
-//            "Retro  [Game Boy]",
-//            "Retro  [NES]",
-//            "Retro  [Atari 2600]",
-//            "Retro  [CGA mode4-1h]",
-//            "Retro  [CGA mode4-2h]",
-//            "Retro  [Apple II]",
-//            //---------------------------
-//            "[DawnBringer's 16]",
-//            "[DawnBringer's 32]",
-//            //---------------------------
-//            "- User defined palette -"	//<User defined palette>
-//    );
 
     private final ObservableList<String> paletteOptions = FXCollections.observableArrayList();   //the options for the palette choicebox
 
@@ -500,9 +447,6 @@ public class DdcsDocumentController implements Initializable {
             "Ordered [8x8]",
             "Ordered [8x8] [Dark]"
     );
-
-
-
 
     private String getHelpText() {		//get the text from the help file
 		try {
@@ -542,24 +486,3 @@ public class DdcsDocumentController implements Initializable {
 
     private final String classID = "01";	//used as a reference when displaying errors
 }
-
-
-//    Task<Void> task = new Task<Void>() {
-//        @Override
-//        public Void call() throws Exception {
-//            Thread.sleep(2000);
-//            return null ;
-//        }
-//    };
-//
-//        task.setOnSucceeded(event -> {
-//
-//    });
-//
-//        new Thread(task).run();
-
-
-//    Platform.runLater(() -> {
-//
-//    });
-//

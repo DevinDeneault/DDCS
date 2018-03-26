@@ -158,8 +158,6 @@ public class DdcsLogicController {
     }
 
 
-
-
 	public Image getPaletteImage(int index) {	//take the name of the palette currently selected and return the preview image
 		try {
 			return new Image(this.getClass().getResourceAsStream("/palette_images/" + paletteList.get(getPaletteIndex(visiblePalettes[index])).imageName() + ".png"));

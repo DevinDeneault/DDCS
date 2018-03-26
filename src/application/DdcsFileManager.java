@@ -178,8 +178,6 @@ public class DdcsFileManager {
 
                     colorStringToArray(colorList, line);
 
-//                    System.out.println(line);
-
                     line = bufferedReader.readLine();
                 }
 
