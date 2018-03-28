@@ -260,7 +260,6 @@ public class DdcsImageProcessor {
 		try {
 
             int[] distances = new int[palette.size()];					//array of distances between current color and palette colors (they are being treated as coords in 3 dimensional space)
-            //int[] distances_sorted = new int[palette.getPaletteSize()];				//this will be used as a copy of the previous array, but sorted
 			int index;																//this value will be used to keep track of the index of the smallest distance in the list
 
             for (int i = 0; i < palette.size(); i++) {
@@ -269,12 +268,9 @@ public class DdcsImageProcessor {
                 int bDistance = (int) (currentColor[2] - palette.get(i, 2));
 		     	int distance = (rDistance)*(rDistance) + (gDistance)*(gDistance) + (bDistance)*(bDistance);	//find the distance between the two points (returns 'squared distance' to avoid make costly square rooot calculations)
                 distances[i] = distance;																	//add the newly found distance to the list of distances
-                //distances_sorted[i] = distance;																//add the newly found distance to the list of distances that will be sorted later
 			}
 
-            //Arrays.sort(distances_sorted);								//sort the second list of distances, this means the first list element will be the smallest value in the list
-            //index = indexOfIntArray(distances, distances_sorted[0]);	//find the index from the first list that corresponds with the first element from the sorted list; this is the index of the nearest color in the palette array
-			index = indexOfSmallestInt(distances);
+            index = indexOfSmallestInt(distances);
 
 			int nRed = palette.get(index, 0);
             int nGreen = palette.get(index, 1);

@@ -444,8 +444,9 @@ public class DdcsDocumentController implements Initializable {
             "Ordered [2x2]",
             "Ordered [3x3]",
             "Ordered [4x4]",
+            "Ordered [4x4] [Negative]",
             "Ordered [8x8]",
-            "Ordered [8x8] [Dark]"
+            "Ordered [8x8] [Darkened]"
     );
 
     private String getHelpText() {		//get the text from the help file

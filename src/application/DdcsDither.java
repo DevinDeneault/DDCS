@@ -99,11 +99,15 @@ public class DdcsDither {
                 gridSize = 4;
                 ditherArray = DITHER_ORDERED_4x4;
                 break;
+            case "Ordered [4x4] [Negative]":
+                gridSize = 4;
+                ditherArray = DITHER_ORDERED_4x4_N;
+                break;
             case "Ordered [8x8]":
                 gridSize = 8;
                 ditherArray = DITHER_ORDERED_8x8;
                 break;
-            case "Ordered [8x8] [Dark]":
+            case "Ordered [8x8] [Darkened]":
                 gridSize = 8;
                 ditherArray = DITHER_ORDERED_8x8_D;
                 break;
@@ -142,6 +146,8 @@ public class DdcsDither {
     private final int[][] DITHER_ORDERED_2x2 = {{1,3},{4,2}};
     private final int[][] DITHER_ORDERED_3x3 = {{3,7,4},{6,1,9},{2,8,5}};
     private final int[][] DITHER_ORDERED_4x4 = {{1,9,3,11},{13,5,15,7},{4,12,2,10},{16,8,14,6}};
+    //experiment with negating the modifiers
+    private final int[][] DITHER_ORDERED_4x4_N = {{-1,-9,-3,-11},{-13,-5,-15,-7},{-4,-12,-2,-10},{-16,-8,-14,-6}};
     private final int[][] DITHER_ORDERED_8x8 = {{1,49,13,61,4,52,16,64},{33,17,45,29,36,20,48,32},{9,57,5,53,12,60,8,56},{41,25,37,21,44,28,40,24},{3,51,15,63,2,50,14,62},{35,19,47,31,34,18,46,30},{11,59,7,55,10,58,6,54},{43,27,39,23,42,26,38,22}};
     //same as 8x8, but with all it's values shifted down by 32; this is a fairly successful attempt to remove the washed-out look that ordered dithering can cause with this large of matrix
     private final int[][] DITHER_ORDERED_8x8_D = {{-31,17,-19,29,-28,20,-16,31},{1,-15,13,-4,3,-12,16,0},{-23,25,-27,21,-20,28,-24,24},{9,-7,5,-11,12,-4,8,-8},{-29,19,-17,31,-30,18,-18,30},{3,-13,15,-1,2,-14,14,-2},{-21,27,-25,23,-22,26,-26,22},{11,-5,7,-9,10,-6,6,-10}};
