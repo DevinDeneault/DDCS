@@ -1,8 +1,8 @@
 package application;
 
-public class DdcsPalette {
+public class Palette {
 
-    DdcsPalette(String _name, String _id, boolean _mapped, String _imageName, boolean _hidden, int[][] _colors) {
+    Palette(String _name, String _id, boolean _mapped, String _imageName, boolean _hidden, int[][] _colors) {
         name = _name;
         id = _id;
         mapped = _mapped;

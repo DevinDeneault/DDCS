@@ -8,15 +8,15 @@ import java.util.Objects;
 
 import javafx.scene.image.Image;
 
-public class DdcsFileManager {
+public class FileManager {
 
-    private DdcsBridge bridgeClass = DdcsBridge.getInstance();
+    private Bridge bridgeClass = Bridge.getInstance();
     private DdcsImage image = DdcsImage.getInstance();
 
-    private DdcsFileOpener imageChooser = new DdcsFileOpener("Open Image File", "images");
-    private DdcsFileOpener paletteChooser = new DdcsFileOpener("Open Palette Text File", "text");
-    private DdcsPngSaver imageSaver = new DdcsPngSaver("Save Image File");
-    private DdcsPaletteSaver paletteSaver = new DdcsPaletteSaver("Save Palette Text File");
+    private FileOpener imageChooser = new FileOpener("Open Image File", "images");
+    private FileOpener paletteChooser = new FileOpener("Open Palette Text File", "text");
+    private PngSaver imageSaver = new PngSaver("Save Image File");
+    private PaletteSaver paletteSaver = new PaletteSaver("Save Palette Text File");
 
 
     //============= working with images ==============================================================================================================
@@ -38,7 +38,7 @@ public class DdcsFileManager {
 
 
 
-    public void saveImage(DdcsPalette palette) {
+    public void saveImage(Palette palette) {
         imageSaver.saveImage(palette);
     }
 

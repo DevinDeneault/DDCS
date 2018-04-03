@@ -19,7 +19,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
-public class DdcsDocumentController implements Initializable {
+public class DocumentController implements Initializable {
 
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -85,10 +85,10 @@ public class DdcsDocumentController implements Initializable {
 
 		//pass references to controls in this class to the bridge class
 		//initializing the class here because only 'null' is passed prior to the javaFX document controller initializer being reached;
-		bridgeClass = DdcsBridge.getInstance();
+		bridgeClass = Bridge.getInstance();
 		bridgeClass.initialize(lblProgress, progressInfo, txaColorList);
 
-		logicController = new DdcsLogicController();	//pass the instance of the bridge class down through the class hierarchy
+		logicController = new LogicController();	//pass the instance of the bridge class down through the class hierarchy
 
 		imgBase.setImage(logicController.getNullImage());
 		imgProcessed.setImage(logicController.getNullImage());
@@ -412,9 +412,9 @@ public class DdcsDocumentController implements Initializable {
 	@FXML private TextArea txtHelpAbout;	//a text area positioned in front of the left scroll pane that can be toggled between hidden and visible
 	//================================================================================================================================================
 
-	//all the main logic will be going on in the DdcsLogicController class; doing things this way to avoid messing with javaFX's standard structure
+	//all the main logic will be going on in the LogicController class; doing things this way to avoid messing with javaFX's standard structure
 	//(the class actually called "Main" isn't a traditional main class with javafx and the document controller class (this one) is being dedicated to UI management)
-	private DdcsLogicController logicController = null;
+	private LogicController logicController = null;
 
 	//this thread is where are the heavy lifting will be taking place to avoid locking up the UI thread
 	//future versions may implement a service to manage multiple tasks for various other things (like opening images and reading user defined palettes/dithers)
@@ -427,7 +427,7 @@ public class DdcsDocumentController implements Initializable {
     //look at more info on  'offer' vs 'put'	'take' vs 'poll'	'LinkedBlockingQueue' vs 'ArrayBlockingQueue' etc
     private BlockingQueue<Integer> progressInfo = new LinkedBlockingQueue<>();
 
-	private DdcsBridge bridgeClass = null;
+	private Bridge bridgeClass = null;
 
     private final ObservableList<String> paletteOptions = FXCollections.observableArrayList();   //the options for the palette choicebox
 

@@ -4,15 +4,15 @@ import java.util.*;
 
 import javafx.scene.image.Image;
 
-public class DdcsLogicController {
+public class LogicController {
 
-	private DdcsBridge bridgeClass = DdcsBridge.getInstance();
+	private Bridge bridgeClass = Bridge.getInstance();
 	private DdcsImage image = DdcsImage.getInstance();
-	private DdcsDither dither = DdcsDither.getInstance();
+	private DitherLibrary dither = DitherLibrary.getInstance();
 
-	private DdcsFileManager fileManager = new DdcsFileManager();					//class that will be managing all the file operations (opening, validating, etc.)
-	private DdcsImageProcessor imageProcessor = new DdcsImageProcessor();			//class that will handle processing the image
-	private DdcsAdaptivePalette adaptivePaletteCalc = new DdcsAdaptivePalette();	//class that will calculate the adaptive palette
+	private FileManager fileManager = new FileManager();					//class that will be managing all the file operations (opening, validating, etc.)
+	private ImageProcessor imageProcessor = new ImageProcessor();			//class that will handle processing the image
+	private AdaptivePalette adaptivePaletteCalc = new AdaptivePalette();	//class that will calculate the adaptive palette
 
 	public Image getNewImage() {	//get and send off a selected image from a FileChooser; also remember it so it can be be used later
 		fileManager.loadBaseImage();
@@ -67,7 +67,7 @@ public class DdcsLogicController {
 
         paletteList.remove(index);
 
-        paletteList.add(index, new DdcsPalette(
+        paletteList.add(index, new Palette(
                 "Adaptive Palette",
                 "adaptive",
                 false,
@@ -96,7 +96,7 @@ public class DdcsLogicController {
 
         paletteList.remove(index);
 
-        paletteList.add(index, new DdcsPalette(
+        paletteList.add(index, new Palette(
                 "- User defined palette -",
                 "user",
                 false,
@@ -140,7 +140,7 @@ public class DdcsLogicController {
         ArrayList<int[]> colorList = new ArrayList<>();
 
         for (String color: colorStringArray) {
-            DdcsFileManager.colorStringToArray(colorList, color);
+            FileManager.colorStringToArray(colorList, color);
         }
 
         return colorList.toArray(new int[colorList.size()][3]);
@@ -168,7 +168,7 @@ public class DdcsLogicController {
 	public String[] toggleExtraPalettes(boolean showAll) {
         ArrayList<String> paletteNames = new ArrayList<>();
 
-        for(DdcsPalette palette : paletteList) {
+        for(Palette palette : paletteList) {
             if( (!palette.hidden()) || (palette.hidden() && showAll) ) { paletteNames.add(palette.name()); }
         }
 
@@ -192,7 +192,7 @@ public class DdcsLogicController {
 
             metaData = fileManager.getMetaData(paletteFile, false);
 
-            paletteList.add(new DdcsPalette(
+            paletteList.add(new Palette(
                     metaData.get("name"),
                     metaData.get("id"),
                     metaData.get("mapped").equals("true"),
@@ -213,10 +213,10 @@ public class DdcsLogicController {
 
 
 
-    private DdcsPalette selectedPalette;
-	private DdcsPalette workingPalette;
+    private Palette selectedPalette;
+	private Palette workingPalette;
 
-	private ArrayList<DdcsPalette> paletteList = new ArrayList<>();
+	private ArrayList<Palette> paletteList = new ArrayList<>();
 	private String[] visiblePalettes;
 
     private final String classID = "02";	//used as a reference when displaying errors

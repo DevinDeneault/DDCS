@@ -6,14 +6,14 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 
-public class DdcsPaletteSaver {
+public class PaletteSaver {
 
-    DdcsPaletteSaver(String title) {
+    PaletteSaver(String title) {
         saver.setTitle(title);
         setExtensionTxt();
     }
 
-    private DdcsBridge bridgeClass = DdcsBridge.getInstance();
+    private Bridge bridgeClass = Bridge.getInstance();
 
     private FileChooser saver = new FileChooser();
     private String savedFile = null;		//the full directory to the previously saved file

@@ -1,19 +1,16 @@
 package application;
 
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.stage.StageStyle;
 
 import java.awt.*;
 
@@ -158,6 +155,6 @@ public class Main extends Application {
         launch(args);
     }
 
-    private DdcsBridge bridgeClass = DdcsBridge.getInstance();
+    private Bridge bridgeClass = Bridge.getInstance();
 
 }

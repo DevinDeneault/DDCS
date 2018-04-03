@@ -4,9 +4,9 @@ import java.io.File;
 
 import javafx.stage.FileChooser;
 
-public class DdcsFileOpener {
+public class FileOpener {
 
-	DdcsFileOpener(String title, String type) {
+	FileOpener(String title, String type) {
 		chooser.setTitle(title);
 
 		if(type.equals("images")) {
@@ -16,7 +16,7 @@ public class DdcsFileOpener {
 		}
 	}
 
-	private DdcsBridge bridgeClass = DdcsBridge.getInstance();
+	private Bridge bridgeClass = Bridge.getInstance();
 
 	private String selectedFile = null;		//the full directory to the previously selected file
 	private FileChooser chooser = new FileChooser();

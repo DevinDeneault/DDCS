@@ -9,11 +9,11 @@ import javafx.scene.paint.Color;
 import net.sf.javaml.core.kdtree.KDTree;
 import net.sf.javaml.core.kdtree.KeySizeException;
 
-public class DdcsImageProcessor {
+public class ImageProcessor {
 
-	private DdcsBridge bridgeClass = DdcsBridge.getInstance();
+	private Bridge bridgeClass = Bridge.getInstance();
 	private DdcsImage image = DdcsImage.getInstance();
-	private DdcsDither dither = DdcsDither.getInstance();
+	private DitherLibrary dither = DitherLibrary.getInstance();
 
 	private KDTree kdTree;                          //KDTree for searching for closest matching colors
 
@@ -32,9 +32,9 @@ public class DdcsImageProcessor {
     private double intensityBlue = 0.1140;
 
 
-    private DdcsPalette palette;
+    private Palette palette;
 
-	public void processImage(DdcsPalette _palette) {
+	public void processImage(Palette _palette) {
 		try {
 
 			palette = _palette;

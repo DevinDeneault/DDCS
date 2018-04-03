@@ -10,14 +10,14 @@ import javax.imageio.ImageIO;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.stage.FileChooser;
 
-public class DdcsPngSaver {
+public class PngSaver {
 
-	DdcsPngSaver(String title) {
+	PngSaver(String title) {
 		saver.setTitle(title);
 		setExtensionPNG();
 	}
 
-	private DdcsBridge bridgeClass = DdcsBridge.getInstance();
+	private Bridge bridgeClass = Bridge.getInstance();
 	private DdcsImage image = DdcsImage.getInstance();
 
 	private FileChooser saver = new FileChooser();
@@ -25,7 +25,7 @@ public class DdcsPngSaver {
 	private String fileMatcher = ".*err";
 
 
-	public void saveImage(DdcsPalette palette) {
+	public void saveImage(Palette palette) {
 		try {
 
 			File previousDirectory = null;

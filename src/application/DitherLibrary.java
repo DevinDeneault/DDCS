@@ -1,17 +1,17 @@
 package application;
 
-public class DdcsDither {
+public class DitherLibrary {
 
     //---------------------------------------------------singleton
-    private static volatile DdcsDither instance = null;
+    private static volatile DitherLibrary instance = null;
 
-    private DdcsDither() { }
+    private DitherLibrary() { }
 
-    public static DdcsDither getInstance() {
+    public static DitherLibrary getInstance() {
         if (instance == null) {
-            synchronized (DdcsDither.class) {
+            synchronized (DitherLibrary.class) {
                 if (instance == null) {
-                    instance = new DdcsDither();
+                    instance = new DitherLibrary();
                 }
             }
         }
@@ -143,13 +143,13 @@ public class DdcsDither {
 
     //bayer matrices for ordered dithering
     //-------------------------------------------------------------------------------------------------------
-    private final int[][] DITHER_ORDERED_2x2 = {{1,3},{4,2}};
-    private final int[][] DITHER_ORDERED_3x3 = {{3,7,4},{6,1,9},{2,8,5}};
-    private final int[][] DITHER_ORDERED_4x4 = {{1,9,3,11},{13,5,15,7},{4,12,2,10},{16,8,14,6}};
+    private final int[][] DITHER_ORDERED_2x2 = {{0,2},{3,1}};
+    private final int[][] DITHER_ORDERED_3x3 = {{0,7,3},{6,5,2},{4,1,8}};
+    private final int[][] DITHER_ORDERED_4x4 = {{0,8,2,10},{12,4,14,6},{3,11,1,9},{15,7,13,5}};
     //experiment with negating the modifiers
-    private final int[][] DITHER_ORDERED_4x4_N = {{-1,-9,-3,-11},{-13,-5,-15,-7},{-4,-12,-2,-10},{-16,-8,-14,-6}};
-    private final int[][] DITHER_ORDERED_8x8 = {{1,49,13,61,4,52,16,64},{33,17,45,29,36,20,48,32},{9,57,5,53,12,60,8,56},{41,25,37,21,44,28,40,24},{3,51,15,63,2,50,14,62},{35,19,47,31,34,18,46,30},{11,59,7,55,10,58,6,54},{43,27,39,23,42,26,38,22}};
+    private final int[][] DITHER_ORDERED_4x4_N = {{0,-8,-2,-10},{-12,-4,-14,-6},{-3,-11,-1,-9},{-15,-7,-13,-5}};
+    private final int[][] DITHER_ORDERED_8x8 = {{0,48,12,60,3,51,15,63},{32,16,44,28,35,19,47,31},{8,56,4,52,11,59,7,55},{40,24,36,20,43,27,39,23},{2,50,14,62,1,49,13,61},{34,18,46,30,33,17,45,29},{10,58,6,54,9,57,5,53},{42,36,38,22,41,25,37,21}};
     //same as 8x8, but with all it's values shifted down by 32; this is a fairly successful attempt to remove the washed-out look that ordered dithering can cause with this large of matrix
-    private final int[][] DITHER_ORDERED_8x8_D = {{-31,17,-19,29,-28,20,-16,31},{1,-15,13,-4,3,-12,16,0},{-23,25,-27,21,-20,28,-24,24},{9,-7,5,-11,12,-4,8,-8},{-29,19,-17,31,-30,18,-18,30},{3,-13,15,-1,2,-14,14,-2},{-21,27,-25,23,-22,26,-26,22},{11,-5,7,-9,10,-6,6,-10}};
+    private final int[][] DITHER_ORDERED_8x8_D = {{-32,16,-18,28,-29,19,-17,30},{0,-16,12,-5,2,-13,15,-1},{-24,24,-28,20,-21,27,-25,23},{8,-8,4,-12,11,-5,8,-9},{-30,18,-18,30,-31,17,-19,29},{2,-14,14,-2,1,-15,13,-3},{-22,26,-26,22,-23,25,-27,21},{10,-6,6,-10,9,-7,5,-11}};
 
 }

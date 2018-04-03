@@ -8,18 +8,18 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 
-public class DdcsBridge {
+public class Bridge {
 
 	//---------------------------------------------------singleton
-    private static volatile DdcsBridge instance = null;
+    private static volatile Bridge instance = null;
 
-    private DdcsBridge() { }
+    private Bridge() { }
 
-    public static DdcsBridge getInstance() {
+    public static Bridge getInstance() {
         if (instance == null) {
-            synchronized (DdcsBridge.class) {
+            synchronized (Bridge.class) {
                 if (instance == null) {
-                    instance = new DdcsBridge();
+                    instance = new Bridge();
                 }
             }
         }

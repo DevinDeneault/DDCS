@@ -5,9 +5,9 @@ import java.util.*;
 import javafx.scene.image.PixelReader;
 import javafx.scene.paint.Color;
 
-public class DdcsAdaptivePalette {
+public class AdaptivePalette {
 
-	private DdcsBridge bridgeClass = DdcsBridge.getInstance();
+	private Bridge bridgeClass = Bridge.getInstance();
 	private DdcsImage image = DdcsImage.getInstance();
 
     private int lastProcessedImage = -1;                                            //the number of the previously processed image
