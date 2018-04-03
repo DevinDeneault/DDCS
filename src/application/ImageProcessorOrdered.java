@@ -8,7 +8,8 @@ import javafx.scene.image.WritableImage;
 public class ImageProcessorOrdered extends DitherOrderedAbstract implements ImageProcessor {
 
     //knolls will need a palette-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    //constructor?
+
+    private Bridge bridgeClass = Bridge.getInstance();
 
     private ColorMatcher matcher;
     private Image image;
@@ -31,15 +32,13 @@ public class ImageProcessorOrdered extends DitherOrderedAbstract implements Imag
         imageNew = new WritableImage((int) image.getWidth(), (int) image.getHeight());	//make a new, blank writable image
         pixelWriter = imageNew.getPixelWriter();						//make the pixel writer for the new writable image
 
-        //bridgeClass.updateProgressInfo("processing image . . .");
-
         for (int row = 0; row < image.getHeight(); row++) {
             for (int column = 0; column < image.getWidth(); column++) {
                 defineCurrentPixel(currentColor, pixelReader.getColor(column, row));
                 addThreshold(currentColor, column, row);                                            //add threshold from the ordered dither matrix ("bayer matrix") to the current pixel values
                 pixelWriter.setColor(column, row, matcher.getMatch(currentColor));
             }
-            //bridgeClass.updateProgress(1);
+            bridgeClass.updateProgress(1);
         }
 
         return imageNew;

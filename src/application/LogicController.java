@@ -28,7 +28,7 @@ public class LogicController {
 
 //		imageProcessor.processImage(workingPalette);//---------------------------------------------------------------------------------------------------------------------------------------------------------------------
         KDTree kdTree;
-        boolean useKdTree = false;
+        boolean useKdTree;
         if(workingPalette.size() < 31) {
             useKdTree = false;
         } else {
@@ -67,6 +67,8 @@ public class LogicController {
                 break;
         }
 
+        bridgeClass.updateProgressInfo("processing image . . .");
+        bridgeClass.updateProgress(image.height());
 
         image.setProcessedImage(imageProcessor.processImage());
 

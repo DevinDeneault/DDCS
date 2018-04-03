@@ -43,27 +43,27 @@ public class Palette {
     public String imageName() { return imageName; }
     public boolean hidden() { return hidden; }
     public boolean mapped() {
-        if( PaletteUtils.matchOverride == 0 ) { return mapped;
-        } else { return PaletteUtils.getMatchOverrideType(); }
+        if( PaletteSharedData.matchOverride == 0 ) { return mapped;
+        } else { return PaletteSharedData.getMatchOverrideType(); }
     }
 
     //-----------------------------
 
     public void setIntensities(double iR, double iG, double iB) {
-        PaletteUtils.intensityRed = iR;
-        PaletteUtils.intensityGreen = iG;
-        PaletteUtils.intensityBlue = iB;
+        PaletteSharedData.intensityRed = iR;
+        PaletteSharedData.intensityGreen = iG;
+        PaletteSharedData.intensityBlue = iB;
     }
-    public double getRedIntensity() { return PaletteUtils.intensityRed; }
-    public double getGreenIntensity() { return PaletteUtils.intensityGreen; }
-    public double getBlueIntensity() { return PaletteUtils.intensityBlue; }
+    public double getRedIntensity() { return PaletteSharedData.intensityRed; }
+    public double getGreenIntensity() { return PaletteSharedData.intensityGreen; }
+    public double getBlueIntensity() { return PaletteSharedData.intensityBlue; }
 
-    public void setMachOverride(int type) { PaletteUtils.matchOverride = type; }
+    public void setMachOverride(int type) { PaletteSharedData.matchOverride = type; }
 
 
     //---------------------------------------------------------------------------------------------
 
-    private static class PaletteUtils {
+    private static class PaletteSharedData {
 
         private static int matchOverride = 0;
 

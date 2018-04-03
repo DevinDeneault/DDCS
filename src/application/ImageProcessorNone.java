@@ -8,10 +8,12 @@ import javafx.scene.paint.Color;
 
 public class ImageProcessorNone implements ImageProcessor {
 
+    private Bridge bridgeClass = Bridge.getInstance();
+
     private ColorMatcher matcher;
     private Image image;
-    ImageProcessorNone(ColorMatcher _mathcer, Image _image) {
-        matcher = _mathcer;
+    ImageProcessorNone(ColorMatcher _matcher, Image _image) {
+        matcher = _matcher;
         image = _image;
     }
 
@@ -28,14 +30,12 @@ public class ImageProcessorNone implements ImageProcessor {
         imageNew = new WritableImage((int) image.getWidth(), (int) image.getHeight());	//make a new, blank writable image
         pixelWriter = imageNew.getPixelWriter();						//make the pixel writer for the new writable image
 
-        //bridgeClass.updateProgressInfo("processing image . . .");
-
         for (int row = 0; row < image.getHeight(); row++) {
             for (int column = 0; column < image.getWidth(); column++) {
                 defineCurrentPixel(currentColor, pixelReader.getColor(column, row));
                 pixelWriter.setColor(column, row, matcher.getMatch(currentColor));
             }
-            //bridgeClass.updateProgress(1);
+            bridgeClass.updateProgress(1);
         }
 
         return imageNew;
