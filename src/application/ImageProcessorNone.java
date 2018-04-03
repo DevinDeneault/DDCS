@@ -8,8 +8,15 @@ import javafx.scene.paint.Color;
 
 public class ImageProcessorNone implements ImageProcessor {
 
+    private ColorMatcher matcher;
+    private Image image;
+    ImageProcessorNone(ColorMatcher _mathcer, Image _image) {
+        matcher = _mathcer;
+        image = _image;
+    }
+
     @Override
-    public Image processImage(ColorMatcher matcher, Image image) {
+    public Image processImage() {
         WritableImage imageNew;
         PixelReader pixelReader;
 

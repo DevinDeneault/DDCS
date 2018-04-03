@@ -51,7 +51,7 @@ public class DocumentController implements Initializable {
 		txtHelpAbout.setDisable(true);
 		txtHelpAbout.setVisible(false);
 
-		cbSortPalette.setDisable(true);
+//		cbSortPalette.setDisable(true);
 
 		txtIntensityRed.setText("0.2989");
 		txtIntensityGreen.setText("0.5870");
@@ -217,21 +217,29 @@ public class DocumentController implements Initializable {
     @FXML private void handlerSearchOverrideOptions(ActionEvent e) {
         Object source = e.getSource();
 
+//        switch(source.toString()) {
+//            case rbtMatchDefault:
+//
+//        }
         if (source == rbtMatchDefault){
             logicController.matchingStyleOverride(0);
-            cbSortPalette.setDisable(true);
-            logicController.sortPalette(false);
+
+//            cbSortPalette.setDisable(true);
+//            logicController.sortPalette(false);
         } else if (source == rbtMatchMap) {
             logicController.matchingStyleOverride(2);
-            cbSortPalette.setDisable(false);
-            logicController.sortPalette(cbSortPalette.isSelected());
+//            cbSortPalette.setDisable(false);
+//            logicController.sortPalette(cbSortPalette.isSelected());
         } else if (source == rbtMatchSearch) {
             logicController.matchingStyleOverride(1);
-            cbSortPalette.setDisable(true);
-            logicController.sortPalette(false);
-        } else if (source == cbSortPalette) {
-            logicController.sortPalette(cbSortPalette.isSelected());
+//            cbSortPalette.setDisable(true);
+//            logicController.sortPalette(false);
         }
+//        else if (source == cbSortPalette) {
+//            logicController.sortPalette(cbSortPalette.isSelected());
+//        }
+
+
     }
 
 	//================================================================================================================================================
@@ -395,7 +403,7 @@ public class DocumentController implements Initializable {
     @FXML private RadioButton rbtMatchDefault;
     @FXML private RadioButton rbtMatchSearch;
     @FXML private RadioButton rbtMatchMap;
-    @FXML private CheckBox cbSortPalette;
+//    @FXML private CheckBox cbSortPalette;
 
     @FXML private Label lblIntensity;
     @FXML private TextField txtIntensityRed;

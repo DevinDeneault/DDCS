@@ -5,22 +5,16 @@ import javafx.scene.paint.Color;
 public class ColorMatcherMap implements ColorMatcher {
 
     private Palette palette;
-    private double intensityRed;
-    private double intensityGreen;
-    private double intensityBlue;
 
-    ColorMatcherMap(Palette _palette, double iR, double iG, double iB) {
+    ColorMatcherMap(Palette _palette) {
         palette = _palette;
-        intensityRed = iR;
-        intensityGreen = iG;
-        intensityBlue = iB;
     }
 
     @Override
     public Color getMatch(double[] currentColor) {
         double scale = (double) (palette.size() - 1) / 255;
 
-        double intensity = intensityRed * currentColor[0] + intensityGreen * currentColor[1] + intensityBlue * currentColor[2];
+        double intensity = palette.getRedIntensity() * currentColor[0] + palette.getGreenIntensity() * currentColor[1] + palette.getBlueIntensity() * currentColor[2];
 
         double scaledToPalette = scale * intensity;
 

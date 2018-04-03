@@ -3,6 +3,9 @@ package application;
 import java.util.*;
 
 import javafx.scene.image.Image;
+import net.sf.javaml.core.kdtree.KDTree;
+import net.sf.javaml.core.kdtree.KeyDuplicateException;
+import net.sf.javaml.core.kdtree.KeySizeException;
 
 public class LogicController {
 
@@ -11,7 +14,7 @@ public class LogicController {
 	private DitherLibrary dither = DitherLibrary.getInstance();
 
 	private FileManager fileManager = new FileManager();					//class that will be managing all the file operations (opening, validating, etc.)
-	private OLDImageProcessor imageProcessor = new OLDImageProcessor();			//class that will handle processing the image
+//	private OLDImageProcessor imageProcessor = new OLDImageProcessor();			//class that will handle processing the image
 	private AdaptivePalette adaptivePaletteCalc = new AdaptivePalette();	//class that will calculate the adaptive palette
 
 	public Image getNewImage() {	//get and send off a selected image from a FileChooser; also remember it so it can be be used later
@@ -23,7 +26,51 @@ public class LogicController {
 
         workingPalette = selectedPalette;
 
-		imageProcessor.processImage(workingPalette);
+//		imageProcessor.processImage(workingPalette);//---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        KDTree kdTree;
+        boolean useKdTree = false;
+        if(workingPalette.size() < 31) {
+            useKdTree = false;
+        } else {
+            useKdTree = true;
+
+        }
+
+        ColorMatcher matcher;
+        ImageProcessor imageProcessor;
+
+        if (workingPalette.mapped()) {
+            matcher = new ColorMatcherMap(workingPalette);
+        } else if (useKdTree) {
+            kdTree = new KDTree(3);
+            try {
+                for(int index = 0; index < workingPalette.size(); index++) {
+                        kdTree.insert(arrayIntToDouble(workingPalette.get(index)), index);
+                }
+            } catch (KeySizeException | KeyDuplicateException e) { e.printStackTrace(); }
+
+            matcher = new ColorMatcherKdTree(workingPalette, kdTree);
+        } else {
+            matcher = new ColorMatcherExhaustive(workingPalette);
+        }
+
+
+        switch (dither.type()) {
+            case "ordered":
+                imageProcessor = new ImageProcessorOrdered(matcher, image.image());
+                break;
+            case "none":
+                imageProcessor = new ImageProcessorNone(matcher, image.image());
+                break;
+            default:
+                imageProcessor = new ImageProcessorErrorDiff(matcher, image.image());
+                break;
+        }
+
+
+        image.setProcessedImage(imageProcessor.processImage());
+
+        //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 		//setting the loading progress to say complete or, if you used an adaptive palette, the number of colors in the original image
 		//doing this here out of convenience, might be appropriate to move it to the document controller in the future
@@ -109,9 +156,9 @@ public class LogicController {
 
 
 
-    public void sortPalette(boolean sort) {
-        paletteList.get(0).setSortOverride(sort);   //static value, setting it in one carries to all
-    }
+//    public void sortPalette(boolean sort) {
+//        paletteList.get(0).setSortOverride(sort);   //static value, setting it in one carries to all
+//    }
     public void matchingStyleOverride(int type) {
 	    paletteList.get(0).setMachOverride(type);   //static value, setting it in one carries to all
     }
@@ -119,9 +166,8 @@ public class LogicController {
 
     public void setColorIntensityValues(double iR, double iG, double iB) {
         paletteList.get(0).setIntensities(iR, iG, iB);  //static values, setting it in one carries to all
-        imageProcessor.setColorIntensityValues(iR, iG, iB);
+//        imageProcessor.setColorIntensityValues(iR, iG, iB);
     }
-
 
 
 
@@ -218,6 +264,28 @@ public class LogicController {
 
 	private ArrayList<Palette> paletteList = new ArrayList<>();
 	private String[] visiblePalettes;
+
+
+
+
+
+    private double[] arrayIntToDouble(int[] input) {	//convert an array of integers to an array of doubles
+
+        double[] output = new double[3];
+        for(int i=0; i < 3; i++) {
+            output[i] = input[i];
+        }
+        return output;
+    }
+
+
+	private class ImageProcessorFactory {
+
+    }
+
+
+
+
 
     private final String classID = "02";	//used as a reference when displaying errors
 }

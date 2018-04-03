@@ -11,8 +11,6 @@ abstract class DitherErrorDiffAbstract {
     }
 
 
-    //private double[] newColor = new double[3];		//the new pixel's color values
-
     int imageHeight;
     int imageWidth;
     int[][][] errorMatrix;                  //the matrix that will be used to store the error data for error-diffusion dithering

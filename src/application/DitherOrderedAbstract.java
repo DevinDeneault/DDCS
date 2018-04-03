@@ -5,7 +5,6 @@ import javafx.scene.paint.Color;
 abstract class DitherOrderedAbstract {
 
     private DitherLibrary dither = DitherLibrary.getInstance();
-    private DdcsImage image = DdcsImage.getInstance();
 
     DitherOrderedAbstract() {
         //dither information OR object
@@ -18,7 +17,7 @@ abstract class DitherOrderedAbstract {
         int threshold = dither.get((row % matrixSize), column % matrixSize);
 
         currentColor[0] += threshold;	//row % matrix size; 324 % 8 = 4; uses remainder to determine location on matrix, ensures uniform use of threshold matrix
-        currentColor[1] += threshold;	//		this uniform use of the threshold matrix causes the cross-hatch patter visible on final image
+        currentColor[1] += threshold;	//		this uniform use of the threshold matrix causes the cross-hatch pattern visible on final image
         currentColor[2] += threshold; 	//
 
         currentColor[0] = Math.min(Math.max(currentColor[0], 0), 255);			//this will cap the value to the range of 0 to 255

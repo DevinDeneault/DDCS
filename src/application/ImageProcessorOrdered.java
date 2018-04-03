@@ -7,16 +7,18 @@ import javafx.scene.image.WritableImage;
 
 public class ImageProcessorOrdered extends DitherOrderedAbstract implements ImageProcessor {
 
-    //knolls will need a palette
-    //error needs image dimensions
+    //knolls will need a palette-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    //constructor?
 
-//    ImageProcessorOrdered() {
-//        //ordered needs nothing
-//    }
-
+    private ColorMatcher matcher;
+    private Image image;
+    ImageProcessorOrdered(ColorMatcher _matcher, Image _image) {
+        matcher = _matcher;
+        image = _image;
+    }
 
     @Override
-    public Image processImage(ColorMatcher matcher, Image image) {
+    public Image processImage() {
         //Palette palette = _palette;
         WritableImage imageNew;
         PixelReader pixelReader;

@@ -8,10 +8,15 @@ import javafx.scene.paint.Color;
 
 public class ImageProcessorErrorDiff extends DitherErrorDiffAbstract implements ImageProcessor {
 
-
+    private ColorMatcher matcher;
+    private Image image;
+    ImageProcessorErrorDiff(ColorMatcher _matcher, Image _image) {
+        matcher = _matcher;
+        image = _image;
+    }
 
     @Override
-    public Image processImage(ColorMatcher matcher, Image image) {
+    public Image processImage() {
         imageHeight = (int) image.getHeight();
         imageWidth = (int) image.getWidth();
         errorMatrix = new int[imageHeight][imageWidth][3];
