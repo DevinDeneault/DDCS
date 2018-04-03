@@ -30,7 +30,7 @@ public class ImageProcessorOrdered extends DitherOrderedAbstract implements Imag
 
         pixelReader = image.getPixelReader();
         imageNew = new WritableImage((int) image.getWidth(), (int) image.getHeight());	//make a new, blank writable image
-        pixelWriter = imageNew.getPixelWriter();						//make the pixel writer for the new writable image
+        pixelWriter = imageNew.getPixelWriter();						                //make the pixel writer for the new writable image
 
         for (int row = 0; row < image.getHeight(); row++) {
             for (int column = 0; column < image.getWidth(); column++) {

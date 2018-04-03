@@ -217,28 +217,13 @@ public class DocumentController implements Initializable {
     @FXML private void handlerSearchOverrideOptions(ActionEvent e) {
         Object source = e.getSource();
 
-//        switch(source.toString()) {
-//            case rbtMatchDefault:
-//
-//        }
         if (source == rbtMatchDefault){
             logicController.matchingStyleOverride(0);
-
-//            cbSortPalette.setDisable(true);
-//            logicController.sortPalette(false);
         } else if (source == rbtMatchMap) {
             logicController.matchingStyleOverride(2);
-//            cbSortPalette.setDisable(false);
-//            logicController.sortPalette(cbSortPalette.isSelected());
         } else if (source == rbtMatchSearch) {
             logicController.matchingStyleOverride(1);
-//            cbSortPalette.setDisable(true);
-//            logicController.sortPalette(false);
         }
-//        else if (source == cbSortPalette) {
-//            logicController.sortPalette(cbSortPalette.isSelected());
-//        }
-
 
     }
 
@@ -306,7 +291,7 @@ public class DocumentController implements Initializable {
 
 
 	//this will 'reset' the task after it has been run, re-using the task without this causes the thread to hang
-	//this is not an ideal way of handling the threading if more threads for other tasks are planned in the future, but is simple for now
+	//this is not an ideal way of handling the threading if more threads for other tasks are planned in the future, but is convenient for now
 	private void refreshTask() {
 		imageProcessorTask = new Task<>() {
 			@Override

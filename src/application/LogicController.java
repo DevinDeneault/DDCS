@@ -10,16 +10,22 @@ import net.sf.javaml.core.kdtree.KeySizeException;
 public class LogicController {
 
 	private Bridge bridgeClass = Bridge.getInstance();
-	private DdcsImage image = DdcsImage.getInstance();
+//	private DdcsImage image = DdcsImage.getInstance();
 	private DitherLibrary dither = DitherLibrary.getInstance();
 
 	private FileManager fileManager = new FileManager();					//class that will be managing all the file operations (opening, validating, etc.)
 //	private OLDImageProcessor imageProcessor = new OLDImageProcessor();			//class that will handle processing the image
 	private AdaptivePalette adaptivePaletteCalc = new AdaptivePalette();	//class that will calculate the adaptive palette
 
+    private IdedImage nullImage = new IdedImage(this.getClass().getResourceAsStream("/images/null.png"));
+
+    private IdedImage image = nullImage;
+
 	public Image getNewImage() {	//get and send off a selected image from a FileChooser; also remember it so it can be be used later
-		fileManager.loadBaseImage();
-		return image.image();
+//        fileManager.loadBaseImage();
+		image = fileManager.loadBaseImage();
+//		return image.image();
+        return image;
 	}
 
 	public Image processImage() {	//process the image according to the currently selected instructions
@@ -29,12 +35,7 @@ public class LogicController {
 //		imageProcessor.processImage(workingPalette);//---------------------------------------------------------------------------------------------------------------------------------------------------------------------
         KDTree kdTree;
         boolean useKdTree;
-        if(workingPalette.size() < 31) {
-            useKdTree = false;
-        } else {
-            useKdTree = true;
-
-        }
+        useKdTree = workingPalette.size() >= 31;
 
         ColorMatcher matcher;
         ImageProcessor imageProcessor;
@@ -57,20 +58,20 @@ public class LogicController {
 
         switch (dither.type()) {
             case "ordered":
-                imageProcessor = new ImageProcessorOrdered(matcher, image.image());
+                imageProcessor = new ImageProcessorOrdered(matcher, image);
                 break;
             case "none":
-                imageProcessor = new ImageProcessorNone(matcher, image.image());
+                imageProcessor = new ImageProcessorNone(matcher, image);
                 break;
             default:
-                imageProcessor = new ImageProcessorErrorDiff(matcher, image.image());
+                imageProcessor = new ImageProcessorErrorDiff(matcher, image);
                 break;
         }
 
         bridgeClass.updateProgressInfo("processing image . . .");
-        bridgeClass.updateProgress(image.height());
+        bridgeClass.updateProgress((int) image.getHeight());
 
-        image.setProcessedImage(imageProcessor.processImage());
+//        image.setProcessedImage(imageProcessor.processImage());
 
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -82,14 +83,15 @@ public class LogicController {
 	        bridgeClass.updateProgressInfo("complete !");
 		}
 
-		return image.processedImage();
+//		return image.processedImage();
+        return imageProcessor.processImage();
 	}
 
-	public void saveImage() { fileManager.saveImage(workingPalette); }
+	public void saveImage() { fileManager.saveImage(workingPalette, image); }
 
 
 
-	public Image getNullImage() { return image.nullImage(); }
+	public Image getNullImage() { return nullImage; }
 
 	public void loadUserPalette() {						//load and validate the user defined palette, also get it's size
 
@@ -122,7 +124,7 @@ public class LogicController {
                 false,
                 "adaptive",
                 false,
-                adaptivePaletteCalc.getAdaptivePalette(colorCount)));
+                adaptivePaletteCalc.getAdaptivePalette(colorCount, image)));
 
         updateSelectedPalette(index);
     }
@@ -280,10 +282,6 @@ public class LogicController {
         return output;
     }
 
-
-	private class ImageProcessorFactory {
-
-    }
 
 
 

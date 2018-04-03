@@ -18,14 +18,14 @@ public class PngSaver {
 	}
 
 	private Bridge bridgeClass = Bridge.getInstance();
-	private DdcsImage image = DdcsImage.getInstance();
+//	private DdcsImage image = DdcsImage.getInstance();
 
 	private FileChooser saver = new FileChooser();
 	private String savedFile = null;		//the full directory to the previously saved file
 	private String fileMatcher = ".*err";
 
 
-	public void saveImage(Palette palette) {
+	public void saveImage(Palette palette, IdedImage image) {
 		try {
 
 			File previousDirectory = null;
@@ -43,9 +43,9 @@ public class PngSaver {
 			} else {
 			    try {
 			    	if(palette.size() < 257) {													            //if the number of colors used is less than 257
-			    		saveImageAsIndexed(file, palette.get());				                            //save as a PNG with a indexed palette
+			    		saveImageAsIndexed(file, palette.get(), image);				                            //save as a PNG with a indexed palette
 			    	} else {
-			    		ImageIO.write(SwingFXUtils.fromFXImage(image.processedImage(), null), "PNG", file);	//save as a normal PNG (PNGs can only have up to 256 colors in a palette index)
+			    		ImageIO.write(SwingFXUtils.fromFXImage(image, null), "PNG", file);	//save as a normal PNG (PNGs can only have up to 256 colors in a palette index)
 			    	}
 			    } catch (IOException ignored) {
 
@@ -71,10 +71,10 @@ public class PngSaver {
 
 
 
-	private void saveImageAsIndexed(File fileLocation, int[][] palette) {	//main method
+	private void saveImageAsIndexed(File fileLocation, int[][] palette, IdedImage image) {	//main method
 		try {
 
-			BufferedImage bufferedImage = SwingFXUtils.fromFXImage(image.processedImage(), null);			//convert the image into the old style BufferedImage, only way I could find to do this whole process is with this
+			BufferedImage bufferedImage = SwingFXUtils.fromFXImage(image, null);			//convert the image into the old style BufferedImage, only way I could find to do this whole process is with this
 			IndexColorModel colorModel = makeColorModel(palette);							//make the color palette information
 			BufferedImage indexedImage = convertImage(bufferedImage, colorModel);			//make a new image using the indexed palette
 			saveImage(indexedImage, fileLocation);											//save the image

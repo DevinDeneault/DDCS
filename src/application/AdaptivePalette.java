@@ -8,9 +8,9 @@ import javafx.scene.paint.Color;
 public class AdaptivePalette {
 
 	private Bridge bridgeClass = Bridge.getInstance();
-	private DdcsImage image = DdcsImage.getInstance();
+//	private DdcsImage image = DdcsImage.getInstance();
 
-    private int lastProcessedImage = -1;                                            //the number of the previously processed image
+    private long lastProcessedImage = -1;                                            //the number of the previously processed image
 	private int colorCount = 1;
 
 	private int[][] calculatedPalette;
@@ -19,18 +19,23 @@ public class AdaptivePalette {
 
     private final ArrayList<int[][]> listColorArrays = new ArrayList<>();           //this list is the main container for all the color 'cubes'
 
+	private IdedImage image = null;
 
 
-    public int[][] getAdaptivePalette(int colors) {
+    public int[][] getAdaptivePalette(int colors, IdedImage _image) {
     	try {
 
-        	if(lastProcessedImage == image.imageNumber() && colorCount == colors) {	//if the user hasn't changed the base image or the number of colors they want, just return the existing result
+    	    image = _image;
+
+        	if(lastProcessedImage == image.getId() && colorCount == colors) {	//if the user hasn't changed the base image or the number of colors they want, just return the existing result
         		return calculatedPalette;
         	} else {
+
+
     			bridgeClass.updateProgressInfo("generating adaptive palette . . .");
     			bridgeClass.updateProgress(-1);
 
-                lastProcessedImage = image.imageNumber();
+                lastProcessedImage = image.getId();
         		colorCount = colors;
 
         		calculatedPalette = findAdaptivePalette();
@@ -195,14 +200,14 @@ public class AdaptivePalette {
         	int[][] colors;												//array for the color values
         	Color color;												//color object to get the values
 
-            PixelReader reader = image.image().getPixelReader();        //pixel reader to get the color values from the image
+            PixelReader reader = image.getPixelReader();        //pixel reader to get the color values from the image
 
-        	colors = new int[image.height() * image.width()][3];		//create the array with the appropriate dimensions
+        	colors = new int[(int) image.getHeight() * (int) image.getWidth()][3];		//create the array with the appropriate dimensions
 
         	int count = 0;												//counter for convenience
 
-        	for (int row = 0; row < image.height(); row++) {				//iterate through the rows of the image
-        		for (int column = 0; column < image.width(); column++) {	//iterate through the columns of the image
+        	for (int row = 0; row < image.getHeight(); row++) {				//iterate through the rows of the image
+        		for (int column = 0; column < image.getWidth(); column++) {	//iterate through the columns of the image
 
         			color = reader.getColor(column, row);				//get the color value of the current pixel
 

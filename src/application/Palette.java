@@ -67,9 +67,7 @@ public class Palette {
 
         private static int matchOverride = 0;
 
-        private static boolean getMatchOverrideType() {
-            return matchOverride != 1;      //0 is no override, 1 is match, 2 is map
-        }
+        private static boolean getMatchOverrideType() { return matchOverride != 1; }      //0 is no override, 1 is match, 2 is map
 
         private static double intensityRed = 0.2989;
         private static double intensityGreen = 0.5870;

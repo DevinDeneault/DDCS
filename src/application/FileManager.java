@@ -6,12 +6,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import javafx.scene.image.Image;
-
 public class FileManager {
 
     private Bridge bridgeClass = Bridge.getInstance();
-    private DdcsImage image = DdcsImage.getInstance();
+//    private DdcsImage image = DdcsImage.getInstance();
 
     private FileOpener imageChooser = new FileOpener("Open Image File", "images");
     private FileOpener paletteChooser = new FileOpener("Open Palette Text File", "text");
@@ -22,24 +20,24 @@ public class FileManager {
     //============= working with images ==============================================================================================================
     //================================================================================================================================================
 
-    public void loadBaseImage() {	//get an image file from a FileChooser and return it
+    public IdedImage loadBaseImage() {	//get an image file from a FileChooser and return it
         try {
 
             String imageLocation = imageChooser.getFileLocation();
 
-            if(imageLocation.equals("error")) {	//if the error message was received display a pre-packaged image showing something something is wrong
-                image.setImage(image.nullImage());
-            } else {
-                image.setImage(new Image("file:" + imageLocation));
+            if(!imageLocation.equals("error")) {	//if the error message was received display a pre-packaged image showing something something is wrong
+                return new IdedImage("file:" + imageLocation);
             }
 
         } catch(Exception e) { bridgeClass.handleError(classID, "03", e); }
+
+        return new IdedImage(this.getClass().getResourceAsStream("/images/null.png"));
     }
 
 
 
-    public void saveImage(Palette palette) {
-        imageSaver.saveImage(palette);
+    public void saveImage(Palette palette, IdedImage image) {
+        imageSaver.saveImage(palette, image);
     }
 
     public void savePalette(String colorString) { paletteSaver.saveText(colorString); }
