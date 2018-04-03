@@ -11,7 +11,7 @@ public class LogicController {
 	private DitherLibrary dither = DitherLibrary.getInstance();
 
 	private FileManager fileManager = new FileManager();					//class that will be managing all the file operations (opening, validating, etc.)
-	private ImageProcessor imageProcessor = new ImageProcessor();			//class that will handle processing the image
+	private OLDImageProcessor imageProcessor = new OLDImageProcessor();			//class that will handle processing the image
 	private AdaptivePalette adaptivePaletteCalc = new AdaptivePalette();	//class that will calculate the adaptive palette
 
 	public Image getNewImage() {	//get and send off a selected image from a FileChooser; also remember it so it can be be used later

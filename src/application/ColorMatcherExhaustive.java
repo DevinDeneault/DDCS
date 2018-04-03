@@ -13,14 +13,14 @@ public class ColorMatcherExhaustive implements ColorMatcher {
     }
 
     @Override
-    public Color getMatch(int[] currentColor) {
+    public Color getMatch(double[] currentColor) {
         int[] distances = new int[palette.size()];					//array of distances between current color and palette colors (they are being treated as coords in 3 dimensional space)
         int index;																//this value will be used to keep track of the index of the smallest distance in the list
 
         for (int i = 0; i < palette.size(); i++) {
-            int rDistance = currentColor[0] - palette.get(i, 0);
-            int gDistance = currentColor[1] - palette.get(i, 1);
-            int bDistance = currentColor[2] - palette.get(i, 2);
+            int rDistance = (int) currentColor[0] - palette.get(i, 0);
+            int gDistance = (int) currentColor[1] - palette.get(i, 1);
+            int bDistance = (int) currentColor[2] - palette.get(i, 2);
             int distance = (rDistance)*(rDistance) + (gDistance)*(gDistance) + (bDistance)*(bDistance);	//find the distance between the two points (returns 'squared distance' to avoid make costly square rooot calculations)
             distances[i] = distance;																	//add the newly found distance to the list of distances
         }

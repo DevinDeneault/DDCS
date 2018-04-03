@@ -1,19 +1,23 @@
 package application;
 
+import javafx.scene.paint.Color;
+
 abstract class DitherErrorDiffAbstract {
 
+    private DitherLibrary dither = DitherLibrary.getInstance();
 
     DitherErrorDiffAbstract() {
         //dither information OR object
     }
 
 
-    private double[] currentColor = new double[3];	//the current pixel's color values
-    private double[] newColor = new double[3];		//the new pixel's color values
+    //private double[] newColor = new double[3];		//the new pixel's color values
 
-    private int[][][] errorMatrix;                  //the matrix that will be used to store the error data for error-diffusion dithering
+    int imageHeight;
+    int imageWidth;
+    int[][][] errorMatrix;                  //the matrix that will be used to store the error data for error-diffusion dithering
 
-    private void spreadError(int column, int row) {			        //find and spread the error onto the error matrix for use in error-diffusion dithering
+    void spreadError(double[] currentColor, double[] newColor, int column, int row) {			        //find and spread the error onto the error matrix for use in error-diffusion dithering
         int redError = (int) (currentColor[0] - newColor[0]);		//red error is the current value minus the new value
         int greenError = (int) (currentColor[1] - newColor[1]);
         int blueError = (int) (currentColor[2] - newColor[2]);
@@ -28,7 +32,7 @@ abstract class DitherErrorDiffAbstract {
             column_new = column + (dither.get(i, 1));	        //defines X/Y of locations; values from the dither array are coordinates relative to the current pixel
             row_new = row + (dither.get(i, 0));
 
-            if( column_new < image.width() && column_new > 0 && row_new < image.height() ) {
+            if( column_new < imageWidth && column_new > 0 && row_new < imageHeight ) {
                 errorMatrix[row_new][column_new][0] += getErrorPortion(redError, numerator, denominator);
                 errorMatrix[row_new][column_new][1] += getErrorPortion(greenError, numerator, denominator);
                 errorMatrix[row_new][column_new][2] += getErrorPortion(blueError, numerator, denominator);
@@ -42,4 +46,19 @@ abstract class DitherErrorDiffAbstract {
         errorPortion = ((double) numerator / (double) denominator) * (double) error;
         return (int) Math.floor(errorPortion + 0.5d);									//return the value, rounded to the nearest whole number
     }
+
+    void defineCurrentPixelWithError(double[] currentColor, int column, int row, Color imageColor) {	//defines RGB values for current pixel, modified by the corresponding error value from the error matrix
+
+        currentColor[0] = (int) ((255 * imageColor.getRed()) + errorMatrix[row][column][0]);
+        currentColor[1] = (int) ((255 * imageColor.getGreen()) + errorMatrix[row][column][1]);
+        currentColor[2] = (int) ((255 * imageColor.getBlue()) + errorMatrix[row][column][2]);
+        currentColor[0] = Math.min(Math.max(currentColor[0], 0), 255);			//this will cap the value to the range of 0 to 255
+        currentColor[1] = Math.min(Math.max(currentColor[1], 0), 255);
+        currentColor[2] = Math.min(Math.max(currentColor[2], 0), 255);
+
+    }
+
+
+
+
 }

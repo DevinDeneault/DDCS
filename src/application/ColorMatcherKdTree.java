@@ -15,10 +15,10 @@ public class ColorMatcherKdTree implements ColorMatcher {
     }
 
     @Override
-    public Color getMatch(int[] currentColor) {
+    public Color getMatch(double[] currentColor) {
         Object node = null;
         try {
-            node = kdTree.nearest(arrayIntToDouble(currentColor));
+            node = kdTree.nearest(currentColor);
         } catch (KeySizeException e) {
             e.printStackTrace();
         }
@@ -32,12 +32,12 @@ public class ColorMatcherKdTree implements ColorMatcher {
         return Color.rgb(red, green, blue);
     }
 
-    private double[] arrayIntToDouble(int[] input) {	//convert an array of integers to an array of doubles
-
-        double[] output = new double[3];
-        for(int i=0; i < 3; i++) {
-            output[i] = input[i];
-        }
-        return output;
-    }
+//    private double[] arrayIntToDouble(int[] input) {	//convert an array of integers to an array of doubles
+//
+//        double[] output = new double[3];
+//        for(int i=0; i < 3; i++) {
+//            output[i] = input[i];
+//        }
+//        return output;
+//    }
 }

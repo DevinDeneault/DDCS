@@ -17,7 +17,7 @@ public class ColorMatcherMap implements ColorMatcher {
     }
 
     @Override
-    public Color getMatch(int[] currentColor) {
+    public Color getMatch(double[] currentColor) {
         double scale = (double) (palette.size() - 1) / 255;
 
         double intensity = intensityRed * currentColor[0] + intensityGreen * currentColor[1] + intensityBlue * currentColor[2];

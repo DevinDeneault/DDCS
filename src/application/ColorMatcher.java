@@ -4,6 +4,6 @@ import javafx.scene.paint.Color;
 
 public interface ColorMatcher {
 
-    public Color getMatch(int[] currentColor);
+    Color getMatch(double[] currentColor);
 
 }
