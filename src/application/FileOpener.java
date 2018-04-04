@@ -9,19 +9,15 @@ public class FileOpener {
 	FileOpener(String title, String type) {
 		chooser.setTitle(title);
 
-		if(type.equals("images")) {
+		if(type.equals("images"))
 			setExtensionImages();
-		} else if(type.equals("text")) {
+		else if(type.equals("text"))
 			setExtensionText();
-		}
 	}
-
-//	private Bridge bridgeClass = Bridge.getInstance();
 
 	private String selectedFile = null;		//the full directory to the previously selected file
 	private FileChooser chooser = new FileChooser();
 	private String fileMatcher = ".*err";	//a regex-ready string used to verify a file has the proper extension - initial value should never be seen
-
 
 
 	public String getFileLocation() {		//this method will return a string representation of a directory selected by the user
@@ -34,7 +30,7 @@ public class FileOpener {
 
 		chooser.setInitialDirectory(previousDirectory);				//a initial directory of "null" is acceptable and goes to your system's default directory - whatever that may be
 
-		File file = chooser.showOpenDialog(null);					//this actually shows the chooser window and returns a file object when closed
+		File file = chooser.showOpenDialog(null);		//this actually shows the chooser window and returns a file object when closed
 
 		if (file == null || !file.getPath().matches(fileMatcher)) {	//if the user closes the FileChooser without selecting anything OR somehow selects an invalid file
 			if(selectedFile != null) {
@@ -48,8 +44,6 @@ public class FileOpener {
 
 		return selectedFile;
 	}
-
-
 
 	private void setExtensionImages() {	//valid image options
 		chooser.getExtensionFilters().addAll(
@@ -65,6 +59,4 @@ public class FileOpener {
 		chooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
 		fileMatcher = ".*txt";
 	}
-
-
 }

@@ -1,13 +1,8 @@
 package application;
 
-import java.util.Arrays;
 import java.util.concurrent.BlockingQueue;
-
 import javafx.application.Platform;
-
 import javafx.scene.control.TextArea;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 public class Bridge {

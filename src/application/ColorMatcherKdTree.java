@@ -14,14 +14,15 @@ public class ColorMatcherKdTree implements ColorMatcher {
         kdTree = _kdTree;
     }
 
+    //this color matcher will take a color and sends it through a Kd-tree built from the palette colors
+    //  then returns the best match
+
     @Override
     public Color getMatch(double[] currentColor) {
         Object node = null;
         try {
             node = kdTree.nearest(currentColor);
-        } catch (KeySizeException e) {
-            e.printStackTrace();
-        }
+        } catch (KeySizeException e) { e.printStackTrace(); }
 
         int index = Integer.parseInt(node.toString());
 
@@ -32,12 +33,4 @@ public class ColorMatcherKdTree implements ColorMatcher {
         return Color.rgb(red, green, blue);
     }
 
-//    private double[] arrayIntToDouble(int[] input) {	//convert an array of integers to an array of doubles
-//
-//        double[] output = new double[3];
-//        for(int i=0; i < 3; i++) {
-//            output[i] = input[i];
-//        }
-//        return output;
-//    }
 }

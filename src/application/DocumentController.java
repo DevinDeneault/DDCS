@@ -45,10 +45,10 @@ public class DocumentController implements Initializable {
 		txtHelpAbout.setDisable(true);
 		txtHelpAbout.setVisible(false);
 
-		txtIntensityRed.setText("0.2989");
-		txtIntensityGreen.setText("0.5870");
-		txtIntensityBlue.setText("0.1140");
-        lblIntensity.setText(String.format("%.4f", (0.2989 + 0.5870 + 0.1140)));
+		txtIntensityRed.setText("0.299");
+		txtIntensityGreen.setText("0.587");
+		txtIntensityBlue.setText("0.114");
+        lblIntensity.setText(String.format("%.3f", (0.299 + 0.587 + 0.114)));
 
         txtIntensityRed.textProperty().addListener((observable, oldValue, newValue) -> intensityValidateUpdate() );
         txtIntensityGreen.textProperty().addListener((observable, oldValue, newValue) -> intensityValidateUpdate() );

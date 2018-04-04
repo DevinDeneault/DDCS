@@ -10,7 +10,7 @@ A number of built-in palettes are offered, you may define your own using a .txt 
 
 Some examples of color palettes: https://en.wikipedia.org/wiki/List_of_color_palettes
 
-Matching old colors to colors from a new palette is done through a K-d tree for large palettes and an exhaustive search for small palettes, as well as direct color intensity mapping for palettes like grayscales and gradients; this provides the best performance for each type of situation.
+Matching old colors to colors from a new palette is done through a K-d tree for large palettes and an exhaustive search for small palettes, as well as direct color luminance mapping for palettes like grayscales and gradients; this provides the best performance for each type of situation.
 
 The built in dithers offer a variety of error diffusion and ordered dither options.
 

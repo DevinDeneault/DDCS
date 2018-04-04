@@ -52,7 +52,6 @@
     -fx-background-color: #42403E;
 }
 
-
 .label,
 .radio-button,
 .check-box {
@@ -77,7 +76,6 @@
     -fx-border-width: 2px;
     -fx-border-color: #201816;
 }
-
 
 #help-text {
 	-fx-base: black;

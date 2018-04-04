@@ -1,7 +1,6 @@
 package application;
 
 import java.util.*;
-
 import javafx.scene.image.PixelReader;
 import javafx.scene.paint.Color;
 

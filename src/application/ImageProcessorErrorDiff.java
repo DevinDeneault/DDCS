@@ -34,11 +34,11 @@ public class ImageProcessorErrorDiff extends DitherErrorDiffAbstract implements 
         Color newColorRGB;
 
         pixelReader = image.getPixelReader();
-        imageNew = new WritableImage((int) image.getWidth(), (int) image.getHeight());	//make a new, blank writable image
-        pixelWriter = imageNew.getPixelWriter();						                //make the pixel writer for the new writable image
+        imageNew = new WritableImage((int) image.getWidth(), (int) image.getHeight());
+        pixelWriter = imageNew.getPixelWriter();
 
-        for (int row = 0; row < image.getHeight(); row++) {
-            for (int column = 0; column < image.getWidth(); column++) {
+        for( int row = 0; row < image.getHeight(); row++ ) {
+            for( int column = 0; column < image.getWidth(); column++ ) {
                 defineCurrentPixelWithError(currentColor, column, row, pixelReader.getColor(column, row));
 
                 newColorRGB = matcher.getMatch(currentColor);

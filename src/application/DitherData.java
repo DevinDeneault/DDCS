@@ -2,7 +2,11 @@ package application;
 
 public class DitherData {
 
-    private String type;
+    private String type;    //what kind of dither this is; ordered, error diffusion, ...
+
+    //the splitOrSize value represents one of two things
+    //  the size of an ordered dither bayer matrix -> X by X
+    //  or how many parts the error in an error diffusion dither will be split into
     private int splitOrSize;
     private int arraySize;
     private int[][] array;

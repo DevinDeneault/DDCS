@@ -43,8 +43,10 @@ public class Palette {
     public String imageName() { return imageName; }
     public boolean hidden() { return hidden; }
     public boolean mapped() {
-        if( PaletteSharedData.matchOverride == 0 ) { return mapped;
-        } else { return PaletteSharedData.getMatchOverrideType(); }
+        if( PaletteSharedData.matchOverride == 0 )
+            return mapped;
+        else
+            return PaletteSharedData.getMatchOverrideType();
     }
 
     //-----------------------------
@@ -69,8 +71,8 @@ public class Palette {
 
         private static boolean getMatchOverrideType() { return matchOverride != 1; }      //0 is no override, 1 is match, 2 is map
 
-        private static double intensityRed = 0.2989;
-        private static double intensityGreen = 0.5870;
-        private static double intensityBlue = 0.1140;
+        private static double intensityRed = 0.299;
+        private static double intensityGreen = 0.587;
+        private static double intensityBlue = 0.114;
     }
 }

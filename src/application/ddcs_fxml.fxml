@@ -215,6 +215,9 @@
                      <padding>
                         <Insets left="4.0" />
                      </padding>
+                     <VBox.margin>
+                        <Insets bottom="4.0" />
+                     </VBox.margin>
                   </RadioButton>
                </VBox>
                <VBox alignment="CENTER" maxWidth="220.0" minWidth="220.0" spacing="4.0" styleClass="section-box">
@@ -225,7 +228,7 @@
                      <Insets bottom="6.0" top="4.0" />
                   </padding>
                   <HBox>
-                     <Label text="Intensity Weights:">
+                     <Label text="Luminance Weights:">
                         <padding>
                            <Insets left="4.0" />
                         </padding>
@@ -235,18 +238,18 @@
                      </Label>
                      <Label fx:id="lblIntensity" text="0.998">
                         <HBox.margin>
-                           <Insets left="8.0" />
+                           <Insets left="16.0" />
                         </HBox.margin>
                      </Label>
                      <ImageView fx:id="imgResetIntensity" fitHeight="16.0" fitWidth="16.0" onMouseClicked="#handlerImgButtons" opacity="0.9" pickOnBounds="true" preserveRatio="true">
                         <HBox.margin>
-                           <Insets left="48.0" />
+                           <Insets left="32.0" />
                         </HBox.margin>
                      </ImageView>
                   </HBox>
                   <HBox alignment="CENTER">
                      <Label text="R : " />
-                     <TextField fx:id="txtIntensityRed" maxHeight="20.0" maxWidth="48.0" minHeight="20.0" minWidth="48.0" text="0.8888">
+                     <TextField fx:id="txtIntensityRed" maxHeight="20.0" maxWidth="44.0" minHeight="20.0" minWidth="44.0" text="0.888">
                         <font>
                            <Font size="11.0" />
                         </font>
@@ -256,7 +259,7 @@
                            <Insets left="4.0" />
                         </HBox.margin>
                      </Label>
-                     <TextField fx:id="txtIntensityGreen" maxHeight="20.0" maxWidth="48.0" minHeight="20.0" minWidth="48.0" text="0.8888">
+                     <TextField fx:id="txtIntensityGreen" maxHeight="20.0" maxWidth="44.0" minHeight="20.0" minWidth="44.0" text="0.888">
                         <font>
                            <Font size="11.0" />
                         </font>
@@ -266,7 +269,7 @@
                            <Insets left="4.0" />
                         </HBox.margin>
                      </Label>
-                     <TextField fx:id="txtIntensityBlue" maxHeight="20.0" maxWidth="48.0" minHeight="20.0" minWidth="48.0" text="0.8888">
+                     <TextField fx:id="txtIntensityBlue" maxHeight="20.0" maxWidth="44.0" minHeight="20.0" minWidth="44.0" text="0.888">
                         <font>
                            <Font size="11.0" />
                         </font>
