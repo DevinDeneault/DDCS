@@ -4,12 +4,7 @@ import javafx.scene.paint.Color;
 
 abstract class DitherOrderedAbstract {
 
-    private DitherLibrary dither = DitherLibrary.getInstance();
-
-    DitherOrderedAbstract() {
-        //dither information OR object
-    }
-
+    DitherData dither;
 
     void addThreshold(double[] currentColor, int column, int row) {	//adds the threshold value from the ordered dither matrix ("bayer matrix") to the pixel values
 

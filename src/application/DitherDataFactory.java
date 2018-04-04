@@ -1,121 +1,113 @@
 package application;
 
-public class DitherLibrary {
+public class DitherDataFactory {
 
     //---------------------------------------------------singleton
-    private static volatile DitherLibrary instance = null;
+    private static volatile DitherDataFactory instance = null;
 
-    private DitherLibrary() { }
+    private DitherDataFactory() { }
 
-    public static DitherLibrary getInstance() {
-        if (instance == null) {
-            synchronized (DitherLibrary.class) {
-                if (instance == null) {
-                    instance = new DitherLibrary();
-                }
+    public static DitherDataFactory getInstance() {
+        if( instance == null ) {
+            synchronized( DitherDataFactory.class ) {
+                if( instance == null )
+                    instance = new DitherDataFactory();
             }
         }
         return instance;
     }
     //---------------------------------------------------
 
-    private String ditherName = "- None -"; //name of the current dither selected by the user
-    private int[][] ditherArray;
-    private int split = 1;
-    private int gridSize = 2;
-    private int ditherArraySize = 0;
+    public DitherData getDitherData(String name) {
 
+        String type;
+        int splitOrSize;
+        int[][] ditherArray;
 
-    public void setDitherName(String name) {
-        ditherName = name;
-
-        setDitherArray();
-        ditherArraySize = ditherArray.length;
-    }
-
-    public String type() {	//determine is the dither is ordered, error-diffusion, or none
-        if(ditherName.contains("Ordered")) {
-            return "ordered";
-        } else if(ditherName.contains("None")) {
-            return "none";
-        } else {
-            return "diffusion";
-        }
-    }
-
-    public int split() { return split; }
-    public int gridSize() { return gridSize; }
-    public int arraySize() { return ditherArraySize; }
-
-    public int get(int y, int x) { return ditherArray[y][x]; }
-
-    private void setDitherArray() {
-        switch(ditherName) {
+        switch(name) {
             case "- None -":
-                split = 1;
+                type = "none";
+                splitOrSize = 1;
                 ditherArray = DITHER_NULL;
                 break;
             case "Floyd-Steinberg":
-                split = 16;
+                type = "diffusion";
+                splitOrSize = 16;
                 ditherArray = DITHER_FS;
                 break;
             case "Jarvis, Judice, & Ninke":
-                split = 48;
+                type = "diffusion";
+                splitOrSize = 48;
                 ditherArray = DITHER_JJN;
                 break;
             case "Stucki":
-                split = 42;
+                type = "diffusion";
+                splitOrSize = 42;
                 ditherArray = DITHER_ST;
                 break;
             case "Atkinson":
-                split = 8;
+                type = "diffusion";
+                splitOrSize = 8;
                 ditherArray = DITHER_AT;
                 break;
             case "Burkes":
-                split = 32;
+                type = "diffusion";
+                splitOrSize = 32;
                 ditherArray = DITHER_BU;
                 break;
             case "Sierra":
-                split = 32;
+                type = "diffusion";
+                splitOrSize = 32;
                 ditherArray = DITHER_SI;
                 break;
             case "Two-Row Sierra":
-                split = 16;
+                type = "diffusion";
+                splitOrSize = 16;
                 ditherArray = DITHER_SI_TR;
                 break;
             case  "Sierra Lite":
-                split = 4;
+                type = "diffusion";
+                splitOrSize = 4;
                 ditherArray = DITHER_SI_L;
                 break;
             case "Ordered [2x2]":
-                gridSize = 2;
+                type = "ordered";
+                splitOrSize = 2;
                 ditherArray = DITHER_ORDERED_2x2;
                 break;
             case "Ordered [3x3]":
-                gridSize = 3;
+                type = "ordered";
+                splitOrSize = 3;
                 ditherArray = DITHER_ORDERED_3x3;
                 break;
             case "Ordered [4x4]":
-                gridSize = 4;
+                type = "ordered";
+                splitOrSize = 4;
                 ditherArray = DITHER_ORDERED_4x4;
                 break;
             case "Ordered [4x4] [Negative]":
-                gridSize = 4;
+                type = "ordered";
+                splitOrSize = 4;
                 ditherArray = DITHER_ORDERED_4x4_N;
                 break;
             case "Ordered [8x8]":
-                gridSize = 8;
+                type = "ordered";
+                splitOrSize = 8;
                 ditherArray = DITHER_ORDERED_8x8;
                 break;
             case "Ordered [8x8] [Darkened]":
-                gridSize = 8;
+                type = "ordered";
+                splitOrSize = 8;
                 ditherArray = DITHER_ORDERED_8x8_D;
                 break;
             default:
+                type = "none";
+                splitOrSize = 1;
                 ditherArray = DITHER_NULL;
         }
-    }
 
+        return new DitherData(type, splitOrSize, ditherArray);
+    }
 
 
     //DITHER DATA

@@ -16,7 +16,7 @@ public class FileOpener {
 		}
 	}
 
-	private Bridge bridgeClass = Bridge.getInstance();
+//	private Bridge bridgeClass = Bridge.getInstance();
 
 	private String selectedFile = null;		//the full directory to the previously selected file
 	private FileChooser chooser = new FileChooser();
@@ -24,38 +24,30 @@ public class FileOpener {
 
 
 
-
 	public String getFileLocation() {		//this method will return a string representation of a directory selected by the user
-		try {
 
-			File previousDirectory = null;
+		File previousDirectory = null;
 
-			if(selectedFile != null) {			//make sure there was a previously selected file that can be used
-				previousDirectory = new File(selectedFile.substring(0, selectedFile.lastIndexOf("\\") + 1));	//cut off the file name, leaving just the directory
+		if(selectedFile != null) {			//make sure there was a previously selected file that can be used
+			previousDirectory = new File(selectedFile.substring(0, selectedFile.lastIndexOf("\\") + 1));	//cut off the file name, leaving just the directory
+		}
+
+		chooser.setInitialDirectory(previousDirectory);				//a initial directory of "null" is acceptable and goes to your system's default directory - whatever that may be
+
+		File file = chooser.showOpenDialog(null);					//this actually shows the chooser window and returns a file object when closed
+
+		if (file == null || !file.getPath().matches(fileMatcher)) {	//if the user closes the FileChooser without selecting anything OR somehow selects an invalid file
+			if(selectedFile != null) {
+				return selectedFile;								//the value of selectedFile hasn't been updated yet, so this will simply return the previously selected file
+			} else {
+				return "error";										//when all else fails send an error message instead
 			}
+		}
 
-			chooser.setInitialDirectory(previousDirectory);				//a initial directory of "null" is acceptable and goes to your system's default directory - whatever that may be
+		selectedFile = file.toString();
 
-			File file = chooser.showOpenDialog(null);					//this actually shows the chooser window and returns a file object when closed
-
-			if (file == null || !file.getPath().matches(fileMatcher)) {	//if the user closes the FileChooser without selecting anything OR somehow selects an invalid file
-				if(selectedFile != null) {
-					return selectedFile;								//the value of selectedFile hasn't been updated yet, so this will simply return the previously selected file
-				} else {
-					return "error";										//when all else fails send an error message instead
-				}
-			}
-
-			selectedFile = file.toString();
-
-			return selectedFile;
-
-        } catch(Exception e) { bridgeClass.handleError(classID, "00", e); } return null;
+		return selectedFile;
 	}
-
-
-
-
 
 
 
@@ -74,5 +66,5 @@ public class FileOpener {
 		fileMatcher = ".*txt";
 	}
 
-	private final String classID = "04";	//used as a reference when displaying errors
+
 }

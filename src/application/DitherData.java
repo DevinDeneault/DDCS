@@ -1,0 +1,24 @@
+package application;
+
+public class DitherData {
+
+    private String type;
+    private int splitOrSize;
+    private int arraySize;
+    private int[][] array;
+
+    DitherData(String _type, int _splitOrSize, int[][] _array) {
+        type = _type;
+        splitOrSize = _splitOrSize;
+        array = _array.clone();
+        arraySize = array.length;
+    }
+
+    public int get(int y, int x) { return array[y][x]; }
+
+    public String type() { return type; }
+    public int split() { return splitOrSize; }
+    public int gridSize() { return splitOrSize; }
+    public int arraySize() { return arraySize; }
+
+}

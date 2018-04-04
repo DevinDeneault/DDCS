@@ -4,8 +4,10 @@ import java.util.Arrays;
 import java.util.concurrent.BlockingQueue;
 
 import javafx.application.Platform;
-import javafx.scene.control.Label;
+
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 public class Bridge {
@@ -16,11 +18,10 @@ public class Bridge {
     private Bridge() { }
 
     public static Bridge getInstance() {
-        if (instance == null) {
-            synchronized (Bridge.class) {
-                if (instance == null) {
+        if( instance == null ) {
+            synchronized( Bridge.class ) {
+                if( instance == null )
                     instance = new Bridge();
-                }
             }
         }
         return instance;
@@ -29,7 +30,7 @@ public class Bridge {
 
 
 
-    Stage stage;
+    private Stage stage;
     private int[][] colorArray = new int[][]{{0,0,0}};
 
     public void setStage(Stage popupStage) {
@@ -38,7 +39,7 @@ public class Bridge {
 
     public void showStage() {
         stage.showAndWait();
-    }
+    }   //show the pop-up window
 
     public int[][] getColors() {
         return colorArray;
@@ -51,81 +52,52 @@ public class Bridge {
 
 
 
-
-
-
     //this class should be given references to a few things so it can create a line of communication between classes
-    private Label lblOutput;							    //javaFX label to output information to
     private BlockingQueue<Integer> progressQueue;			//a blocking queue for working with the progress bar
     private TextArea colorList;
+//    private TextArea errorOutput;
+//    private ImageView errorImage;
 
-    public void initialize(Label label, BlockingQueue<Integer> blockingQueue, TextArea textArea) {	//NOTE: 'null' values will be accepted, but this class won't do much of anything if that is the case
-        lblOutput = label;
+    public void initialize(BlockingQueue<Integer> blockingQueue, TextArea textArea2) {	//NOTE: 'null' values will be accepted, but this class won't do much of anything if that is the case
         progressQueue = blockingQueue;
-        colorList = textArea;
+        colorList = textArea2;
+//        errorOutput = textArea1;
+//        errorImage = imageView;
     }
 
 
 
     public void updateColorList (int[][] palette) {
-        try {
 
-            StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
 
-            for (int[] color: palette) {
-                sb.append(color[0]).append(",").append(color[1]).append(",").append(color[2]).append("\n");
-            }
+        for( int[] color: palette )
+            sb.append(color[0]).append(",").append(color[1]).append(",").append(color[2]).append("\n");
 
-            String colorsString = String.valueOf(sb);
+        String colorsString = String.valueOf(sb);
 
-            Platform.runLater(() -> {		//if you want to change certain attributes of UI controls in javaFX from another thread, you must use a runLater runnable
-                colorList.clear();
-                colorList.appendText(colorsString);
-            });
-        } catch(Exception e) {
-            handleError(classID, "01", e);
-        }
+        Platform.runLater(() -> {		//if you want to change certain attributes of UI controls in javaFX from another thread, you must use a runLater runnable
+            colorList.clear();
+            colorList.appendText(colorsString);
+        });
     }
-
-
 
 	public void updateProgress(int value) {
 		progressQueue.offer(value);
 	}
 
-	public void updateProgressInfo(String value) {
-
-		try {
-			Platform.runLater(() -> {		//if you want to change certain attributes of UI controls in javaFX from another thread, you must use a runLater runnable
-
-				if(lblOutput != null && !lblOutput.getText().contains("ERR:")) {	//if we have a label to output to and that label doesn't already contain an error message (which takes priority)
-					lblOutput.setText(value);
-				}
-			});
-		} catch(Exception e) {
-			handleError(classID, "00", e);
-		}
-	}
-
-	public void handleError(String classID, String methodID, Exception type) {
-		try {
-			Platform.runLater(() -> {
-
-				String exceptionType = type.toString();								//get the type of exception, cutting off the extra fluff at the beginning to save space
-				exceptionType = exceptionType.substring(exceptionType.lastIndexOf(".") + 1, exceptionType.length());
-
-				if(lblOutput == null && !lblOutput.getText().contains("ERR:")) {	//if no label was given to output to or there is already an error, just output to the console
-					System.out.println(classID + "." + methodID + "." + exceptionType);
-				} else {
-					lblOutput.setOpacity(1.0);
-					lblOutput.setStyle("-fx-text-fill: red");
-					lblOutput.setText("ERR:" + classID + "." + methodID + "." + exceptionType);
-				}
-			});
-		} catch(Exception e) {							//let's hope this never happens...
-			System.out.println("error in error handler\n" + Arrays.toString(e.getStackTrace()));
-		}
-	}
-
-	private final String classID = "00";	//used as a reference when displaying errors
+	//better exception handling needs to be implemented, retiring this for now
+//	public void handleError(String errorInfo, Exception type) {
+//		try {
+//			Platform.runLater(() -> {
+//
+//                errorImage.setImage(new Image(this.getClass().getResourceAsStream("/images/error.png")));
+//                errorOutput.setText(type + "\n" + errorInfo + "\n\n" + errorOutput.getText());
+//                System.out.println(type + "\n" + errorInfo + "\n");
+//
+//			});
+//		} catch( Exception e ) {  //let's hope this never happens...
+//			System.out.println("error in error handler\n" + Arrays.toString(e.getStackTrace()));
+//		}
+//	}
 }

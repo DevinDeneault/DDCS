@@ -13,8 +13,9 @@ public class ImageProcessorOrdered extends DitherOrderedAbstract implements Imag
 
     private ColorMatcher matcher;
     private Image image;
-    ImageProcessorOrdered(ColorMatcher _matcher, Image _image) {
+    ImageProcessorOrdered(ColorMatcher _matcher, DitherData _dither, Image _image) {
         matcher = _matcher;
+        dither = _dither;
         image = _image;
     }
 

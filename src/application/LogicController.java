@@ -10,21 +10,19 @@ import net.sf.javaml.core.kdtree.KeySizeException;
 public class LogicController {
 
 	private Bridge bridgeClass = Bridge.getInstance();
-//	private DdcsImage image = DdcsImage.getInstance();
-	private DitherLibrary dither = DitherLibrary.getInstance();
+	private DitherDataFactory ditherFactory = DitherDataFactory.getInstance();
 
 	private FileManager fileManager = new FileManager();					//class that will be managing all the file operations (opening, validating, etc.)
-//	private OLDImageProcessor imageProcessor = new OLDImageProcessor();			//class that will handle processing the image
 	private AdaptivePalette adaptivePaletteCalc = new AdaptivePalette();	//class that will calculate the adaptive palette
 
     private IdedImage nullImage = new IdedImage(this.getClass().getResourceAsStream("/images/null.png"));
 
     private IdedImage image = nullImage;
 
+    private String selectedDither;
+
 	public Image getNewImage() {	//get and send off a selected image from a FileChooser; also remember it so it can be be used later
-//        fileManager.loadBaseImage();
 		image = fileManager.loadBaseImage();
-//		return image.image();
         return image;
 	}
 
@@ -46,7 +44,7 @@ public class LogicController {
             kdTree = new KDTree(3);
             try {
                 for(int index = 0; index < workingPalette.size(); index++) {
-                        kdTree.insert(arrayIntToDouble(workingPalette.get(index)), index);
+                    kdTree.insert(arrayIntToDouble(workingPalette.get(index)), index);
                 }
             } catch (KeySizeException | KeyDuplicateException e) { e.printStackTrace(); }
 
@@ -55,20 +53,21 @@ public class LogicController {
             matcher = new ColorMatcherExhaustive(workingPalette);
         }
 
+        DitherData dither = ditherFactory.getDitherData(selectedDither);
 
         switch (dither.type()) {
             case "ordered":
-                imageProcessor = new ImageProcessorOrdered(matcher, image);
+                imageProcessor = new ImageProcessorOrdered(matcher, dither, image);
                 break;
             case "none":
                 imageProcessor = new ImageProcessorNone(matcher, image);
                 break;
             default:
-                imageProcessor = new ImageProcessorErrorDiff(matcher, image);
+                imageProcessor = new ImageProcessorErrorDiff(matcher, dither, image);
                 break;
         }
 
-        bridgeClass.updateProgressInfo("processing image . . .");
+//        bridgeClass.updateProgressInfo("processing image . . .");
         bridgeClass.updateProgress((int) image.getHeight());
 
 //        image.setProcessedImage(imageProcessor.processImage());
@@ -80,7 +79,7 @@ public class LogicController {
 		if(selectedPalette.id().equals("adaptive")) {
 			adaptivePaletteCalc.displayOriginalColorCount();
 		} else {
-	        bridgeClass.updateProgressInfo("complete !");
+//	        bridgeClass.updateProgressInfo("complete !");
 		}
 
 //		return image.processedImage();
@@ -108,7 +107,7 @@ public class LogicController {
 
 	public void updateSelectedPalette(int index) { selectedPalette = paletteList.get(index); }
 
-	public void updateSelectedDither(String name) { dither.setDitherName(name); }
+	public void updateSelectedDither(String name) { selectedDither = name; }
 
 	public int getPaletteSize() { return selectedPalette.size(); }
 
@@ -196,6 +195,9 @@ public class LogicController {
         return colorList.toArray(new int[colorList.size()][3]);
     }
 
+    public String getHelpText() {
+	    return fileManager.loadHelpText();
+    }
 
 
 
@@ -209,10 +211,7 @@ public class LogicController {
 
 
 	public Image getPaletteImage(int index) {	//take the name of the palette currently selected and return the preview image
-		try {
-			return new Image(this.getClass().getResourceAsStream("/palette_images/" + paletteList.get(getPaletteIndex(visiblePalettes[index])).imageName() + ".png"));
-        } catch(Exception e) { bridgeClass.handleError(classID, "01", e); }
-        return new Image(this.getClass().getResourceAsStream("/palette_images/error.png"));
+        return new Image(this.getClass().getResourceAsStream("/palette_images/" + paletteList.get(getPaletteIndex(visiblePalettes[index])).imageName() + ".png"));
 	}
 
 	public String[] toggleExtraPalettes(boolean showAll) {
@@ -286,6 +285,8 @@ public class LogicController {
 
 
 
+    private class PaletteFactory {
 
-    private final String classID = "02";	//used as a reference when displaying errors
+    }
+
 }

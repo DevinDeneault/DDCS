@@ -5,6 +5,7 @@ import javafx.stage.FileChooser;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 
 public class PaletteSaver {
 
@@ -20,12 +21,10 @@ public class PaletteSaver {
     private String fileMatcher = ".*err";
 
     private void setExtensionTxt() {
-        try {
 
-            saver.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("txt", "*.txt"));
-            fileMatcher = ".*txt";
+        saver.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("txt", "*.txt"));
+        fileMatcher = ".*txt";
 
-        } catch(Exception e) { bridgeClass.handleError(classID, "01", e); }
     }
 
 
@@ -35,8 +34,6 @@ public class PaletteSaver {
         BufferedWriter bw = null;
         FileWriter fw = null;
         try {
-
-
 
             File previousDirectory = null;
 
@@ -60,8 +57,7 @@ public class PaletteSaver {
 
             savedFile = file.toString();
 
-        } catch(Exception e) {
-            bridgeClass.handleError(classID, "00", e);
+        } catch (IOException e) { e.printStackTrace();
         } finally {
             try {
                 bw.close(); // Close the writer regardless of what happens...
@@ -70,10 +66,4 @@ public class PaletteSaver {
         }
     }
 
-
-
-
-
-
-    private final String classID = "08";	//used as a reference when displaying errors
 }

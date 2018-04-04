@@ -14,7 +14,6 @@
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.control.ToolBar?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -63,7 +62,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <ImageView fx:id="imgInfo" fitHeight="16.0" fitWidth="16.0" onMouseClicked="#handlerImgButton" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imgInfo" fitHeight="16.0" fitWidth="16.0" onMouseClicked="#handlerImgButtons" opacity="0.5" pickOnBounds="true" preserveRatio="true">
                <HBox.margin>
                   <Insets left="8.0" />
                </HBox.margin>
@@ -73,17 +72,6 @@
       <ProgressBar fx:id="prgProgress" maxHeight="12.0" maxWidth="256.0" minHeight="12.0" minWidth="256.0" progress="0.6" />
       <ScrollPane focusTraversable="false" hbarPolicy="NEVER" maxWidth="256.0" minWidth="256.0" VBox.vgrow="ALWAYS">
          <VBox maxWidth="256.0" minWidth="256.0">
-            <Label fx:id="lblProgress" alignment="CENTER" maxWidth="256.0" minWidth="256.0" opacity="0.6" text="[Loading Information]" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold Italic" size="12.0" />
-               </font>
-               <effect>
-                  <DropShadow color="#323232" height="7.0" radius="3.0" spread="1.0" width="7.0" />
-               </effect>
-               <VBox.margin>
-                  <Insets bottom="8.0" top="8.0" />
-               </VBox.margin>
-            </Label>
             <VBox alignment="CENTER" maxWidth="232.0" minWidth="232.0" styleClass="section-box">
                <VBox.margin>
                   <Insets left="6.0" right="6.0" top="12.0" />
@@ -99,7 +87,7 @@
                      <Insets bottom="8.0" />
                   </VBox.margin>
                </Label>
-               <ComboBox fx:id="cmbPaletteSelect" maxHeight="28.0" maxWidth="204.0" minHeight="28.0" minWidth="204.0" onAction="#handlerComboSelect" visibleRowCount="16" />
+               <ComboBox fx:id="cmbPaletteSelect" maxHeight="28.0" maxWidth="204.0" minHeight="28.0" minWidth="204.0" onAction="#handlerComboBoxes" visibleRowCount="16" />
                <HBox alignment="CENTER">
                   <VBox.margin>
                      <Insets bottom="8.0" top="8.0" />
@@ -172,7 +160,7 @@
                      <Insets bottom="8.0" />
                   </VBox.margin>
                </Label>
-               <ComboBox fx:id="cmbDitherSelect" maxHeight="28.0" maxWidth="204.0" minHeight="28.0" minWidth="204.0" onAction="#handlerComboSelect" visibleRowCount="16">
+               <ComboBox fx:id="cmbDitherSelect" maxHeight="28.0" maxWidth="204.0" minHeight="28.0" minWidth="204.0" onAction="#handlerComboBoxes" visibleRowCount="16">
                   <VBox.margin>
                      <Insets />
                   </VBox.margin>
@@ -185,125 +173,125 @@
             </Separator>
             <VBox alignment="CENTER" maxWidth="232.0" minWidth="232.0" styleClass="section-box">
                <VBox.margin>
-                  <Insets left="6.0" right="6.0" top="12.0"/>
+                  <Insets left="6.0" right="6.0" top="12.0" />
                </VBox.margin>
                <padding>
-                  <Insets bottom="12.0"/>
+                  <Insets bottom="12.0" />
                </padding>
                <Label maxHeight="24.0" maxWidth="228.0" minHeight="24.0" minWidth="228.0" styleClass="section-label" text="  Advanced Tinkering">
                   <font>
-                     <Font name="System Bold" size="12.0"/>
+                     <Font name="System Bold" size="12.0" />
                   </font>
                </Label>
                <VBox alignment="CENTER_LEFT" maxWidth="220.0" minWidth="220.0" spacing="4.0" styleClass="section-box">
                   <padding>
-                     <Insets bottom="6.0" top="4.0"/>
+                     <Insets bottom="6.0" top="4.0" />
                   </padding>
                   <VBox.margin>
-                     <Insets top="6.0"/>
+                     <Insets top="6.0" />
                   </VBox.margin>
                   <Label text="Matching Behavior:">
                      <padding>
-                        <Insets left="4.0"/>
+                        <Insets left="4.0" />
                      </padding>
                      <font>
-                        <Font name="System Bold" size="12.0"/>
+                        <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <RadioButton fx:id="rbtMatchDefault" mnemonicParsing="false" onAction="#handlerSearchOverrideOptions" selected="true" text="Default">
+                  <RadioButton fx:id="rbtMatchDefault" mnemonicParsing="false" onAction="#handlerRadioButtons" selected="true" text="Default">
                      <padding>
-                        <Insets left="4.0"/>
+                        <Insets left="4.0" />
                      </padding>
                      <toggleGroup>
-                        <ToggleGroup fx:id="tGroup1"/>
+                        <ToggleGroup fx:id="tGroup1" />
                      </toggleGroup>
                   </RadioButton>
-                  <RadioButton fx:id="rbtMatchSearch" mnemonicParsing="false" onAction="#handlerSearchOverrideOptions" text="Always search for best match." toggleGroup="$tGroup1">
+                  <RadioButton fx:id="rbtMatchSearch" mnemonicParsing="false" onAction="#handlerRadioButtons" text="Always search for best match." toggleGroup="$tGroup1">
                      <padding>
-                        <Insets left="4.0"/>
+                        <Insets left="4.0" />
                      </padding>
                   </RadioButton>
-                  <RadioButton fx:id="rbtMatchMap" mnemonicParsing="false" onAction="#handlerSearchOverrideOptions" text="Always map new palette to image." toggleGroup="$tGroup1">
+                  <RadioButton fx:id="rbtMatchMap" mnemonicParsing="false" onAction="#handlerRadioButtons" text="Always map new palette to image." toggleGroup="$tGroup1">
                      <padding>
-                        <Insets left="4.0"/>
+                        <Insets left="4.0" />
                      </padding>
                   </RadioButton>
                </VBox>
                <VBox alignment="CENTER" maxWidth="220.0" minWidth="220.0" spacing="4.0" styleClass="section-box">
                   <VBox.margin>
-                     <Insets top="4.0"/>
+                     <Insets top="4.0" />
                   </VBox.margin>
                   <padding>
-                     <Insets bottom="6.0" top="4.0"/>
+                     <Insets bottom="6.0" top="4.0" />
                   </padding>
                   <HBox>
                      <Label text="Intensity Weights:">
                         <padding>
-                           <Insets left="4.0"/>
+                           <Insets left="4.0" />
                         </padding>
                         <font>
-                           <Font name="System Bold" size="12.0"/>
+                           <Font name="System Bold" size="12.0" />
                         </font>
                      </Label>
                      <Label fx:id="lblIntensity" text="0.998">
                         <HBox.margin>
-                           <Insets left="8.0"/>
+                           <Insets left="8.0" />
                         </HBox.margin>
                      </Label>
-                     <ImageView fx:id="imgResetIntensity" fitHeight="16.0" fitWidth="16.0" onMouseClicked="#handlerImgButton" opacity="0.9" pickOnBounds="true" preserveRatio="true">
+                     <ImageView fx:id="imgResetIntensity" fitHeight="16.0" fitWidth="16.0" onMouseClicked="#handlerImgButtons" opacity="0.9" pickOnBounds="true" preserveRatio="true">
                         <HBox.margin>
-                           <Insets left="48.0"/>
+                           <Insets left="48.0" />
                         </HBox.margin>
                      </ImageView>
                   </HBox>
                   <HBox alignment="CENTER">
-                     <Label text="R : "/>
+                     <Label text="R : " />
                      <TextField fx:id="txtIntensityRed" maxHeight="20.0" maxWidth="48.0" minHeight="20.0" minWidth="48.0" text="0.8888">
                         <font>
-                           <Font size="11.0"/>
+                           <Font size="11.0" />
                         </font>
                      </TextField>
                      <Label text="G : ">
                         <HBox.margin>
-                           <Insets left="4.0"/>
+                           <Insets left="4.0" />
                         </HBox.margin>
                      </Label>
                      <TextField fx:id="txtIntensityGreen" maxHeight="20.0" maxWidth="48.0" minHeight="20.0" minWidth="48.0" text="0.8888">
                         <font>
-                           <Font size="11.0"/>
+                           <Font size="11.0" />
                         </font>
                      </TextField>
                      <Label text="B : ">
                         <HBox.margin>
-                           <Insets left="4.0"/>
+                           <Insets left="4.0" />
                         </HBox.margin>
                      </Label>
                      <TextField fx:id="txtIntensityBlue" maxHeight="20.0" maxWidth="48.0" minHeight="20.0" minWidth="48.0" text="0.8888">
                         <font>
-                           <Font size="11.0"/>
+                           <Font size="11.0" />
                         </font>
                      </TextField>
                   </HBox>
                </VBox>
                <VBox alignment="CENTER" maxWidth="220.0" minWidth="220.0" styleClass="section-box">
                   <VBox.margin>
-                     <Insets top="4.0"/>
+                     <Insets top="4.0" />
                   </VBox.margin>
                   <padding>
-                     <Insets bottom="6.0" top="4.0"/>
+                     <Insets bottom="6.0" top="4.0" />
                   </padding>
                   <HBox alignment="CENTER_LEFT">
                      <Label text="Show Extra Palettes:">
                         <padding>
-                           <Insets left="4.0"/>
+                           <Insets left="4.0" />
                         </padding>
                         <font>
-                           <Font name="System Bold" size="12.0"/>
+                           <Font name="System Bold" size="12.0" />
                         </font>
                      </Label>
                      <ToggleButton fx:id="tgbExtraPalettesToggle" focusTraversable="false" maxHeight="28.0" maxWidth="34.0" minHeight="28.0" minWidth="34.0" mnemonicParsing="false" onAction="#handlerButtons">
                         <HBox.margin>
-                           <Insets left="8.0"/>
+                           <Insets left="8.0" />
                         </HBox.margin>
                      </ToggleButton>
                   </HBox>

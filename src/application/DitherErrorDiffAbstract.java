@@ -4,13 +4,7 @@ import javafx.scene.paint.Color;
 
 abstract class DitherErrorDiffAbstract {
 
-    private DitherLibrary dither = DitherLibrary.getInstance();
-
-    DitherErrorDiffAbstract() {
-        //dither information OR object
-    }
-
-
+    DitherData dither;
     int imageHeight;
     int imageWidth;
     int[][][] errorMatrix;                  //the matrix that will be used to store the error data for error-diffusion dithering

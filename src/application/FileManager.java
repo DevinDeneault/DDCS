@@ -8,8 +8,7 @@ import java.util.Objects;
 
 public class FileManager {
 
-    private Bridge bridgeClass = Bridge.getInstance();
-//    private DdcsImage image = DdcsImage.getInstance();
+//    private Bridge bridgeClass = Bridge.getInstance();
 
     private FileOpener imageChooser = new FileOpener("Open Image File", "images");
     private FileOpener paletteChooser = new FileOpener("Open Palette Text File", "text");
@@ -21,17 +20,14 @@ public class FileManager {
     //================================================================================================================================================
 
     public IdedImage loadBaseImage() {	//get an image file from a FileChooser and return it
-        try {
 
-            String imageLocation = imageChooser.getFileLocation();
+        String imageLocation = imageChooser.getFileLocation();
 
-            if(!imageLocation.equals("error")) {	//if the error message was received display a pre-packaged image showing something something is wrong
-                return new IdedImage("file:" + imageLocation);
-            }
+        if( imageLocation.equals("error") ) //if the error message was received display a pre-packaged image showing something something is wrong
+            return new IdedImage(this.getClass().getResourceAsStream("/images/null.png"));
 
-        } catch(Exception e) { bridgeClass.handleError(classID, "03", e); }
+        return new IdedImage("file:" + imageLocation);
 
-        return new IdedImage(this.getClass().getResourceAsStream("/images/null.png"));
     }
 
 
@@ -42,6 +38,41 @@ public class FileManager {
 
     public void savePalette(String colorString) { paletteSaver.saveText(colorString); }
 
+
+
+    public String loadHelpText() {
+
+
+        StringBuilder completeText = new StringBuilder();	//we'll be holding all the text in a single string
+
+        InputStream inputStream = getClass().getResourceAsStream("/txt/help.txt");
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+
+        try {
+
+            String line = bufferedReader.readLine();
+
+            while(line != null) {
+
+                completeText.append("\n").append(line);
+
+                line = bufferedReader.readLine();
+            }
+
+        } catch (Exception err) {
+            return "";	//something went wrong, return the fall-back value
+        } finally {
+            try {
+                bufferedReader.close();
+                inputStream.close();
+            } catch (Exception err) {
+                //-------------------------
+            }
+        }
+
+        return completeText.toString();
+//     return "";
+    }
 
 
     //============= working with palette files ================================================================================================
@@ -148,57 +179,56 @@ public class FileManager {
 
 
     public int[][] validatePalette(String fileLocation, Boolean externalFile) {	//this will read and validate a text file containing palette data
+
+        ArrayList<int[]> colorList = new ArrayList<>();		//values will be stored here while being read from the file
+        int[][] colorArray;                     			//values will be stored here for further use
+        InputStream inputStream = null;
+        BufferedReader bufferedReader = null;
+
         try {
+            if (externalFile) {				//if the file being loaded is from an external source
+                inputStream = new FileInputStream(fileLocation);
+            } else {		                //if the file being loaded is packaged with the program (inside the project)
+                inputStream = getClass().getResourceAsStream(fileLocation);
+            }
 
-            ArrayList<int[]> colorList = new ArrayList<>();		//values will be stored here while being read from the file
-            int[][] colorArray;                     			//values will be stored here for further use
-            InputStream inputStream = null;
-            BufferedReader bufferedReader = null;
+            assert inputStream != null;
+            bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
 
-            try {
-                if (externalFile) {				//if the file being loaded is from an external source
-                    inputStream = new FileInputStream(fileLocation);
-                } else {		                //if the file being loaded is packaged with the program (inside the project)
-                    inputStream = getClass().getResourceAsStream(fileLocation);
-                }
+            String line = bufferedReader.readLine();
 
-                assert inputStream != null;
-                bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+            while(line != null) {
 
-                String line = bufferedReader.readLine();
-
-                while(line != null) {
-
-                    if(line.contains("meta")) {
-                        line = bufferedReader.readLine();
-                        continue;
-                    }
-
-                    colorStringToArray(colorList, line);
-
+                if(line.contains("meta")) {
                     line = bufferedReader.readLine();
+                    continue;
                 }
 
-                colorArray = colorList.toArray(new int[colorList.size()][3]);
+                colorStringToArray(colorList, line);
 
+                line = bufferedReader.readLine();
+            }
+
+            colorArray = colorList.toArray(new int[colorList.size()][3]);
+
+        } catch (Exception err) {
+            return new int[][]{{0, 0, 0}};	//something went wrong, return the fall-back value
+        } finally {
+            try {
+                Objects.requireNonNull(bufferedReader).close();
+                inputStream.close();
             } catch (Exception err) {
-                return new int[][]{{0, 0, 0}};	//something went wrong, return the fall-back value
-            } finally {
-                try {
-                    Objects.requireNonNull(bufferedReader).close();
-                    inputStream.close();
-                } catch (Exception err) {
-                    //-------------------------
-                }
+                //-------------------------
             }
+        }
 
-            if (colorArray.length == 0) {       //if the text file was empty or had no valid colors, return fall-back value
-                return new int[][]{{0, 0, 0}};
-            } else {
-                return colorArray;
-            }
+        if (colorArray.length == 0) {       //if the text file was empty or had no valid colors, return fall-back value
+            return new int[][]{{0, 0, 0}};
+        } else {
+            return colorArray;
+        }
 
-        } catch(Exception e) { bridgeClass.handleError(classID, "02", e); } return null;
+//        return null;
     }
 
 
@@ -228,6 +258,4 @@ public class FileManager {
         //if the line was formatted improperly, ignore it and move on
     }
 
-
-    private final String classID = "03";	//used as a reference when displaying errors
 }

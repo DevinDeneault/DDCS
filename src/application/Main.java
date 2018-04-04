@@ -11,8 +11,8 @@ import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-
-import java.awt.*;
+import java.awt.Point;
+import java.awt.MouseInfo;
 
 public class Main extends Application {
 
@@ -34,9 +34,8 @@ public class Main extends Application {
 
 
 
-
-
-
+        //pop-up window showing a graphical representation of the selected palette
+        //  perhaps not the ideal place to build this window, but it's simple, so it's easier just to get it done here
         Canvas popupCanvas = new Canvas();
         Group popupGroup = new Group();
         popupGroup.getChildren().add(popupCanvas);
@@ -82,10 +81,12 @@ public class Main extends Application {
             int spacingY;
 
             int neededRows;
-            double numColumns;  //double to retain double type in division below
+            double numColumns;
 
-            if( numColors < 11767 ) {
-                if( numColors > 1024 ) {
+            //depending on the size of the palette we need to render things differently
+            if( numColors < 11767 ) {   //the most colors we can show
+
+                if( numColors > 1024 ) {    //show just the colors, no outlines or spacing
                     numColumns = 106;
                     squareWidth = 3;
                     squareHeight = 2;
@@ -101,11 +102,12 @@ public class Main extends Application {
                     }
 
                     int incompleteRowSize = colors.length % 106;
-                    if( incompleteRowSize != 0 ) {
+                    if( incompleteRowSize != 0 )
                         gc.strokeLine( (incompleteRowSize * 3 + 3.5), (neededRows * 2 + 1.5), (incompleteRowSize * 3 + 4.5), (neededRows * 2 + 1.5));
-                    }
 
                 } else {
+
+                    //draw colors with 1px borders and 1px spacing at various sizes depending on how many colors we are working with
                     if( numColors < 257 ) {
                         numColumns = 16;
                         squareWidth = 18;
@@ -136,14 +138,13 @@ public class Main extends Application {
                         }
                     }
                 }
-            } else {
+            } else {    //palette is to large, just tell the user that
                 gc.setFill(Color.BLACK);
                 gc.fillText("Palette is too large to be displayed.", 16, 16);
             }
         });
 
-        bridgeClass.setStage(popupStage);
-
+        bridgeClass.setStage(popupStage);   //give the bridge class a reference to our now little window, so it can be called to be shown from elsewhere in the program
     }
 
     /**

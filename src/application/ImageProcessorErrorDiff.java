@@ -12,8 +12,9 @@ public class ImageProcessorErrorDiff extends DitherErrorDiffAbstract implements 
 
     private ColorMatcher matcher;
     private Image image;
-    ImageProcessorErrorDiff(ColorMatcher _matcher, Image _image) {
+    ImageProcessorErrorDiff(ColorMatcher _matcher, DitherData _dither, Image _image) {
         matcher = _matcher;
+        dither = _dither;
         image = _image;
     }
 
