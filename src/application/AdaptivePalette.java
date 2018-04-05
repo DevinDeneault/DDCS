@@ -8,12 +8,12 @@ public class AdaptivePalette {
 
 	private Bridge bridgeClass = Bridge.getInstance();
 
-    private long lastProcessedImage = -1; //the id number of the previously processed image
+    private long lastProcessedImage = -1;   //the id number of the previously processed image
 	private int colorCount = 1;
 
 	private int[][] calculatedPalette;
 
-//    private int origColorCount = 0;   //the number of colors the original image has
+    private int origColorCount = 0;         //the number of colors the original image has
 
     private final ArrayList<int[][]> listColorArrays = new ArrayList<>();   //this list is the main container for all the color 'cubes'
 
@@ -151,79 +151,52 @@ public class AdaptivePalette {
         bMin = colors[colors.length - 1][2];
         bDiff = bMax - bMin;
 
-        if(	    	((rDiff >= gDiff)   &&  (rDiff >= bDiff))	) {	 //if the red range is greater than or equal to the other two ranges
-            Arrays.sort(colors, (o1, o2) -> Integer.compare(o2[0], o1[0]));  //sort the array by the red values
-        } else if(  ((gDiff >= rDiff)   &&  (gDiff > bDiff)) |
-                    ((gDiff > rDiff)    &&  (gDiff >= bDiff))	) { //if the green range is greater than both other ranges OR greater than red and equal to blue
-            Arrays.sort(colors, (o1, o2) -> Integer.compare(o2[1], o1[1]));  //sort the array by the green values
-        } else if(  ((bDiff >= rDiff)	&&  (bDiff > gDiff)) |
-                    ((bDiff > rDiff)	&&  (bDiff >= gDiff))	) { //if the blue range is greater than both other ranges OR greater than red and equal to green
-            Arrays.sort(colors, (o1, o2) -> Integer.compare(o2[2], o1[2]));  //sort the array by the blue values
-        } else {    //if something went wrong, shouldn't happen, but who knows, just return red as the sorting array
-            Arrays.sort(colors, (o1, o2) -> Integer.compare(o2[0], o1[0]));
-        }
+        //in the event of two or all three of the ranges are equal, we just have to make a decision on which one should be used
+        //  current priority order is red, green, blue
+        if( (rDiff >= gDiff) && (rDiff >= bDiff) )                          //if the red range is greater than or equal to the other two ranges
+            Arrays.sort(colors, (o1, o2) -> Integer.compare(o2[0], o1[0])); //sort the array by the red values
+        else if( gDiff >= bDiff )                                           //else if the green range is greater than or equal to the blue range
+            Arrays.sort(colors, (o1, o2) -> Integer.compare(o2[1], o1[1])); //sort the array by the green values
+        else                                                                //else the blue range is larger than both other ranges
+            Arrays.sort(colors, (o1, o2) -> Integer.compare(o2[2], o1[2])); //sort the array by the blue values
     }
 
 
     //================================================================================================================================================
-    private int[][] createInitialArray() {							//this method will populate the initial sub-array
+    private int[][] createInitialArray() {              //this method will populate the initial sub-array
 
-        int[][] colors;												//array for the color values
-        Color color;												//color object to get the values
+        Set<Integer> colorHashSet = new HashSet<>();    //a HashSet of all the colors values, duplicates automatically removed due to the nature of HashSets
 
-        PixelReader reader = image.getPixelReader();                //pixel reader to get the color values from the image
+        Color color;
 
-        colors = new int[(int) image.getHeight() * (int) image.getWidth()][3];		//create the array with the appropriate dimensions
+        PixelReader reader = image.getPixelReader();
 
-        int count = 0;												    //counter for convenience
+        for( int row = 0; row < image.getHeight(); row++ ) {
+            for( int column = 0; column < image.getWidth(); column++ ) {
+                color = reader.getColor(column, row);
 
-        for( int row = 0; row < image.getHeight(); row++ ) {			//iterate through the rows of the image
-            for( int column = 0; column < image.getWidth(); column++ ) {//iterate through the columns of the image
-
-                color = reader.getColor(column, row);				    //get the color value of the current pixel
-
-                colors[count][0] = (int) (255 * color.getRed());        //turn the color values into a proper 0-255 numbers and store them in the new array
-                colors[count][1] = (int) (255 * color.getGreen());
-                colors[count][2] = (int) (255 * color.getBlue());
-
-                count++;
+                //color values are received as a value between 0 to 1, so convert them to 0 to 255
+                //  then collapse them into a single int
+                //  this is SIGNIFICANTLY better performing than a HashSet of int[]
+                colorHashSet.add((0xFF << 24) |
+                                 ((int) (255 * color.getRed()) << 16) |
+                                 ((int) (255 * color.getGreen()) << 8) |
+                                 ((int) (255 * color.getBlue())) );
             }
         }
 
-        return removeDuplicateColors(colors);
-    }
+        int[][] colorArray = new int[colorHashSet.size()][3];
 
-
-	//================================================================================================================================================
-    private int[][] removeDuplicateColors(int[][] originalArray) {		//this method removes duplicate entries from the color array
-
-        Integer[] simplifiedArray = new Integer[originalArray.length];	//create a second array the same size as the original
-        int count = 0;
-
-        for( int[] color : originalArray ) {
-            int intColor = (0xFF << 24) | (color[0] << 16) | (color[1] << 8) | (color[2]);	//combined the colors into a single integer value
-            simplifiedArray[count] = intColor;												//add that integer value into the new array
-            count++;
+        int index = 0;
+        for( int colorInt : colorHashSet ) {
+            colorArray[index][0] = (colorInt >> 16) & 0xFF;   //split the color values out of the integer value and set them as the RGB values for the color in the new array
+            colorArray[index][1] = (colorInt >> 8) & 0xFF;
+            colorArray[index++][2] = (colorInt) & 0xFF;
         }
 
-        Set<Integer> tmpSet = new HashSet<>(Arrays.asList(simplifiedArray));	//converting the array into a set will auto-magically remove all duplicate entries
+        origColorCount = colorHashSet.size();
 
-        Integer[] cleanedArray = tmpSet.toArray(new Integer[tmpSet.size()]);	//create a new array and store all the color values in it, now without duplicates
-
-        int[][] newArray = new int[cleanedArray.length][3];						//create a new array to get those color values in a proper RGB format
-        count = 0;
-
-        for( Integer color : cleanedArray ) {			//iterate through the array of integer values without duplicates
-
-            newArray[count][0] = (color >> 16) & 0xFF;	//split the color values out of the integer value and set them as the RGB values for the color in the new array
-            newArray[count][1] = (color >> 8) & 0xFF;
-            newArray[count][2] = (color) & 0xFF;
-            count++;
-        }
-
-//        	origColorCount = newArray.length;
-
-        return newArray;
+        return colorArray;
     }
 
 }

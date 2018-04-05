@@ -1,11 +1,11 @@
 package application;
 
-import java.util.*;
-
 import javafx.scene.image.Image;
 import net.sf.javaml.core.kdtree.KDTree;
 import net.sf.javaml.core.kdtree.KeyDuplicateException;
 import net.sf.javaml.core.kdtree.KeySizeException;
+import java.util.ArrayList;
+import java.util.Map;
 
 public class LogicController {
 
@@ -20,6 +20,13 @@ public class LogicController {
     private IdedImage image = nullImage;
 
     private String selectedDither;
+
+    private Palette selectedPalette;
+    private Palette workingPalette;
+
+    private ArrayList<Palette> paletteList = new ArrayList<>();
+    private String[] visiblePalettes;
+
 
 	public Image getNewImage() {	//get and send off a selected image from a FileChooser; also remember it so it can be be used later
 		image = fileManager.loadBaseImage();
@@ -38,57 +45,45 @@ public class LogicController {
         ColorMatcher matcher;
         ImageProcessor imageProcessor;
 
-        if (workingPalette.mapped()) {
+        if( workingPalette.mapped() )
             matcher = new ColorMatcherMap(workingPalette);
-        } else if (useKdTree) {
+        else if( useKdTree ) {
             kdTree = new KDTree(3);
             try {
-                for(int index = 0; index < workingPalette.size(); index++) {
+                for( int index = 0; index < workingPalette.size(); index++ )
                     kdTree.insert(arrayIntToDouble(workingPalette.get(index)), index);
-                }
             } catch (KeySizeException | KeyDuplicateException e) { e.printStackTrace(); }
 
             matcher = new ColorMatcherKdTree(workingPalette, kdTree);
-        } else {
+        } else
             matcher = new ColorMatcherExhaustive(workingPalette);
-        }
 
         DitherData dither = ditherFactory.getDitherData(selectedDither);
 
-        switch (dither.type()) {
-            case "ordered":
+        switch( dither.type() ) {
+            case ORDERED:
                 imageProcessor = new ImageProcessorOrdered(matcher, dither, image);
                 break;
-            case "none":
-                imageProcessor = new ImageProcessorNone(matcher, image);
+            case ERROR_DIFFUSION:
+                imageProcessor = new ImageProcessorErrorDiff(matcher, dither, image);
                 break;
             default:
-                imageProcessor = new ImageProcessorErrorDiff(matcher, dither, image);
+                imageProcessor = new ImageProcessorNone(matcher, image);
                 break;
         }
 
-//        bridgeClass.updateProgressInfo("processing image . . .");
         bridgeClass.updateProgress((int) image.getHeight());
-
-//        image.setProcessedImage(imageProcessor.processImage());
-
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 		//setting the loading progress to say complete or, if you used an adaptive palette, the number of colors in the original image
 		//doing this here out of convenience, might be appropriate to move it to the document controller in the future
-		if(selectedPalette.id().equals("adaptive")) {
+		if(selectedPalette.id().equals("adaptive"))
 			adaptivePaletteCalc.displayOriginalColorCount();
-		} else {
-//	        bridgeClass.updateProgressInfo("complete !");
-		}
 
-//		return image.processedImage();
         return imageProcessor.processImage();
 	}
 
 	public void saveImage() { fileManager.saveImage(workingPalette, image); }
-
-
 
 	public Image getNullImage() { return nullImage; }
 
@@ -96,13 +91,11 @@ public class LogicController {
 
         int[][] userPalette = fileManager.loadUserPalette();
 
-        if (userPalette.length > 1) {
+        if( userPalette.length > 1 )
             bridgeClass.updateColorList(userPalette);
-        } else {
-            if (!(userPalette[0][0] == 0 && userPalette[0][1] == 0 && userPalette[0][2] == 0)) {
+        else
+            if( !(userPalette[0][0] == 0 && userPalette[0][1] == 0 && userPalette[0][2] == 0) )
                 bridgeClass.updateColorList(userPalette);
-            }
-        }
 	}
 
 	public void updateSelectedPalette(int index) { selectedPalette = paletteList.get(index); }
@@ -140,7 +133,7 @@ public class LogicController {
 
         int[][] colorArray = validateColors(colorsString);
 
-        if (colorArray.length == 0) { colorArray = new int[][]{{0,0,0}}; }
+        if( colorArray.length == 0 ) { colorArray = new int[][]{{0,0,0}}; }
 
         int index = getPaletteIndex("user");
 
@@ -158,10 +151,6 @@ public class LogicController {
     }
 
 
-
-//    public void sortPalette(boolean sort) {
-//        paletteList.get(0).setSortOverride(sort);   //static value, setting it in one carries to all
-//    }
     public void matchingStyleOverride(int type) {
 	    paletteList.get(0).setMachOverride(type);   //static value, setting it in one carries to all
     }
@@ -169,28 +158,21 @@ public class LogicController {
 
     public void setColorIntensityValues(double iR, double iG, double iB) {
         paletteList.get(0).setIntensities(iR, iG, iB);  //static values, setting it in one carries to all
-//        imageProcessor.setColorIntensityValues(iR, iG, iB);
     }
 
-
-
     public void showPaletteViewer(String colorsString) {
-
         int[][] colorArray = validateColors(colorsString);
         bridgeClass.setColors(colorArray);
 	    bridgeClass.showStage();
     }
 
 
-
-
     private int[][] validateColors(String colorsString) {
         String[] colorStringArray = colorsString.split("\n");
         ArrayList<int[]> colorList = new ArrayList<>();
 
-        for (String color: colorStringArray) {
+        for( String color: colorStringArray )
             FileManager.colorStringToArray(colorList, color);
-        }
 
         return colorList.toArray(new int[colorList.size()][3]);
     }
@@ -198,7 +180,6 @@ public class LogicController {
     public String getHelpText() {
 	    return fileManager.loadHelpText();
     }
-
 
 
 
@@ -217,9 +198,8 @@ public class LogicController {
 	public String[] toggleExtraPalettes(boolean showAll) {
         ArrayList<String> paletteNames = new ArrayList<>();
 
-        for(Palette palette : paletteList) {
+        for( Palette palette : paletteList )
             if( (!palette.hidden()) || (palette.hidden() && showAll) ) { paletteNames.add(palette.name()); }
-        }
 
         visiblePalettes = new String[paletteNames.size()];
         visiblePalettes = paletteNames.toArray(visiblePalettes);
@@ -235,11 +215,11 @@ public class LogicController {
         String paletteFile;
         ArrayList<String> paletteNames = new ArrayList<>();
 
-        for(String palette : internalPaletteList) {
+        for( String palette : internalPaletteList ) {
 
             paletteFile = "/palette_txt/" + palette + ".txt";
 
-            metaData = fileManager.getMetaData(paletteFile, false);
+            metaData = fileManager.getMetaData(paletteFile);
 
             paletteList.add(new Palette(
                     metaData.get("name"),
@@ -262,22 +242,11 @@ public class LogicController {
 
 
 
-    private Palette selectedPalette;
-	private Palette workingPalette;
-
-	private ArrayList<Palette> paletteList = new ArrayList<>();
-	private String[] visiblePalettes;
-
-
-
-
-
     private double[] arrayIntToDouble(int[] input) {	//convert an array of integers to an array of doubles
 
         double[] output = new double[3];
-        for(int i=0; i < 3; i++) {
+        for( int i=0; i < 3; i++ )
             output[i] = input[i];
-        }
         return output;
     }
 

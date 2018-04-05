@@ -234,15 +234,15 @@ public class DocumentController implements Initializable {
             if( (iR + iG + iB) <= 1.0 )
                 lblIntensity.setStyle("-fx-text-fill: #A2A09E");
             else {
-                iR = 0.2989;
-                iG = 0.5870;
-                iB = 0.1140;
+                iR = 0.299;
+                iG = 0.587;
+                iB = 0.114;
                 lblIntensity.setStyle("-fx-text-fill: red");
             }
         } catch( NumberFormatException e ) {
-            iR = 0.2989;
-            iG = 0.5870;
-            iB = 0.1140;
+            iR = 0.299;
+            iG = 0.587;
+            iB = 0.114;
             lblIntensity.setText("ERROR");
             lblIntensity.setStyle("-fx-text-fill: red");
         }

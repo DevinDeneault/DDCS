@@ -2,14 +2,14 @@ package application;
 
 import javafx.scene.paint.Color;
 
-abstract class DitherErrorDiffAbstract {
+public abstract class DitherErrorDiffAbstract {
 
     DitherData dither;
     int imageHeight;
     int imageWidth;
     int[][][] errorMatrix;  //the matrix that will be used to store the error data for error-diffusion dithering
 
-    void spreadError(double[] currentColor, double[] newColor, int column, int row) {   //find and spread the error onto the error matrix for use in error-diffusion dithering
+    public void spreadError(double[] currentColor, double[] newColor, int column, int row) {   //find and spread the error onto the error matrix for use in error-diffusion dithering
         int redError = (int) (currentColor[0] - newColor[0]);		//red error is the current value minus the new value
         int greenError = (int) (currentColor[1] - newColor[1]);
         int blueError = (int) (currentColor[2] - newColor[2]);
@@ -39,7 +39,7 @@ abstract class DitherErrorDiffAbstract {
         return (int) Math.floor(errorPortion + 0.5d);									//return the value, rounded to the nearest whole number
     }
 
-    void defineCurrentPixelWithError(double[] currentColor, int column, int row, Color imageColor) {	//defines RGB values for current pixel, modified by the corresponding error value from the error matrix
+    public void defineCurrentPixelWithError(double[] currentColor, int column, int row, Color imageColor) {	//defines RGB values for current pixel, modified by the corresponding error value from the error matrix
 
         currentColor[0] = (int) ((255 * imageColor.getRed()) + errorMatrix[row][column][0]);
         currentColor[1] = (int) ((255 * imageColor.getGreen()) + errorMatrix[row][column][1]);

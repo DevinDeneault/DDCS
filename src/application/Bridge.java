@@ -62,7 +62,7 @@ public class Bridge {
 
 
 
-    public void updateColorList (int[][] palette) {
+    public void updateColorList(int[][] palette) {
 
         StringBuilder sb = new StringBuilder();
 

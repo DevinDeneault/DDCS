@@ -38,7 +38,7 @@ public class FileManager {
         paletteSaver.savePalette(colorString);
     }
 
-    public int[][] loadUserPalette() {          //open the FileChooser for the user to select their custom palette and then validate it
+    int[][] loadUserPalette() {          //open the FileChooser for the user to select their custom palette and then validate it
 
         String paletteLocation = paletteChooser.getFileLocation();
 
@@ -48,7 +48,7 @@ public class FileManager {
             return validatePalette(paletteLocation, true);
     }
 
-    public Map<String, String> getMetaData(String fileLocation, Boolean externalFile) { //grab the metadata from a palette file - only relevant to the built in palettes right now
+    public Map<String, String> getMetaData(String fileLocation) { //grab the metadata from a palette file - only relevant to the built in palettes right now
 
         Map<String, String> meta = new HashMap<>();
         String[] info;
@@ -56,10 +56,7 @@ public class FileManager {
         BufferedReader bufferedReader = null;
 
         try {
-            if( externalFile )				//if the file being loaded is from an external source
-                inputStream = new FileInputStream(fileLocation);
-            else	                        //if the file being loaded is packaged with the program (inside the project)
-                inputStream = getClass().getResourceAsStream(fileLocation);
+            inputStream = getClass().getResourceAsStream(fileLocation);
 
             assert inputStream != null;
             bufferedReader = new BufferedReader(new InputStreamReader(inputStream));

@@ -15,7 +15,7 @@ public class ColorMatcherMap implements ColorMatcher {
     //  the color is matched to the color in the palette that occupies that scaled luminance position
     //  NOTE:   this assumes the palette is already sorted from darkest to lightest (lowest to highest luminance)
     //          if it is not then the results wild be wildly incorrect, but can produce some fun and interesting results
-    //          a good example is the built in 's2p' and 'b2s2b2p' color palettes that take advantage of this matching scheme
+    //          a good example is the built in 's2p' and 'b2p2b2p' color palettes that take advantage of this matching scheme
 
     @Override
     public Color getMatch(double[] currentColor) {

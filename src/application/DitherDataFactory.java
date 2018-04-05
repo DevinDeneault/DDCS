@@ -1,5 +1,7 @@
 package application;
 
+import static application.DitherType.*;
+
 public class DitherDataFactory {
 
     //---------------------------------------------------singleton
@@ -20,88 +22,88 @@ public class DitherDataFactory {
 
     public DitherData getDitherData(String name) {
 
-        String type;
+        DitherType type;
         int splitOrSize;
         int[][] ditherArray;
 
-        switch(name) {
+        switch( name ) {
             case "- None -":
-                type = "none";
+                type = NONE;
                 splitOrSize = 1;
                 ditherArray = DITHER_NULL;
                 break;
             case "Floyd-Steinberg":
-                type = "diffusion";
+                type = ERROR_DIFFUSION;
                 splitOrSize = 16;
                 ditherArray = DITHER_FS;
                 break;
             case "Jarvis, Judice, & Ninke":
-                type = "diffusion";
+                type = ERROR_DIFFUSION;
                 splitOrSize = 48;
                 ditherArray = DITHER_JJN;
                 break;
             case "Stucki":
-                type = "diffusion";
+                type = ERROR_DIFFUSION;
                 splitOrSize = 42;
                 ditherArray = DITHER_ST;
                 break;
             case "Atkinson":
-                type = "diffusion";
+                type = ERROR_DIFFUSION;
                 splitOrSize = 8;
                 ditherArray = DITHER_AT;
                 break;
             case "Burkes":
-                type = "diffusion";
+                type = ERROR_DIFFUSION;
                 splitOrSize = 32;
                 ditherArray = DITHER_BU;
                 break;
             case "Sierra":
-                type = "diffusion";
+                type = ERROR_DIFFUSION;
                 splitOrSize = 32;
                 ditherArray = DITHER_SI;
                 break;
             case "Two-Row Sierra":
-                type = "diffusion";
+                type = ERROR_DIFFUSION;
                 splitOrSize = 16;
                 ditherArray = DITHER_SI_TR;
                 break;
             case  "Sierra Lite":
-                type = "diffusion";
+                type = ERROR_DIFFUSION;
                 splitOrSize = 4;
                 ditherArray = DITHER_SI_L;
                 break;
             case "Ordered [2x2]":
-                type = "ordered";
+                type = ORDERED;
                 splitOrSize = 2;
                 ditherArray = DITHER_ORDERED_2x2;
                 break;
             case "Ordered [3x3]":
-                type = "ordered";
+                type = ORDERED;
                 splitOrSize = 3;
                 ditherArray = DITHER_ORDERED_3x3;
                 break;
             case "Ordered [4x4]":
-                type = "ordered";
+                type = ORDERED;
                 splitOrSize = 4;
                 ditherArray = DITHER_ORDERED_4x4;
                 break;
             case "Ordered [4x4] [Negative]":
-                type = "ordered";
+                type = ORDERED;
                 splitOrSize = 4;
                 ditherArray = DITHER_ORDERED_4x4_N;
                 break;
             case "Ordered [8x8]":
-                type = "ordered";
+                type = ORDERED;
                 splitOrSize = 8;
                 ditherArray = DITHER_ORDERED_8x8;
                 break;
             case "Ordered [8x8] [Darkened]":
-                type = "ordered";
+                type = ORDERED;
                 splitOrSize = 8;
                 ditherArray = DITHER_ORDERED_8x8_D;
                 break;
             default:
-                type = "none";
+                type = NONE;
                 splitOrSize = 1;
                 ditherArray = DITHER_NULL;
         }
