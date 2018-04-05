@@ -22,7 +22,7 @@ public class ColorMatcherExhaustive implements ColorMatcher {
             int rDistance = (int) currentColor[0] - palette.get(i, 0);
             int gDistance = (int) currentColor[1] - palette.get(i, 1);
             int bDistance = (int) currentColor[2] - palette.get(i, 2);
-            int distance = (rDistance)*(rDistance) + (gDistance)*(gDistance) + (bDistance)*(bDistance);	//find the distance between the two points (returns 'squared distance' to avoid making costly square root calculations)
+            int distance = (rDistance)*(rDistance) + (gDistance)*(gDistance) + (bDistance)*(bDistance);    //find the distance between the two points (returns 'squared distance' to avoid making costly square root calculations)
             distances[i] = distance;
         }
 

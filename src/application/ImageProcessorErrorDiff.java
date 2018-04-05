@@ -54,7 +54,7 @@ public class ImageProcessorErrorDiff extends DitherErrorDiffAbstract implements 
     }
 
     private void rgbToArray(double[] array, Color color) {  //gets RGB values for current pixel
-        array[0] = (int) (255 * color.getRed());		    //get the color value (returns a 0 to 1 value, multiply by 255 to get proper value)
+        array[0] = (int) (255 * color.getRed());            //get the color value (returns a 0 to 1 value, multiply by 255 to get proper value)
         array[1] = (int) (255 * color.getGreen());
         array[2] = (int) (255 * color.getBlue());
     }

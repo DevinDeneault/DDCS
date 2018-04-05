@@ -14,7 +14,7 @@ public class PaletteSaver {
     }
 
     private FileChooser saver = new FileChooser();
-    private String savedFile = null;		//the full directory to the previously saved file
+    private String savedFile = null;        //the full directory to the previously saved file
     private String fileMatcher = ".*err";   //a regex-ready string used to verify a file has the proper extension - initial value should never be seen
 
     private void setExtensionTxt() {

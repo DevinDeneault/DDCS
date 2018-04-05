@@ -42,7 +42,7 @@ public class ImageProcessorNone implements ImageProcessor {
     }
 
     private void defineCurrentPixel(double[] currentColor, Color imageColor) {  //gets RGB values for current pixel
-        currentColor[0] = (int) (255 * imageColor.getRed());		//get the color value (returns a 0 to 1 value, multiply by 255 to get proper value)
+        currentColor[0] = (int) (255 * imageColor.getRed());                    //get the color value (returns a 0 to 1 value, multiply by 255 to get proper value)
         currentColor[1] = (int) (255 * imageColor.getGreen());
         currentColor[2] = (int) (255 * imageColor.getBlue());
     }

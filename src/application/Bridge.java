@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 
 public class Bridge {
 
-	//---------------------------------------------------singleton
+    //---------------------------------------------------singleton
     private static volatile Bridge instance = null;
 
     private Bridge() { }
@@ -48,16 +48,12 @@ public class Bridge {
 
 
     //this class should be given references to a few things so it can create a line of communication between classes
-    private BlockingQueue<Integer> progressQueue;			//a blocking queue for working with the progress bar
+    private BlockingQueue<Integer> progressQueue;    //a blocking queue for working with the progress bar
     private TextArea colorList;
-//    private TextArea errorOutput;
-//    private ImageView errorImage;
 
-    public void initialize(BlockingQueue<Integer> blockingQueue, TextArea textArea2) {	//NOTE: 'null' values will be accepted, but this class won't do much of anything if that is the case
+    public void initialize(BlockingQueue<Integer> blockingQueue, TextArea textArea2) {    //NOTE: 'null' values will be accepted, but this class won't do much of anything if that is the case
         progressQueue = blockingQueue;
         colorList = textArea2;
-//        errorOutput = textArea1;
-//        errorImage = imageView;
     }
 
 
@@ -71,28 +67,28 @@ public class Bridge {
 
         String colorsString = String.valueOf(sb);
 
-        Platform.runLater(() -> {		//if you want to change certain attributes of UI controls in javaFX from another thread, you must use a runLater runnable
+        Platform.runLater(() -> {    //if you want to change certain attributes of UI controls in javaFX from another thread, you must use a runLater runnable
             colorList.clear();
             colorList.appendText(colorsString);
         });
     }
 
-	public void updateProgress(int value) {
-		progressQueue.offer(value);
-	}
+    public void updateProgress(int value) {
+    progressQueue.offer(value);
+    }
 
-	//better exception handling needs to be implemented, retiring this for now
-//	public void handleError(String errorInfo, Exception type) {
-//		try {
-//			Platform.runLater(() -> {
+    //better exception handling needs to be implemented, retiring this for now
+//    public void handleError(String errorInfo, Exception type) {
+//    try {
+//    Platform.runLater(() -> {
 //
 //                errorImage.setImage(new Image(this.getClass().getResourceAsStream("/images/error.png")));
 //                errorOutput.setText(type + "\n" + errorInfo + "\n\n" + errorOutput.getText());
 //                System.out.println(type + "\n" + errorInfo + "\n");
 //
-//			});
-//		} catch( Exception e ) {  //let's hope this never happens...
-//			System.out.println("error in error handler\n" + Arrays.toString(e.getStackTrace()));
-//		}
-//	}
+//    });
+//    } catch( Exception e ) {  //let's hope this never happens...
+//    System.out.println("error in error handler\n" + Arrays.toString(e.getStackTrace()));
+//    }
+//    }
 }

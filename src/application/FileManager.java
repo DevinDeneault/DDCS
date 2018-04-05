@@ -72,7 +72,7 @@ public class FileManager {
             }
 
         } catch (Exception err) {
-            return null;	//something went wrong, return the fall-back value
+            return null;    //something went wrong, return the fall-back value
         } finally {
             try {
                 Objects.requireNonNull(bufferedReader).close();
@@ -115,17 +115,17 @@ public class FileManager {
         return paletteInfo.toArray(new String[paletteInfo.size()]);
     }
 
-    public int[][] validatePalette(String fileLocation, Boolean externalFile) {	//read and validate all the color values from a palette file
+    public int[][] validatePalette(String fileLocation, Boolean externalFile) {    //read and validate all the color values from a palette file
 
-        ArrayList<int[]> colorList = new ArrayList<>();		//values will be stored here while being read from the file
-        int[][] colorArray;                     			//values will be stored here for further use
+        ArrayList<int[]> colorList = new ArrayList<>();     //values will be stored here while being read from the file
+        int[][] colorArray;                                 //values will be stored here for further use
         InputStream inputStream = null;
         BufferedReader bufferedReader = null;
 
         try {
-            if (externalFile)				//if the file being loaded is from an external source
+            if (externalFile)                   //if the file being loaded is from an external source
                 inputStream = new FileInputStream(fileLocation);
-            else	                        //if the file being loaded is packaged with the program (inside the project)
+            else                                //if the file being loaded is packaged with the program (inside the project)
                 inputStream = getClass().getResourceAsStream(fileLocation);
 
             assert inputStream != null;
@@ -147,7 +147,7 @@ public class FileManager {
             colorArray = colorList.toArray(new int[colorList.size()][3]);
 
         } catch (Exception err) {
-            return new int[][]{{0, 0, 0}};	//something went wrong, return the fall-back value
+            return new int[][]{{0, 0, 0}};      //something went wrong, return the fall-back value
         } finally {
             try {
                 Objects.requireNonNull(bufferedReader).close();
@@ -155,7 +155,7 @@ public class FileManager {
             } catch (IOException e) { e.printStackTrace(); }
         }
 
-        if (colorArray.length == 0)         //if the text file was empty or had no valid colors, return fall-back value
+        if (colorArray.length == 0)             //if the text file was empty or had no valid colors, return fall-back value
             return new int[][]{{0, 0, 0}};
         else
             return colorArray;
@@ -164,9 +164,9 @@ public class FileManager {
     public static void colorStringToArray(ArrayList<int[]> colorList, String line) {
         String[] colorString;
         int[] colorInt;
-        if(line.matches("\\d?\\d?\\d,\\d?\\d?\\d,\\d?\\d?\\d")) {	//lines must obey the following format => <color>,<color>,<color>
+        if(line.matches("\\d?\\d?\\d,\\d?\\d?\\d,\\d?\\d?\\d")) { //lines must obey the following format => <color>,<color>,<color>
 
-            colorString = line.split(",");						//separate the 3 color values
+            colorString = line.split(",");                        //separate the 3 color values
 
             colorInt = new int[3];
 
@@ -176,9 +176,9 @@ public class FileManager {
 
             //the regex already guarantees that there won't be any negative numbers, but we also need to make sure that no value is above the maximum of 255
             if(red < 256 && green < 256 && blue < 256) {
-                colorInt[0] = red;			//red value
-                colorInt[1] = green;		//green value
-                colorInt[2] = blue;			//blue value
+                colorInt[0] = red;          //red value
+                colorInt[1] = green;        //green value
+                colorInt[2] = blue;         //blue value
 
                 colorList.add(colorInt);
             }
@@ -192,7 +192,7 @@ public class FileManager {
 
     public String loadHelpText() {
 
-        StringBuilder completeText = new StringBuilder();	//we'll be holding all the text in a single string
+        StringBuilder completeText = new StringBuilder();    //we'll be holding all the text in a single string
 
         InputStream inputStream = getClass().getResourceAsStream("/txt/help.txt");
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
@@ -207,7 +207,7 @@ public class FileManager {
             }
 
         } catch (Exception err) {
-            return "";	//something went wrong, return a fall-back value
+            return "";    //something went wrong, return a fall-back value
         } finally {
             try {
                 bufferedReader.close();

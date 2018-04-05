@@ -16,7 +16,7 @@ import java.awt.MouseInfo;
 
 public class Main extends Application {
 
-	@Override
+    @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("ddcs_fxml.fxml"));
 

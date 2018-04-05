@@ -29,13 +29,13 @@ public class ImageProcessorOrdered extends DitherOrderedAbstract implements Imag
         double[] currentColor = new double[3];
 
         pixelReader = image.getPixelReader();
-        imageNew = new WritableImage((int) image.getWidth(), (int) image.getHeight());	//make a new, blank writable image
-        pixelWriter = imageNew.getPixelWriter();						                //make the pixel writer for the new writable image
+        imageNew = new WritableImage((int) image.getWidth(), (int) image.getHeight());
+        pixelWriter = imageNew.getPixelWriter();
 
         for( int row = 0; row < image.getHeight(); row++ ) {
             for( int column = 0; column < image.getWidth(); column++ ) {
                 defineCurrentPixel(currentColor, pixelReader.getColor(column, row));
-                addThreshold(currentColor, column, row);                                            //add threshold from the ordered dither matrix ("bayer matrix") to the current pixel values
+                addThreshold(currentColor, column, row);                        //add threshold from the ordered dither matrix ("bayer matrix") to the current pixel values
                 pixelWriter.setColor(column, row, matcher.getMatch(currentColor));
             }
             bridgeClass.updateProgress(1);

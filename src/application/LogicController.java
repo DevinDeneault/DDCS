@@ -9,11 +9,11 @@ import java.util.Map;
 
 public class LogicController {
 
-	private Bridge bridgeClass = Bridge.getInstance();
-	private DitherDataFactory ditherFactory = DitherDataFactory.getInstance();
+    private Bridge bridgeClass = Bridge.getInstance();
+    private DitherDataFactory ditherFactory = DitherDataFactory.getInstance();
 
-	private FileManager fileManager = new FileManager();					//class that will be managing all the file operations (opening, validating, etc.)
-	private AdaptivePalette adaptivePaletteCalc = new AdaptivePalette();	//class that will calculate the adaptive palette
+    private FileManager fileManager = new FileManager();                    //class that will be managing all the file operations (opening, validating, etc.)
+    private AdaptivePalette adaptivePaletteCalc = new AdaptivePalette();    //class that will calculate the adaptive palette
 
     private IdedImage nullImage = new IdedImage(this.getClass().getResourceAsStream("/images/null.png"));
 
@@ -28,16 +28,16 @@ public class LogicController {
     private String[] visiblePalettes;
 
 
-	public Image getNewImage() {	//get and send off a selected image from a FileChooser; also remember it so it can be be used later
-		image = fileManager.loadBaseImage();
+    public Image getNewImage() {    //get and send off a selected image from a FileChooser; also remember it so it can be be used later
+        image = fileManager.loadBaseImage();
         return image;
-	}
+    }
 
-	public Image processImage() {	//process the image according to the currently selected instructions
+    public Image processImage() {   //process the image according to the currently selected instructions
 
         workingPalette = selectedPalette;
 
-//		imageProcessor.processImage(workingPalette);//---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//        imageProcessor.processImage(workingPalette);//---------------------------------------------------------------------------------------------------------------------------------------------------------------------
         KDTree kdTree;
         boolean useKdTree;
         useKdTree = workingPalette.size() >= 31;
@@ -75,19 +75,19 @@ public class LogicController {
         bridgeClass.updateProgress((int) image.getHeight());
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-		//setting the loading progress to say complete or, if you used an adaptive palette, the number of colors in the original image
-		//doing this here out of convenience, might be appropriate to move it to the document controller in the future
-		if(selectedPalette.id().equals("adaptive"))
-			adaptivePaletteCalc.displayOriginalColorCount();
+        //setting the loading progress to say complete or, if you used an adaptive palette, the number of colors in the original image
+        //doing this here out of convenience, might be appropriate to move it to the document controller in the future
+        if(selectedPalette.id().equals("adaptive"))
+            adaptivePaletteCalc.displayOriginalColorCount();
 
         return imageProcessor.processImage();
-	}
+    }
 
-	public void saveImage() { fileManager.saveImage(workingPalette, image); }
+    public void saveImage() { fileManager.saveImage(workingPalette, image); }
 
-	public Image getNullImage() { return nullImage; }
+    public Image getNullImage() { return nullImage; }
 
-	public void loadUserPalette() {						//load and validate the user defined palette, also get it's size
+    public void loadUserPalette() {             //load and validate the user defined palette, also get it's size
 
         int[][] userPalette = fileManager.loadUserPalette();
 
@@ -96,15 +96,15 @@ public class LogicController {
         else
             if( !(userPalette[0][0] == 0 && userPalette[0][1] == 0 && userPalette[0][2] == 0) )
                 bridgeClass.updateColorList(userPalette);
-	}
+    }
 
-	public void updateSelectedPalette(int index) { selectedPalette = paletteList.get(index); }
+    public void updateSelectedPalette(int index) { selectedPalette = paletteList.get(index); }
 
-	public void updateSelectedDither(String name) { selectedDither = name; }
+    public void updateSelectedDither(String name) { selectedDither = name; }
 
-	public int getPaletteSize() { return selectedPalette.size(); }
+    public int getPaletteSize() { return selectedPalette.size(); }
 
-	public void generateAdaptivePalette(int colorCount) {
+    public void generateAdaptivePalette(int colorCount) {
 
         int index = getPaletteIndex("adaptive");
 
@@ -122,14 +122,14 @@ public class LogicController {
     }
 
     public void updateColorListDisplay() {
-	    bridgeClass.updateColorList(selectedPalette.get());
+        bridgeClass.updateColorList(selectedPalette.get());
     }
 
     public void saveUserColorList(String colorsString) {
-	    fileManager.savePalette(colorsString);
+        fileManager.savePalette(colorsString);
     }
 
-	public void validateUserColorList(String colorsString) {
+    public void validateUserColorList(String colorsString) {
 
         int[][] colorArray = validateColors(colorsString);
 
@@ -151,9 +151,7 @@ public class LogicController {
     }
 
 
-    public void matchingStyleOverride(int type) {
-	    paletteList.get(0).setMachOverride(type);   //static value, setting it in one carries to all
-    }
+    public void matchingStyleOverride(int type) { paletteList.get(0).setMachOverride(type); }   //static value, setting it in one carries to all }
 
 
     public void setColorIntensityValues(double iR, double iG, double iB) {
@@ -163,7 +161,7 @@ public class LogicController {
     public void showPaletteViewer(String colorsString) {
         int[][] colorArray = validateColors(colorsString);
         bridgeClass.setColors(colorArray);
-	    bridgeClass.showStage();
+        bridgeClass.showStage();
     }
 
 
@@ -177,25 +175,23 @@ public class LogicController {
         return colorList.toArray(new int[colorList.size()][3]);
     }
 
-    public String getHelpText() {
-	    return fileManager.loadHelpText();
-    }
+    public String getHelpText() { return fileManager.loadHelpText(); }
 
 
 
 
     private int getPaletteIndex(String idOrName) {
-	    int index = 0;
-	    while( !idOrName.equals(paletteList.get(index).id()) && !idOrName.equals(paletteList.get(index).name()) ) { index++; }
-	    return index;
+        int index = 0;
+        while( !idOrName.equals(paletteList.get(index).id()) && !idOrName.equals(paletteList.get(index).name()) ) { index++; }
+        return index;
     }
 
 
-	public Image getPaletteImage(int index) {	//take the name of the palette currently selected and return the preview image
+    public Image getPaletteImage(int index) {   //take the name of the palette currently selected and return the preview image
         return new Image(this.getClass().getResourceAsStream("/palette_images/" + paletteList.get(getPaletteIndex(visiblePalettes[index])).imageName() + ".png"));
-	}
+    }
 
-	public String[] toggleExtraPalettes(boolean showAll) {
+    public String[] toggleExtraPalettes(boolean showAll) {
         ArrayList<String> paletteNames = new ArrayList<>();
 
         for( Palette palette : paletteList )
@@ -208,7 +204,7 @@ public class LogicController {
     }
 
 
-    public String[] loadPalettes() {	//load all the palette data from the text files into the HashMap
+    public String[] loadPalettes() {    //load all the palette data from the text files into the HashMap
 
         String[] internalPaletteList = fileManager.getBuiltInPaletteList();
         Map<String, String> metaData;
@@ -242,7 +238,7 @@ public class LogicController {
 
 
 
-    private double[] arrayIntToDouble(int[] input) {	//convert an array of integers to an array of doubles
+    private double[] arrayIntToDouble(int[] input) {    //convert an array of integers to an array of doubles
 
         double[] output = new double[3];
         for( int i=0; i < 3; i++ )
