@@ -44,7 +44,7 @@ public class LogicController {
 
         //set the progress bar to a meaningful number
         //  in this case each completed row of the image is one unit of progress
-        //  so the number of rows of the image is equal to 100% mark
+        //  so the number of rows of the image is equal to the 100% mark
         bridgeClass.updateProgress((int) image.getHeight());
 
         return imageProcessorBuilder().processImage();
