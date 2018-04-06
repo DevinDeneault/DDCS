@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 
 //a file chooser to save an image
@@ -26,7 +27,7 @@ public class PngSaver {
     private String savedFile = null;        //the full directory to the previously saved file
     private String fileMatcher = ".*err";   //a regex-ready string used to verify a file has the proper extension - initial value should never be seen
 
-    public void saveImage(Palette palette, IdedImage image) {
+    public void saveImage(Palette palette, Image image) {
 
         File previousDirectory = null;
 
@@ -57,7 +58,7 @@ public class PngSaver {
         fileMatcher = ".*png";
     }
 
-    private void saveImageAsIndexed(File fileLocation, int[][] palette, IdedImage image) {  //main method
+    private void saveImageAsIndexed(File fileLocation, int[][] palette, Image image) {  //main method
         BufferedImage bufferedImage = SwingFXUtils.fromFXImage(image, null);          //convert the image into the old style BufferedImage, only way I could find to do this whole process is with this
         IndexColorModel colorModel = makeColorModel(palette);                               //make the color palette information
         BufferedImage indexedImage = convertImage(bufferedImage, colorModel);               //make a new image using the indexed palette

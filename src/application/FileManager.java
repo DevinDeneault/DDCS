@@ -1,5 +1,7 @@
 package application;
 
+import javafx.scene.image.Image;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,7 +31,7 @@ public class FileManager {
         return new IdedImage("file:" + imageLocation);
     }
 
-    public void saveImage(Palette palette, IdedImage image) {
+    public void saveImage(Palette palette, Image image) {
         imageSaver.saveImage(palette, image);
     }
 

@@ -21,6 +21,7 @@ public class LogicController {
     private IdedImage nullImage = new IdedImage(this.getClass().getResourceAsStream("/images/null.png"));
 
     private IdedImage image = nullImage;
+    private Image processedImage = nullImage;
 
     private String selectedDither;
 
@@ -47,10 +48,12 @@ public class LogicController {
         //  so the number of rows of the image is equal to the 100% mark
         bridgeClass.updateProgress((int) image.getHeight());
 
-        return imageProcessorBuilder().processImage();
+        processedImage = imageProcessorBuilder().processImage();
+
+        return processedImage;
     }
 
-    public void saveImage() { fileManager.saveImage(workingPalette, image); }
+    public void saveImage() { fileManager.saveImage(workingPalette, processedImage); }
 
     public Image getNullImage() { return nullImage; }
 
