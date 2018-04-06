@@ -114,8 +114,8 @@ public class DocumentController implements Initializable {
 
             imgBase.setImage(image);
 
-            imageLoaderTask(image);
-            Thread imageLoaderThread = new Thread(tmpTask);
+            refreshImageLoaderTask(image);
+            Thread imageLoaderThread = new Thread(imageLoaderTask);
             imageLoaderThread.setDaemon(true);
             imageLoaderThread.start();
 
@@ -287,7 +287,7 @@ public class DocumentController implements Initializable {
         scpRightPane.requestFocus();
     }
 
-    //these will 'reset' the tasks after they has been run, re-using the task without this causes the thread to hang
+    //these will 'reset' the tasks after they have been run, re-using a task without doing this causes the thread to hang
     //  this is not an ideal way of handling the threading if more threads for other tasks are planned in the future, but is convenient for now
     private void refreshImageProcessorTask() {
         imageProcessorTask = new Task<>() {
@@ -325,8 +325,8 @@ public class DocumentController implements Initializable {
         };
     }
 
-    private void imageLoaderTask(IdedImage image) {
-        tmpTask = new Task<>() {
+    private void refreshImageLoaderTask(IdedImage image) {
+        imageLoaderTask = new Task<>() {
             @Override
             public Void call() {
 
@@ -446,7 +446,7 @@ public class DocumentController implements Initializable {
     private Task<Void> imageProcessorTask;
 
     //short live thread to load the image, due our image being an extension of a normal image with some added calculations there could be some hanging
-    private Task<Void> tmpTask;
+    private Task<Void> imageLoaderTask;
 
     //basically a stack to be processed, items are added and a thread can pull the items out
     //  blocking queues are specifically made for cross thread communication
