@@ -76,8 +76,8 @@ public class Palette {
 
         private static boolean getMatchOverrideType() { return matchOverride != 1; }      //0 is no override, 1 is match, 2 is map
 
-        private static double intensityRed = 0.299;
-        private static double intensityGreen = 0.587;
-        private static double intensityBlue = 0.114;
+        private static double intensityRed = LumDef.R.val();
+        private static double intensityGreen = LumDef.G.val();
+        private static double intensityBlue = LumDef.B.val();
     }
 }

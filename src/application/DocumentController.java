@@ -52,14 +52,14 @@ public class DocumentController implements Initializable {
         txtHelpAbout.setDisable(true);
         txtHelpAbout.setVisible(false);
 
-        txtIntensityRed.setText("0.299");
-        txtIntensityGreen.setText("0.587");
-        txtIntensityBlue.setText("0.114");
-        lblIntensity.setText(String.format("%.3f", (0.299 + 0.587 + 0.114)));
+        txtLuminanceRed.setText(LumDef.R.val() + "");
+        txtLuminanceGreen.setText(LumDef.G.val() + "");
+        txtLuminanceBlue.setText(LumDef.B.val() + "");
+        lblLuminance.setText(String.format("%.3f", (LumDef.R.val() + LumDef.G.val() + LumDef.B.val())));
 
-        txtIntensityRed.textProperty().addListener((observable, oldValue, newValue) -> intensityValidateUpdate() );
-        txtIntensityGreen.textProperty().addListener((observable, oldValue, newValue) -> intensityValidateUpdate() );
-        txtIntensityBlue.textProperty().addListener((observable, oldValue, newValue) -> intensityValidateUpdate() );
+        txtLuminanceRed.textProperty().addListener((observable, oldValue, newValue) -> intensityValidateUpdate() );
+        txtLuminanceGreen.textProperty().addListener((observable, oldValue, newValue) -> intensityValidateUpdate() );
+        txtLuminanceBlue.textProperty().addListener((observable, oldValue, newValue) -> intensityValidateUpdate() );
 
         txaColorList.clear();
         txaColorList.setText("0,0,0");
@@ -185,9 +185,9 @@ public class DocumentController implements Initializable {
             txtHelpAbout.setDisable(!txtHelpAbout.isDisable());
             txtHelpAbout.setVisible(!txtHelpAbout.isVisible());
         } else if( source == imgResetIntensity ) {
-            txtIntensityRed.setText("0.299");
-            txtIntensityGreen.setText("0.587");
-            txtIntensityBlue.setText("0.114");
+            txtLuminanceRed.setText("0.299");
+            txtLuminanceGreen.setText("0.587");
+            txtLuminanceBlue.setText("0.114");
         }
     }
 
@@ -244,24 +244,24 @@ public class DocumentController implements Initializable {
         double iB;
 
         try{
-            iR = Double.parseDouble(txtIntensityRed.getText());
-            iG = Double.parseDouble(txtIntensityGreen.getText());
-            iB = Double.parseDouble(txtIntensityBlue.getText());
-            lblIntensity.setText(String.format("%.3f", (iR + iG + iB)));
+            iR = Double.parseDouble(txtLuminanceRed.getText());
+            iG = Double.parseDouble(txtLuminanceGreen.getText());
+            iB = Double.parseDouble(txtLuminanceBlue.getText());
+            lblLuminance.setText(String.format("%.3f", (iR + iG + iB)));
             if( (iR + iG + iB) <= 1.0 )
-                lblIntensity.setStyle("-fx-text-fill: #A2A09E");
+                lblLuminance.setStyle("-fx-text-fill: #A2A09E");
             else {
-                iR = 0.299;
-                iG = 0.587;
-                iB = 0.114;
-                lblIntensity.setStyle("-fx-text-fill: red");
+                iR = LumDef.R.val();
+                iG = LumDef.G.val();
+                iB = LumDef.B.val();
+                lblLuminance.setStyle("-fx-text-fill: red");
             }
         } catch( NumberFormatException e ) {
-            iR = 0.299;
-            iG = 0.587;
-            iB = 0.114;
-            lblIntensity.setText("ERROR");
-            lblIntensity.setStyle("-fx-text-fill: red");
+            iR = LumDef.R.val();
+            iG = LumDef.G.val();
+            iB = LumDef.B.val();
+            lblLuminance.setText("ERR");
+            lblLuminance.setStyle("-fx-text-fill: red");
         }
 
         logicController.setColorIntensityValues(iR, iG, iB);
@@ -338,7 +338,7 @@ public class DocumentController implements Initializable {
             public Void call() {
 
                 //the color list that is being populated in this thread is needed for the adaptive palette to work
-                //  in the worst case scenario it will take ~3 seconds to finish (images with more than 400k colors), so instead of juggling thread blocking or completion flags between classes -
+                //  in the worst case scenario observed took roughly 3 seconds, so instead of juggling thread blocking or completion flags between classes -
                 //  just don't let the user process the image until this is complete
                 Platform.runLater(() -> {
                     lblColorCount.setText("-");
@@ -431,10 +431,10 @@ public class DocumentController implements Initializable {
     @FXML private RadioButton rbtMatchSearch;           //radio button for selecting to always use matching algorithms
     @FXML private RadioButton rbtMatchMap;              //radio button for selecting to always map the color values
 
-    @FXML private Label lblIntensity;                   //label showing the sum of the intensity values
-    @FXML private TextField txtIntensityRed;            //text box for the red intensity value
-    @FXML private TextField txtIntensityGreen;          //text box for the green intensity value
-    @FXML private TextField txtIntensityBlue;           //text box for the blue intensity value
+    @FXML private Label lblLuminance;                   //label showing the sum of the intensity values
+    @FXML private TextField txtLuminanceRed;            //text box for the red intensity value
+    @FXML private TextField txtLuminanceGreen;          //text box for the green intensity value
+    @FXML private TextField txtLuminanceBlue;           //text box for the blue intensity value
 
     @FXML private ProgressBar prgProgress;              //progress bar showing where the program is in terms of it's calculations
 
