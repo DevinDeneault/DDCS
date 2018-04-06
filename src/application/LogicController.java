@@ -81,9 +81,6 @@ public class LogicController {
 
         bridgeClass.updateProgress((int) image.getHeight());
 
-        if(selectedPalette.id().equals("adaptive"))
-            adaptivePaletteCalc.displayOriginalColorCount();
-
         return imageProcessor.processImage();
     }
 

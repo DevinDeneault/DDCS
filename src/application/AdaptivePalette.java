@@ -35,11 +35,6 @@ public class AdaptivePalette {
         }
     }
 
-    public void displayOriginalColorCount() {
-//        bridgeClass.updateProgressInfo("original # colors = " + origColorCount);//---------------------------------------------------------------------------------------------------------------------------------------
-    }
-
-
 
     private int[][] calculateAdaptivePalette() {
 
@@ -156,44 +151,6 @@ public class AdaptivePalette {
         else                                                                //else the blue range is larger than both other ranges
             Arrays.sort(colors, (o1, o2) -> Integer.compare(o2[2], o1[2])); //sort the array by the blue values
     }
-
-
-    //================================================================================================================================================
-//    private int[][] createInitialArray() {              //populate the initial sub-array
-//
-//        Set<Integer> colorHashSet = new HashSet<>();    //a HashSet of all the colors values, duplicates automatically removed due to the nature of HashSets
-//
-//        Color color;
-//
-//        PixelReader reader = image.getPixelReader();
-//
-//        for( int row = 0; row < image.getHeight(); row++ ) {
-//            for( int column = 0; column < image.getWidth(); column++ ) {
-//                color = reader.getColor(column, row);
-//
-//                //color values are received as a value between 0 to 1, so convert them to 0 to 255
-//                //  then collapse them into a single int
-//                //  this is SIGNIFICANTLY better performing than a HashSet of int[]
-//                colorHashSet.add((0xFF << 24) |
-//                                 ((int) (255 * color.getRed()) << 16) |
-//                                 ((int) (255 * color.getGreen()) << 8) |
-//                                 ((int) (255 * color.getBlue())) );
-//            }
-//        }
-//
-//        int[][] colorArray = new int[colorHashSet.size()][3];
-//
-//        int index = 0;
-//        for( int colorInt : colorHashSet ) {
-//            colorArray[index][0] = (colorInt >> 16) & 0xFF;   //split the color values out of the integer value and set them as the RGB values for the color in the new array
-//            colorArray[index][1] = (colorInt >> 8) & 0xFF;
-//            colorArray[index++][2] = (colorInt) & 0xFF;
-//        }
-//
-//        origColorCount = colorHashSet.size();
-//
-//        return colorArray;
-//    }
 
 }
 
