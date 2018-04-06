@@ -1,5 +1,5 @@
 Program by Devin Deneault
-version: 0.5.0
+version: 0.6.0
 
 3rd party libraries:
 JavaML (Java Machine Learning) - used for it's Kd-Tree implementation

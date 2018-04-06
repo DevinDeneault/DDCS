@@ -1,16 +1,22 @@
 package application;
 
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.scene.image.Image;
 import net.sf.javaml.core.kdtree.KDTree;
 import net.sf.javaml.core.kdtree.KeyDuplicateException;
 import net.sf.javaml.core.kdtree.KeySizeException;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class LogicController {
 
     private Bridge bridgeClass = Bridge.getInstance();
-    private DitherDataFactory ditherFactory = DitherDataFactory.getInstance();
+    private DitherDataFactory ditherFactory = new DitherDataFactory();
 
     private FileManager fileManager = new FileManager();                    //class that will be managing all the file operations (opening, validating, etc.)
     private AdaptivePalette adaptivePaletteCalc = new AdaptivePalette();    //class that will calculate the adaptive palette
@@ -28,16 +34,17 @@ public class LogicController {
     private String[] visiblePalettes;
 
 
-    public Image getNewImage() {    //get and send off a selected image from a FileChooser; also remember it so it can be be used later
+    public IdedImage getNewImage() {    //get and send off a selected image from a FileChooser; also remember it so it can be be used later
         image = fileManager.loadBaseImage();
         return image;
     }
+
+
 
     public Image processImage() {   //process the image according to the currently selected instructions
 
         workingPalette = selectedPalette;
 
-//        imageProcessor.processImage(workingPalette);//---------------------------------------------------------------------------------------------------------------------------------------------------------------------
         KDTree kdTree;
         boolean useKdTree;
         useKdTree = workingPalette.size() >= 31;
@@ -73,10 +80,7 @@ public class LogicController {
         }
 
         bridgeClass.updateProgress((int) image.getHeight());
-        //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-        //setting the loading progress to say complete or, if you used an adaptive palette, the number of colors in the original image
-        //doing this here out of convenience, might be appropriate to move it to the document controller in the future
         if(selectedPalette.id().equals("adaptive"))
             adaptivePaletteCalc.displayOriginalColorCount();
 
@@ -129,7 +133,7 @@ public class LogicController {
         fileManager.savePalette(colorsString);
     }
 
-    public void validateUserColorList(String colorsString) {
+    public void updateUserPalette(String colorsString) {
 
         int[][] colorArray = validateColors(colorsString);
 
@@ -244,14 +248,6 @@ public class LogicController {
         for( int i=0; i < 3; i++ )
             output[i] = input[i];
         return output;
-    }
-
-
-
-
-
-    private class PaletteFactory {
-
     }
 
 }

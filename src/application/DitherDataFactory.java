@@ -4,22 +4,6 @@ import static application.DitherType.*;
 
 public class DitherDataFactory {
 
-    //---------------------------------------------------singleton
-    private static volatile DitherDataFactory instance = null;
-
-    private DitherDataFactory() { }
-
-    public static DitherDataFactory getInstance() {
-        if( instance == null ) {
-            synchronized( DitherDataFactory.class ) {
-                if( instance == null )
-                    instance = new DitherDataFactory();
-            }
-        }
-        return instance;
-    }
-    //---------------------------------------------------
-
     public DitherData getDitherData(String name) {
 
         DitherType type;

@@ -1,6 +1,8 @@
 package application;
 
 import java.net.URL;
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -33,6 +35,8 @@ public class DocumentController implements Initializable {
         imgBtnViewPalette.setImage(new Image(this.getClass().getResourceAsStream("/images/view.png")));
 
         tgbExtraPalettesToggle.setText("Off");
+
+        lblColorCount.setText("-");
 
         sppBasePane.setDividerPositions(1);
 
@@ -106,9 +110,15 @@ public class DocumentController implements Initializable {
 
         if( source == btnOpenImage ) {
 
-            imgBase.setImage(logicController.getNewImage());
-            btnRun.setDisable(false);
-            btnSaveImage.setDisable(true);
+            IdedImage image = logicController.getNewImage();
+
+            imgBase.setImage(image);
+
+            imageLoaderTask(image);
+            Thread imageLoaderThread = new Thread(tmpTask);
+            imageLoaderThread.setDaemon(true);
+            imageLoaderThread.start();
+
             imgProcessed.setImage(logicController.getNullImage());
 
             refreshBugWorkaround();
@@ -123,7 +133,7 @@ public class DocumentController implements Initializable {
             cmbPaletteSelect.setDisable(true);
             cmbDitherSelect.setDisable(true);
 
-            refreshTask();
+            refreshImageProcessorTask();
             Thread imageProcessorThread = new Thread(imageProcessorTask);
             imageProcessorThread.setDaemon(true);
             imageProcessorThread.start();
@@ -277,9 +287,9 @@ public class DocumentController implements Initializable {
         scpRightPane.requestFocus();
     }
 
-    //this will 'reset' the task after it has been run, re-using the task without this causes the thread to hang
+    //these will 'reset' the tasks after they has been run, re-using the task without this causes the thread to hang
     //  this is not an ideal way of handling the threading if more threads for other tasks are planned in the future, but is convenient for now
-    private void refreshTask() {
+    private void refreshImageProcessorTask() {
         imageProcessorTask = new Task<>() {
             @Override
             public Void call() {
@@ -288,7 +298,7 @@ public class DocumentController implements Initializable {
                     logicController.generateAdaptivePalette(validateColorCount());
                     logicController.updateColorListDisplay();
                 } else if( cmbPaletteSelect.getValue().equals("- User defined palette -") ) {
-                    logicController.validateUserColorList(txaColorList.getText());
+                    logicController.updateUserPalette(txaColorList.getText());
                     txtColorCount.setText("" + logicController.getPaletteSize());
                 }
 
@@ -311,6 +321,34 @@ public class DocumentController implements Initializable {
                 refreshBugWorkaround();
 
                 progressInfo.offer(0);
+            }
+        };
+    }
+
+    private void imageLoaderTask(IdedImage image) {
+        tmpTask = new Task<>() {
+            @Override
+            public Void call() {
+
+                Platform.runLater(() -> {
+                    lblColorCount.setText("-");
+                    btnRun.setDisable(true);
+                    btnSaveImage.setDisable(true);
+                });
+
+                image.initColors();
+
+                return null;
+            }
+            @Override
+            protected void succeeded() {
+                super.succeeded();
+
+                Platform.runLater(() -> {
+                    lblColorCount.setText(NumberFormat.getNumberInstance(Locale.US).format(image.colorCount()) + " colors");
+                    btnRun.setDisable(false);
+                    btnSaveImage.setDisable(true);
+                });
             }
         };
     }
@@ -353,6 +391,8 @@ public class DocumentController implements Initializable {
     @FXML private Button btnSaveImage;                  //button to open a file saver to save the processed image
     @FXML private Button btnOpenImage;                  //button to open file chooser to select the image you want to work with; menu options detailed below
     @FXML private ImageView imgInfo;                    //image for the pseudo-button for showing the help/about info
+
+    @FXML private Label lblColorCount;                  //label showing the number of colors in the current image
 
     @FXML private ToggleButton tgbExtraPalettesToggle;  //toggle button to show or hide the extra palettes in the palette list
 
@@ -404,6 +444,9 @@ public class DocumentController implements Initializable {
     //  future versions may implement a service to manage multiple tasks for various other things (like opening images and reading user defined palettes/dithers)
     //  this change is currently a low priority issue as those tasks will only cause the UI thread to hang in exceptionally extreme circumstances
     private Task<Void> imageProcessorTask;
+
+    //short live thread to load the image, due our image being an extension of a normal image with some added calculations there could be some hanging
+    private Task<Void> tmpTask;
 
     //basically a stack to be processed, items are added and a thread can pull the items out
     //  blocking queues are specifically made for cross thread communication

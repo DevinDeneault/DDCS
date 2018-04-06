@@ -1,8 +1,6 @@
 package application;
 
 import java.util.*;
-import javafx.scene.image.PixelReader;
-import javafx.scene.paint.Color;
 
 public class AdaptivePalette {
 
@@ -13,8 +11,6 @@ public class AdaptivePalette {
 
     private int[][] calculatedPalette;
 
-    private int origColorCount = 0;         //the number of colors the original image has
-
     private final ArrayList<int[][]> listColorArrays = new ArrayList<>();   //this list is the main container for all the color 'cubes'
 
     private IdedImage image;
@@ -24,12 +20,12 @@ public class AdaptivePalette {
 
         image = _image;
 
-        if( lastProcessedImage == image.getId() && colorCount == colors )    //if the user hasn't changed the base image or the number of colors they want, just return the existing result
+        if( lastProcessedImage == image.id() && colorCount == colors )    //if the user hasn't changed the base image or the number of colors they want, just return the existing result
             return calculatedPalette;
         else {
             bridgeClass.updateProgress(-1);     //set the progress bar to indeterminate while the adaptive palette is being generated
 
-            lastProcessedImage = image.getId();       //remember the last image we made an adaptive palette for
+            lastProcessedImage = image.id();       //remember the last image we made an adaptive palette for
             colorCount = colors;
 
             calculatedPalette = calculateAdaptivePalette();
@@ -48,7 +44,7 @@ public class AdaptivePalette {
     private int[][] calculateAdaptivePalette() {
 
         listColorArrays.clear();
-        listColorArrays.add(createInitialArray());
+        listColorArrays.add(image.colors());
         int[][] colorArray;
 
         if( listColorArrays.get(0).length < colorCount ) {              //if there are already fewer colors in the image than the number we want to create it will break things, so trim it down if needed
@@ -129,7 +125,7 @@ public class AdaptivePalette {
 
 
     //================================================================================================================================================
-    private void sortByLargestRange(int[][] colors) {               //this method will determine which color range is the largest and will sort the array by that range
+    private void sortByLargestRange(int[][] colors) {               //determine which color range is the largest and will sort the array by that range
 
         int rMin, gMin, bMin, rMax, gMax, bMax, rDiff, gDiff, bDiff;//create variables for the min, max, and difference for all three colors
 
@@ -163,41 +159,41 @@ public class AdaptivePalette {
 
 
     //================================================================================================================================================
-    private int[][] createInitialArray() {              //this method will populate the initial sub-array
-
-        Set<Integer> colorHashSet = new HashSet<>();    //a HashSet of all the colors values, duplicates automatically removed due to the nature of HashSets
-
-        Color color;
-
-        PixelReader reader = image.getPixelReader();
-
-        for( int row = 0; row < image.getHeight(); row++ ) {
-            for( int column = 0; column < image.getWidth(); column++ ) {
-                color = reader.getColor(column, row);
-
-                //color values are received as a value between 0 to 1, so convert them to 0 to 255
-                //  then collapse them into a single int
-                //  this is SIGNIFICANTLY better performing than a HashSet of int[]
-                colorHashSet.add((0xFF << 24) |
-                                 ((int) (255 * color.getRed()) << 16) |
-                                 ((int) (255 * color.getGreen()) << 8) |
-                                 ((int) (255 * color.getBlue())) );
-            }
-        }
-
-        int[][] colorArray = new int[colorHashSet.size()][3];
-
-        int index = 0;
-        for( int colorInt : colorHashSet ) {
-            colorArray[index][0] = (colorInt >> 16) & 0xFF;   //split the color values out of the integer value and set them as the RGB values for the color in the new array
-            colorArray[index][1] = (colorInt >> 8) & 0xFF;
-            colorArray[index++][2] = (colorInt) & 0xFF;
-        }
-
-        origColorCount = colorHashSet.size();
-
-        return colorArray;
-    }
+//    private int[][] createInitialArray() {              //populate the initial sub-array
+//
+//        Set<Integer> colorHashSet = new HashSet<>();    //a HashSet of all the colors values, duplicates automatically removed due to the nature of HashSets
+//
+//        Color color;
+//
+//        PixelReader reader = image.getPixelReader();
+//
+//        for( int row = 0; row < image.getHeight(); row++ ) {
+//            for( int column = 0; column < image.getWidth(); column++ ) {
+//                color = reader.getColor(column, row);
+//
+//                //color values are received as a value between 0 to 1, so convert them to 0 to 255
+//                //  then collapse them into a single int
+//                //  this is SIGNIFICANTLY better performing than a HashSet of int[]
+//                colorHashSet.add((0xFF << 24) |
+//                                 ((int) (255 * color.getRed()) << 16) |
+//                                 ((int) (255 * color.getGreen()) << 8) |
+//                                 ((int) (255 * color.getBlue())) );
+//            }
+//        }
+//
+//        int[][] colorArray = new int[colorHashSet.size()][3];
+//
+//        int index = 0;
+//        for( int colorInt : colorHashSet ) {
+//            colorArray[index][0] = (colorInt >> 16) & 0xFF;   //split the color values out of the integer value and set them as the RGB values for the color in the new array
+//            colorArray[index][1] = (colorInt >> 8) & 0xFF;
+//            colorArray[index++][2] = (colorInt) & 0xFF;
+//        }
+//
+//        origColorCount = colorHashSet.size();
+//
+//        return colorArray;
+//    }
 
 }
 
