@@ -31,8 +31,8 @@ public class IdedImage extends Image {
     public int[][] colors() { return colorArray; }
 
 
-    private int numColors;
-    private int[][] colorArray = null;
+    private int numColors = 1;
+    private int[][] colorArray = new int[][]{{0,0,0}};
 
 
     public void initColors() {
@@ -67,5 +67,10 @@ public class IdedImage extends Image {
         }
 
         numColors = colorHashSet.size();
+
+        if( numColors == 0 ) {  //if something went wrong use the fallback values
+            numColors = 1;
+            colorArray = new int[][]{{0,0,0}};
+        }
     }
 }

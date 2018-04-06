@@ -1,7 +1,5 @@
 # DDCS
 
-#### Note: If you are attempting to run the executable JAR file on Windows you may need to unblock it. (right click > go to "Properties" >  "General" tab > at the bottom will be "This file came from another computer and might be blocked to help protect this computer." with an "Unlock" checkbox next to it.) Failing to do this will cause the program to be unable to load or save images.
-
 #### Current version requires Windows and the Java SE runtime version 9.
 
 A Java program that will take an image, convert it to a new palette of colors, and apply dithering.
@@ -36,3 +34,7 @@ original image - 25255 colors:
 |:---:|:---:|:---:|:---:|
 |![](https://i.imgur.com/WOgIS0L.png)|![](https://i.imgur.com/2ot28jq.png)|![](https://i.imgur.com/qxn5zgM.png)|![](https://i.imgur.com/2dKaObP.png)|
 |![](https://i.imgur.com/hSjc3qo.png)|![](https://i.imgur.com/ocCHp5W.png)|![](https://i.imgur.com/OhmKemh.png)|![](https://i.imgur.com/s1Kv77M.png)|
+
+
+
+#### Note: If you are attempting to run the executable JAR file on Windows you may need to unblock it. (right click > go to "Properties" >  "General" tab > at the bottom will be "This file came from another computer and might be blocked to help protect this computer." with an "Unlock" checkbox next to it.) Failing to do this will cause the program to be unable to load or save images.
