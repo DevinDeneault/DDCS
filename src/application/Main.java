@@ -25,7 +25,7 @@ public class Main extends Application {
         scene.getStylesheets().add(getClass().getResource("ddcs_styles.css").toExternalForm());
 
         stage.setScene(scene);
-        stage.setTitle("DDCS v" + "0.6.0");
+        stage.setTitle("DDCS v" + "0.6.1");
         stage.getIcons().add(new Image(this.getClass().getResourceAsStream("/images/icon.png")));
         stage.setMinWidth(1280);
         stage.setMinHeight(400);
