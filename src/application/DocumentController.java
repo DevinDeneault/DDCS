@@ -87,7 +87,7 @@ public class DocumentController implements Initializable {
         bridgeClass = Bridge.getInstance();
         bridgeClass.initialize(progressInfo, txaColorList);
 
-        logicController = new LogicController();    //pass the instance of the bridge class down through the class hierarchy
+        logicController = new LogicController();
 
         imgBase.setImage(logicController.getNullImage());
         imgProcessed.setImage(logicController.getNullImage());
