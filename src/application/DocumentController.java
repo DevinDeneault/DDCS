@@ -178,9 +178,9 @@ public class DocumentController implements Initializable {
             txtHelpAbout.setDisable(!txtHelpAbout.isDisable());
             txtHelpAbout.setVisible(!txtHelpAbout.isVisible());
         } else if( source == imgResetIntensity ) {
-            txtIntensityRed.setText("0.2989");
-            txtIntensityGreen.setText("0.5870");
-            txtIntensityBlue.setText("0.1140");
+            txtIntensityRed.setText("0.299");
+            txtIntensityGreen.setText("0.587");
+            txtIntensityBlue.setText("0.114");
         }
     }
 
@@ -240,7 +240,7 @@ public class DocumentController implements Initializable {
             iR = Double.parseDouble(txtIntensityRed.getText());
             iG = Double.parseDouble(txtIntensityGreen.getText());
             iB = Double.parseDouble(txtIntensityBlue.getText());
-            lblIntensity.setText(String.format("%.4f", (iR + iG + iB)));
+            lblIntensity.setText(String.format("%.3f", (iR + iG + iB)));
             if( (iR + iG + iB) <= 1.0 )
                 lblIntensity.setStyle("-fx-text-fill: #A2A09E");
             else {
