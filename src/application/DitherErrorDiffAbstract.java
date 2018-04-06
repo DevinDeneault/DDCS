@@ -2,6 +2,8 @@ package application;
 
 import javafx.scene.paint.Color;
 
+//abstract class to provide error diffusion dithering functionality to an image processor object
+
 public abstract class DitherErrorDiffAbstract {
 
     DitherData dither;

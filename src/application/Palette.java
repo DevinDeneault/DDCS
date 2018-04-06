@@ -1,5 +1,7 @@
 package application;
 
+//a palette object contains data for a specific palette
+
 public class Palette {
 
     Palette(String _name, String _id, boolean _mapped, String _imageName, boolean _hidden, int[][] _colors) {
@@ -64,6 +66,9 @@ public class Palette {
 
 
     //---------------------------------------------------------------------------------------------
+    //  this is some static data shared between palettes
+    //  although this could be passed around with the object instead of in it, it was decided to build it into the palette objects for the sake of -
+    //  simplicity and easier to read code elsewhere
 
     private static class PaletteSharedData {
 

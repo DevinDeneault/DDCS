@@ -6,6 +6,8 @@ import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 
+//an image processor that uses no dithering
+
 public class ImageProcessorNone implements ImageProcessor {
 
     private Bridge bridgeClass = Bridge.getInstance();

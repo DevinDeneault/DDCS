@@ -2,6 +2,8 @@ package application;
 
 import static application.DitherType.*;
 
+//this class simply creates a dither data object based on the required attributes
+
 public class DitherDataFactory {
 
     public DitherData getDitherData(String name) {

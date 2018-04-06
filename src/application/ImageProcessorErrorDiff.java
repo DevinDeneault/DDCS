@@ -6,6 +6,8 @@ import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 
+//an image processor that uses error diffusion dithering
+
 public class ImageProcessorErrorDiff extends DitherErrorDiffAbstract implements ImageProcessor {
 
     private Bridge bridgeClass = Bridge.getInstance();

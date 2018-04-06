@@ -5,9 +5,9 @@ import javafx.scene.image.PixelReader;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 
-public class ImageProcessorOrdered extends DitherOrderedAbstract implements ImageProcessor {
+//an image processor that uses ordered dithering
 
-    //knolls will need a palette-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+public class ImageProcessorOrdered extends DitherOrderedAbstract implements ImageProcessor {
 
     private Bridge bridgeClass = Bridge.getInstance();
 

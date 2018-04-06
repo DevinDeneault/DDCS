@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+//file chooser to save a text file in basic format for palettes
+
 public class PaletteSaver {
 
     PaletteSaver(String title) {

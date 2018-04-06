@@ -4,6 +4,9 @@ import javafx.scene.paint.Color;
 import net.sf.javaml.core.kdtree.KDTree;
 import net.sf.javaml.core.kdtree.KeySizeException;
 
+//a color matcher will take a palette object and a color, then find the closest match to that color within the palette
+//  this color matcher will take a color and sends it through a Kd-tree built from the palette colors
+
 public class ColorMatcherKdTree implements ColorMatcher {
 
     private Palette palette;
@@ -13,9 +16,6 @@ public class ColorMatcherKdTree implements ColorMatcher {
         palette = _palette;
         kdTree = _kdTree;
     }
-
-    //this color matcher will take a color and sends it through a Kd-tree built from the palette colors
-    //  then returns the best match
 
     @Override
     public Color getMatch(double[] currentColor) {

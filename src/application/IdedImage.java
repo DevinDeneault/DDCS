@@ -9,6 +9,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 
+//a javafx image object with some added functionality
+
 public class IdedImage extends Image {
 
     IdedImage(String url) {

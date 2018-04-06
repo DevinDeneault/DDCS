@@ -5,6 +5,9 @@ import javafx.application.Platform;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 
+//provides a basic line of communication between classes
+//  primarily used to allow classes deeper in the class hierarchy to send information up to the GUI
+
 public class Bridge {
 
     //---------------------------------------------------singleton

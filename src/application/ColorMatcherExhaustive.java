@@ -2,6 +2,9 @@ package application;
 
 import javafx.scene.paint.Color;
 
+//a color matcher will take a palette object and a color, then find the closest match to that color within the palette
+//  this color matcher will take a color and measures its euclidean distance in 3D space to all the colors in the palette
+
 public class ColorMatcherExhaustive implements ColorMatcher {
 
     private Palette palette;
@@ -9,9 +12,6 @@ public class ColorMatcherExhaustive implements ColorMatcher {
     ColorMatcherExhaustive(Palette _palette) {
         palette = _palette;
     }
-
-    //this color matcher will take a color and measures its euclidean distance in 3D space to all the colors in the palette
-    //  then returns the closest one
 
     @Override
     public Color getMatch(double[] currentColor) {

@@ -2,6 +2,8 @@ package application;
 
 import java.util.*;
 
+//handles creating an adaptive palette of arbitrary size based on the existing colors of the image
+
 public class AdaptivePalette {
 
     private Bridge bridgeClass = Bridge.getInstance();

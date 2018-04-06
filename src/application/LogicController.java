@@ -7,6 +7,9 @@ import net.sf.javaml.core.kdtree.KeySizeException;
 import java.util.ArrayList;
 import java.util.Map;
 
+//this is the main logic class, the document controller only calls to this class -
+//  and this class manages all the other classes needed
+
 public class LogicController {
 
     private Bridge bridgeClass = Bridge.getInstance();

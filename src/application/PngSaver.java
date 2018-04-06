@@ -8,6 +8,13 @@ import javax.imageio.ImageIO;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.stage.FileChooser;
 
+//a file chooser to save an image
+//  only saves as PNG by design
+//      lossy formats such as jpg defeats the purpose of the program in general
+//      other loss-less formats such as BMP are much larger than PNG, especially if the PNG can be saved with an included palette
+//  if a PNG has 256 colors or less you can have a built in palette in the image
+//      in that case the pixel is just an index value instead of a full RGB value
+
 public class PngSaver {
 
     PngSaver(String title) {

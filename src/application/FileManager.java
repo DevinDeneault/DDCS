@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+//manages the file choosers and loading of various text files that contain program data
+
 public class FileManager {
 
     private FileOpener imageChooser = new FileOpener("Open Image File", "images");

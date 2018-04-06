@@ -2,6 +2,8 @@ package application;
 
 import javafx.scene.paint.Color;
 
+//abstract class to provide ordered dithering functionality to an image processor object
+
 public abstract class DitherOrderedAbstract {
 
     DitherData dither;

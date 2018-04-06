@@ -1,5 +1,8 @@
 package application;
 
+//a dither data object contains information relating to dithers!
+//  a matrix is required regardless, but ordered and error diffusion dithers will use that array differently
+
 public class DitherData {
 
     private DitherType type;    //what kind of dither this is; ordered, error diffusion, ...

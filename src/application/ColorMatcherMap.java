@@ -2,6 +2,15 @@ package application;
 
 import javafx.scene.paint.Color;
 
+//a color matcher will take a palette object and a color, then find the closest match to that color within the palette
+
+//this color matcher will take a color and determine it's perceived luminance via the HSP model
+//  it then scales that luminance value to the size of the palette
+//  the color is matched to the color in the palette that occupies that scaled luminance position
+//  NOTE:   this assumes the palette is already sorted from darkest to lightest (lowest to highest luminance)
+//          if it is not then the results wild be wildly incorrect, but can produce some fun and interesting results
+//          a good example is the built in 's2p' and 'b2p2b2p' color palettes that take advantage of this matching scheme
+
 public class ColorMatcherMap implements ColorMatcher {
 
     private Palette palette;
@@ -9,13 +18,6 @@ public class ColorMatcherMap implements ColorMatcher {
     ColorMatcherMap(Palette _palette) {
         palette = _palette;
     }
-
-    //this color matcher will take a color and determine it's perceived luminance via the HSP model
-    //  it then scales that luminance value to the size of the palette
-    //  the color is matched to the color in the palette that occupies that scaled luminance position
-    //  NOTE:   this assumes the palette is already sorted from darkest to lightest (lowest to highest luminance)
-    //          if it is not then the results wild be wildly incorrect, but can produce some fun and interesting results
-    //          a good example is the built in 's2p' and 'b2p2b2p' color palettes that take advantage of this matching scheme
 
     @Override
     public Color getMatch(double[] currentColor) {

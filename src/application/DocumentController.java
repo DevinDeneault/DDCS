@@ -18,6 +18,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
+//standard javafx document controller
+//  all GUI related logic is handled here
+
 public class DocumentController implements Initializable {
 
     @Override

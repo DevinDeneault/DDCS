@@ -5,6 +5,8 @@ import java.util.Objects;
 
 import javafx.stage.FileChooser;
 
+//file chooser for opening things, can be set up for images or text files
+
 public class FileOpener {
 
     FileOpener(String title, String type) {
