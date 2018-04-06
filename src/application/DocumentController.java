@@ -431,10 +431,10 @@ public class DocumentController implements Initializable {
     @FXML private RadioButton rbtMatchSearch;           //radio button for selecting to always use matching algorithms
     @FXML private RadioButton rbtMatchMap;              //radio button for selecting to always map the color values
 
-    @FXML private Label lblLuminance;                   //label showing the sum of the intensity values
-    @FXML private TextField txtLuminanceRed;            //text box for the red intensity value
-    @FXML private TextField txtLuminanceGreen;          //text box for the green intensity value
-    @FXML private TextField txtLuminanceBlue;           //text box for the blue intensity value
+    @FXML private Label lblLuminance;                   //label showing the sum of the luminance values
+    @FXML private TextField txtLuminanceRed;            //text box for the red luminance value
+    @FXML private TextField txtLuminanceGreen;          //text box for the green luminance value
+    @FXML private TextField txtLuminanceBlue;           //text box for the blue luminance value
 
     @FXML private ProgressBar prgProgress;              //progress bar showing where the program is in terms of it's calculations
 
