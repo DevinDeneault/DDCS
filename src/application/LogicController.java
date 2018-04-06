@@ -1,17 +1,11 @@
 package application;
 
-import javafx.application.Platform;
-import javafx.concurrent.Task;
 import javafx.scene.image.Image;
 import net.sf.javaml.core.kdtree.KDTree;
 import net.sf.javaml.core.kdtree.KeyDuplicateException;
 import net.sf.javaml.core.kdtree.KeySizeException;
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 public class LogicController {
 
@@ -41,54 +35,23 @@ public class LogicController {
 
 
 
-    public Image processImage() {   //process the image according to the currently selected instructions
+    public Image processImage() {   //process the image according to the currently selected options
 
         workingPalette = selectedPalette;
 
-        KDTree kdTree;
-        boolean useKdTree;
-        useKdTree = workingPalette.size() >= 31;
-
-        ColorMatcher matcher;
-        ImageProcessor imageProcessor;
-
-        if( workingPalette.mapped() )
-            matcher = new ColorMatcherMap(workingPalette);
-        else if( useKdTree ) {
-            kdTree = new KDTree(3);
-            try {
-                for( int index = 0; index < workingPalette.size(); index++ )
-                    kdTree.insert(arrayIntToDouble(workingPalette.get(index)), index);
-            } catch (KeySizeException | KeyDuplicateException e) { e.printStackTrace(); }
-
-            matcher = new ColorMatcherKdTree(workingPalette, kdTree);
-        } else
-            matcher = new ColorMatcherExhaustive(workingPalette);
-
-        DitherData dither = ditherFactory.getDitherData(selectedDither);
-
-        switch( dither.type() ) {
-            case ORDERED:
-                imageProcessor = new ImageProcessorOrdered(matcher, dither, image);
-                break;
-            case ERROR_DIFFUSION:
-                imageProcessor = new ImageProcessorErrorDiff(matcher, dither, image);
-                break;
-            default:
-                imageProcessor = new ImageProcessorNone(matcher, image);
-                break;
-        }
-
+        //set the progress bar to a meaningful number
+        //  in this case each completed row of the image is one unit of progress
+        //  so the number of rows of the image is equal to 100% mark
         bridgeClass.updateProgress((int) image.getHeight());
 
-        return imageProcessor.processImage();
+        return imageProcessorBuilder().processImage();
     }
 
     public void saveImage() { fileManager.saveImage(workingPalette, image); }
 
     public Image getNullImage() { return nullImage; }
 
-    public void loadUserPalette() {             //load and validate the user defined palette, also get it's size
+    public void loadUserPalette() {     //load and validate the user defined palette
 
         int[][] userPalette = fileManager.loadUserPalette();
 
@@ -152,7 +115,9 @@ public class LogicController {
     }
 
 
-    public void matchingStyleOverride(int type) { paletteList.get(0).setMachOverride(type); }   //static value, setting it in one carries to all }
+    public void matchingStyleOverride(int type) {
+        paletteList.get(0).setMachOverride(type);   //static value, setting it in one carries to all
+    }
 
 
     public void setColorIntensityValues(double iR, double iG, double iB) {
@@ -181,7 +146,7 @@ public class LogicController {
 
 
 
-    private int getPaletteIndex(String idOrName) {
+    private int getPaletteIndex(String idOrName) {      //gets the index location of one of the palette objects in the palette map, this can  be done through either the id or the name
         int index = 0;
         while( !idOrName.equals(paletteList.get(index).id()) && !idOrName.equals(paletteList.get(index).name()) ) { index++; }
         return index;
@@ -192,6 +157,8 @@ public class LogicController {
         return new Image(this.getClass().getResourceAsStream("/palette_images/" + paletteList.get(getPaletteIndex(visiblePalettes[index])).imageName() + ".png"));
     }
 
+    //there are a number of more specialized/gimmicky/experimental palettes built in, but they aren't shown to prevent overloading the user with options
+    //  this will toggle between showing and hiding them
     public String[] toggleExtraPalettes(boolean showAll) {
         ArrayList<String> paletteNames = new ArrayList<>();
 
@@ -237,6 +204,44 @@ public class LogicController {
         return visiblePalettes;
     }
 
+
+    private ImageProcessor imageProcessorBuilder() {    //build the imageProcessor object based on all the options selected and defined by the user
+        KDTree kdTree;
+        boolean useKdTree;
+        useKdTree = workingPalette.size() >= 31;
+
+        ColorMatcher matcher;
+        ImageProcessor imageProcessor;
+
+        if( workingPalette.mapped() )
+            matcher = new ColorMatcherMap(workingPalette);
+        else if( useKdTree ) {
+            kdTree = new KDTree(3);
+            try {
+                for( int index = 0; index < workingPalette.size(); index++ )
+                    kdTree.insert(arrayIntToDouble(workingPalette.get(index)), index);
+            } catch (KeySizeException | KeyDuplicateException e) { e.printStackTrace(); }
+
+            matcher = new ColorMatcherKdTree(workingPalette, kdTree);
+        } else
+            matcher = new ColorMatcherExhaustive(workingPalette);
+
+        DitherData dither = ditherFactory.getDitherData(selectedDither);
+
+        switch( dither.type() ) {
+            case ORDERED:
+                imageProcessor = new ImageProcessorOrdered(matcher, dither, image);
+                break;
+            case ERROR_DIFFUSION:
+                imageProcessor = new ImageProcessorErrorDiff(matcher, dither, image);
+                break;
+            default:
+                imageProcessor = new ImageProcessorNone(matcher, image);
+                break;
+        }
+
+        return imageProcessor;
+    }
 
 
     private double[] arrayIntToDouble(int[] input) {    //convert an array of integers to an array of doubles

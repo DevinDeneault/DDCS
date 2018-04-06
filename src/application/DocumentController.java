@@ -114,6 +114,10 @@ public class DocumentController implements Initializable {
 
             imgBase.setImage(image);
 
+            //when we create an IdedImage we need to use it's built in method to determine all the distinct colors the image uses
+            //  if we just have it calculated when the image is instantiated it will case the GUI to hang because it's not a trivial calculation
+            //  either we can run that calculation when the image is created - it will just not show until the calculation is complete OR
+            //  we can just create the image, use it, then run the method after, allowing the image to be seen while the color list is still building
             refreshImageLoaderTask(image);
             Thread imageLoaderThread = new Thread(imageLoaderTask);
             imageLoaderThread.setDaemon(true);
@@ -330,6 +334,9 @@ public class DocumentController implements Initializable {
             @Override
             public Void call() {
 
+                //the color list that is being populated in this thread is needed for the adaptive palette to work
+                //  in the worst case scenario it will take ~3 seconds to finish (images with more than 400k colors), so instead of juggling thread blocking or completion flags between classes -
+                //  just don't let the user process the image until this is complete
                 Platform.runLater(() -> {
                     lblColorCount.setText("-");
                     btnRun.setDisable(true);
