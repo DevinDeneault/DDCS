@@ -18,17 +18,20 @@ public class AdaptivePalette {
     private IdedImage image;
 
 
-    public int[][] getAdaptivePalette(int colors, IdedImage _image) {
+    public int[][] getAdaptivePalette(int _colorcount, IdedImage _image) {
 
         image = _image;
 
-        if( lastProcessedImage == image.id() && colorCount == colors )    //if the user hasn't changed the base image or the number of colors they want, just return the existing result
+        if( lastProcessedImage == image.id() && colorCount == _colorcount )    //if the user hasn't changed the base image or the number of colors they want, just return the existing result
             return calculatedPalette;
         else {
             bridgeClass.updateProgress(-1);     //set the progress bar to indeterminate while the adaptive palette is being generated
 
+            colorCount = _colorcount;
+
+            bridgeClass.updateProgress(_colorcount);
+
             lastProcessedImage = image.id();       //remember the last image we made an adaptive palette for
-            colorCount = colors;
 
             calculatedPalette = calculateAdaptivePalette();
 
@@ -44,7 +47,7 @@ public class AdaptivePalette {
         listColorArrays.add(image.colors());
         int[][] colorArray;
 
-        if( listColorArrays.get(0).length < colorCount ) {              //if there are already fewer colors in the image than the number we want to create it will break things, so trim it down if needed
+        if( listColorArrays.get(0).length < colorCount ) {              //if there are already fewer colors in the image than the number we want to create it will break things, just return the existing colors
 
             int[][] arrayColorArrays = new int[listColorArrays.get(0).length][3];
 
@@ -64,7 +67,7 @@ public class AdaptivePalette {
 
             int[] subArrayLengths = getSubArrayLengths();               //determine the size of the arrays we are going to make
 
-            int[][] subArray1 = new int[Objects.requireNonNull(subArrayLengths)[0]][3];    //create the new sub-arrays
+            int[][] subArray1 = new int[subArrayLengths[0]][3];    //create the new sub-arrays
             int[][] subArray2 = new int[subArrayLengths[1]][3];
 
             System.arraycopy(colorArray, 0, subArray1, 0, subArrayLengths[0]);              //copy first half of the sub-array to first new sub-array

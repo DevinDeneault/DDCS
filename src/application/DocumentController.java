@@ -36,6 +36,7 @@ public class DocumentController implements Initializable {
         imgInfo.setImage(new Image(this.getClass().getResourceAsStream("/images/about.png")));
         imgResetIntensity.setImage(new Image(this.getClass().getResourceAsStream("/images/reset.png")));
         imgBtnViewPalette.setImage(new Image(this.getClass().getResourceAsStream("/images/view.png")));
+        imgProgressOverlay.setImage(new Image(this.getClass().getResourceAsStream("/images/progress-overlay.png")));
 
         tgbExtraPalettesToggle.setText("Off");
 
@@ -437,6 +438,7 @@ public class DocumentController implements Initializable {
     @FXML private TextField txtLuminanceBlue;           //text box for the blue luminance value
 
     @FXML private ProgressBar prgProgress;              //progress bar showing where the program is in terms of it's calculations
+    @FXML private ImageView imgProgressOverlay;         //an image sitting on top of the progress bar to add some overlaid detail
 
     @FXML private ScrollPane scpLeftPane;               //the left scroll pane where the base image is shown
     @FXML private ScrollPane scpRightPane;              //the right scroll pane where the processed image is shown

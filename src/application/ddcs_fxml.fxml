@@ -69,7 +69,10 @@
             </ImageView>
          </HBox>
       </ToolBar>
-      <ProgressBar fx:id="prgProgress" maxHeight="12.0" maxWidth="256.0" minHeight="12.0" minWidth="256.0" progress="0.6" />
+      <StackPane maxHeight="12.0" maxWidth="256.0" minHeight="12.0" minWidth="256.0">
+         <ProgressBar fx:id="prgProgress" maxHeight="12.0" maxWidth="256.0" minHeight="12.0" minWidth="256.0" progress="0.6" />
+         <ImageView fx:id="imgProgressOverlay" fitHeight="12.0" fitWidth="256.0" pickOnBounds="true" preserveRatio="true" />
+      </StackPane>
       <ScrollPane focusTraversable="false" hbarPolicy="NEVER" maxWidth="256.0" minWidth="256.0" VBox.vgrow="ALWAYS">
          <VBox maxWidth="256.0" minWidth="256.0">
             <VBox maxWidth="232.0" minWidth="232.0" styleClass="section-box-narrow">
@@ -77,15 +80,18 @@
                   <Insets left="6.0" right="6.0" top="24.0" />
                </VBox.margin>
                <HBox alignment="CENTER">
-                  <children>
-                     <Label fx:id="lblColorCount" text="4,383,294,431,343,981" textAlignment="CENTER">
-                        <font>
-                           <Font name="System Bold" size="12.0" />
-                        </font>
-                     </Label>
-                  </children>
+                  <Label fx:id="lblColorCount" text="4,383,294,431,343,981" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
                </HBox>
             </VBox>
+            <Separator prefWidth="200.0">
+               <VBox.margin>
+                  <Insets top="12.0" />
+               </VBox.margin>
+            </Separator>
             <VBox alignment="CENTER" maxWidth="232.0" minWidth="232.0" styleClass="section-box">
                <VBox.margin>
                   <Insets left="6.0" right="6.0" top="12.0" />

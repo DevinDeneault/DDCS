@@ -2,8 +2,8 @@
     -fx-base: #828078;
     -fx-accent: #98A0A8; /*items highlighted in menus, etc   #656463; #98A0A8; */
 
-    -fx-focus-color: #828078;
-    -fx-faint-focus-color: #D3D10322;
+    /*-fx-focus-color: #828078;
+    -fx-faint-focus-color: #D3D10322;*/
 
 }
 
@@ -26,7 +26,10 @@
     -fx-background-insets: 1 1 1 1;
     -fx-background-radius: 2;
     -fx-padding: 0.5em;
+
 }
+
+
 
 .scroll-pane:focused {
     -fx-border-width: 0;
