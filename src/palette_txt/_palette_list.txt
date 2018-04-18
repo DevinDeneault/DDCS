@@ -23,8 +23,6 @@ ret_atari_2600
 ret_cga1
 ret_cga2
 ret_apple_ii
-db_16
-db_32
 mono_blue
 mono_green
 mono_purple
@@ -49,4 +47,7 @@ b2s2b2p_teal_blue
 b2s2b2p_teal_green
 b2s2b2p_yellow_green
 b2s2b2p_yellow_red
+db_16
+db_32
+db_32_gradient
 user

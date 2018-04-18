@@ -1,4 +1,4 @@
-meta:name:[DawnBringer's 16]
+meta:name:[misc] DawnBringer's 16
 meta:id:db16
 meta:mapped:false
 meta:image:db_16

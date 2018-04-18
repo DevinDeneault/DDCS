@@ -85,7 +85,7 @@ public class DocumentController implements Initializable {
 
         //pass references to controls in this class to the bridge class
         //  initializing the class here because only 'null' is passed prior to the javaFX document controller initializer being reached;
-        bridgeClass = Bridge.getInstance();
+        Bridge bridgeClass = Bridge.getInstance();
         bridgeClass.initialize(progressInfo, txaColorList);
 
         logicController = new LogicController();
@@ -465,8 +465,6 @@ public class DocumentController implements Initializable {
     //  if a thread is trying to take a value from it, and nothing is there to take, it will 'block' the thread, a.k.a. make it sleep
     //  look at more info on  'offer' vs 'put'    'take' vs 'poll'    'LinkedBlockingQueue' vs 'ArrayBlockingQueue' etc
     private BlockingQueue<Integer> progressInfo = new LinkedBlockingQueue<>();
-
-    private Bridge bridgeClass = null;
 
     private final ObservableList<String> paletteOptions = FXCollections.observableArrayList();  //the options for the palette choicebox
 

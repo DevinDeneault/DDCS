@@ -1,10 +1,6 @@
 .root {
     -fx-base: #828078;
     -fx-accent: #98A0A8; /*items highlighted in menus, etc   #656463; #98A0A8; */
-
-    /*-fx-focus-color: #828078;
-    -fx-faint-focus-color: #D3D10322;*/
-
 }
 
 .progress-indicator .percentage {

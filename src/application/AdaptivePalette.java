@@ -18,18 +18,18 @@ public class AdaptivePalette {
     private IdedImage image;
 
 
-    public int[][] getAdaptivePalette(int _colorcount, IdedImage _image) {
+    public int[][] getAdaptivePalette(int _colorCount, IdedImage _image) {
 
         image = _image;
 
-        if( lastProcessedImage == image.id() && colorCount == _colorcount )    //if the user hasn't changed the base image or the number of colors they want, just return the existing result
+        if( lastProcessedImage == image.id() && colorCount == _colorCount )    //if the user hasn't changed the base image or the number of colors they want, just return the existing result
             return calculatedPalette;
         else {
             bridgeClass.updateProgress(-1);     //set the progress bar to indeterminate while the adaptive palette is being generated
 
-            colorCount = _colorcount;
+            colorCount = _colorCount;
 
-            bridgeClass.updateProgress(_colorcount);
+            bridgeClass.updateProgress(_colorCount);
 
             lastProcessedImage = image.id();       //remember the last image we made an adaptive palette for
 
