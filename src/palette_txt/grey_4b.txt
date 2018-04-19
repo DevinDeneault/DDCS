@@ -1,4 +1,4 @@
-meta:name:Greyscale  [4-bit]
+meta:name:[greyscale]  4-bit
 meta:id:g4b
 meta:mapped:true
 meta:image:grey_4b

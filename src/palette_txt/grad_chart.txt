@@ -1,8 +1,8 @@
-meta:name:Gradient  [chartreuse]
+meta:name:[gradient]  Chartreuse
 meta:id:grChart
 meta:mapped:true
 meta:image:grad_chart
-meta:hidden:false
+meta:hidden:true
 0,0,0
 1,1,0
 2,3,0

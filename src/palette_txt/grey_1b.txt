@@ -1,4 +1,4 @@
-meta:name:Greyscale  [1-bit]
+meta:name:[greyscale]  1-bit
 meta:id:g1b
 meta:mapped:true
 meta:image:grey_1b

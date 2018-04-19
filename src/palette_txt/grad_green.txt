@@ -1,8 +1,8 @@
-meta:name:Gradient  [spring green]
+meta:name:[gradient]  Spring Green
 meta:id:grGreen
 meta:mapped:true
 meta:image:grad_green
-meta:hidden:false
+meta:hidden:true
 0,0,0
 0,1,1
 0,3,2

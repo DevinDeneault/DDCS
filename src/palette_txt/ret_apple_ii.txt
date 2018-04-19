@@ -1,4 +1,4 @@
-meta:name:Retro  [Apple II]
+meta:name:[retro]  Apple II
 meta:id:rApp
 meta:mapped:false
 meta:image:ret_apple_ii

@@ -1,4 +1,4 @@
-meta:name:Gradient  [sepia]
+meta:name:[gradient]  Sepia
 meta:id:grSepia
 meta:mapped:true
 meta:image:grad_sepia

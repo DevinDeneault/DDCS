@@ -1,4 +1,4 @@
-meta:name:Retro  [CGA mode4-2h]
+meta:name:[retro]  CGA mode4-2h
 meta:id:rCga2
 meta:mapped:false
 meta:image:ret_cga2

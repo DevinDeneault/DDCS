@@ -1,4 +1,4 @@
-meta:name:Color  [3-level]
+meta:name:[color]  3-level
 meta:id:c3l
 meta:mapped:false
 meta:image:color_3l

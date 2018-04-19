@@ -1,8 +1,8 @@
-meta:name:Gradient  [electric indigo]
+meta:name:[gradient]  Electric Indigo
 meta:id:grIndigo
 meta:mapped:true
 meta:image:grad_indigo
-meta:hidden:false
+meta:hidden:true
 0,0,0
 1,0,1
 2,0,3

@@ -256,7 +256,7 @@
                            <Font name="System Bold" size="12.0" />
                         </font>
                      </Label>
-                     <Label fx:id="lblLuminance" text="0.998">
+                     <Label fx:id="lblLuminance" maxWidth="32.0" minWidth="32.0" text="0.998" textAlignment="CENTER" textOverrun="CLIP">
                         <HBox.margin>
                            <Insets left="16.0" />
                         </HBox.margin>
@@ -342,7 +342,7 @@
                   <ImageView fx:id="imgBase" pickOnBounds="true" preserveRatio="true" smooth="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </AnchorPane>
             </ScrollPane>
-            <TextArea id="help-text" fx:id="txtHelpAbout" editable="false" focusTraversable="false" minWidth="0.0" nodeOrientation="LEFT_TO_RIGHT" opacity="0.6" text="test" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="8.0">
+            <TextArea id="help-text" fx:id="txtHelpAbout" editable="false" focusTraversable="false" minWidth="0.0" nodeOrientation="LEFT_TO_RIGHT" opacity="0.7" text="test" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="8.0">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>

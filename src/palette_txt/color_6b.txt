@@ -1,4 +1,4 @@
-meta:name:Color  [6-bit]
+meta:name:[color]  6-bit
 meta:id:c6b
 meta:mapped:false
 meta:image:color_6b

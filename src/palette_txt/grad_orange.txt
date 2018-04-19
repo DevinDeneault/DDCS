@@ -1,8 +1,8 @@
-meta:name:Gradient  [dark orange]
+meta:name:[gradient]  Dark Orange
 meta:id:grOrange
 meta:mapped:true
 meta:image:grad_orange
-meta:hidden:false
+meta:hidden:true
 0,0,0
 1,1,0
 3,2,0

@@ -1,8 +1,8 @@
-meta:name:Gradient  [deep pink]
+meta:name:[gradient]  Deep Pink
 meta:id:grPink
 meta:mapped:true
 meta:image:grad_pink
-meta:hidden:false
+meta:hidden:true
 0,0,0
 1,0,1
 3,0,2

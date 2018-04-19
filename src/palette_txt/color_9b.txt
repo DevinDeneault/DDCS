@@ -1,4 +1,4 @@
-meta:name:Color  [9-bit]
+meta:name:[color]  9-bit
 meta:id:c9b
 meta:mapped:false
 meta:image:color_9b

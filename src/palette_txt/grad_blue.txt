@@ -1,8 +1,8 @@
-meta:name:Gradient  [dodger blue]
+meta:name:[gradient]  Dodger Blue
 meta:id:grBlue
 meta:mapped:true
 meta:image:grad_blue
-meta:hidden:false
+meta:hidden:true
 0,0,0
 0,1,1
 0,2,3

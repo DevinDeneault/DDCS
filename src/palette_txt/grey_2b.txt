@@ -1,4 +1,4 @@
-meta:name:Greyscale  [2-bit]
+meta:name:[greyscale]  2-bit
 meta:id:g2b
 meta:mapped:true
 meta:image:grey_2b

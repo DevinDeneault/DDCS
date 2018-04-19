@@ -186,9 +186,9 @@ public class DocumentController implements Initializable {
             txtHelpAbout.setDisable(!txtHelpAbout.isDisable());
             txtHelpAbout.setVisible(!txtHelpAbout.isVisible());
         } else if( source == imgResetIntensity ) {
-            txtLuminanceRed.setText("0.299");
-            txtLuminanceGreen.setText("0.587");
-            txtLuminanceBlue.setText("0.114");
+            txtLuminanceRed.setText(LumDef.R.val() + "");
+            txtLuminanceGreen.setText(LumDef.G.val() + "");
+            txtLuminanceBlue.setText(LumDef.B.val() + "");
         }
     }
 
@@ -255,6 +255,7 @@ public class DocumentController implements Initializable {
                 iR = LumDef.R.val();
                 iG = LumDef.G.val();
                 iB = LumDef.B.val();
+                lblLuminance.setText("> 1");
                 lblLuminance.setStyle("-fx-text-fill: red");
             }
         } catch( NumberFormatException e ) {
