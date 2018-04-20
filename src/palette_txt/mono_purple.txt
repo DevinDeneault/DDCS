@@ -1,4 +1,4 @@
-meta:name:[mono] Purple
+meta:name:[gradient] [monochrome] Purple
 meta:id:mP
 meta:mapped:true
 meta:image:extra

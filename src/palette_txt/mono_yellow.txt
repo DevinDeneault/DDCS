@@ -1,4 +1,4 @@
-meta:name:[mono] Yellow
+meta:name:[gradient] [monochrome] Yellow
 meta:id:mY
 meta:mapped:true
 meta:image:extra

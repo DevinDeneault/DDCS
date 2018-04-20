@@ -1,4 +1,4 @@
-meta:name:[mono] Blue
+meta:name:[gradient] [monochrome] Blue
 meta:id:mB
 meta:mapped:true
 meta:image:extra

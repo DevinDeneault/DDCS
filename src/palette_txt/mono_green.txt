@@ -1,4 +1,4 @@
-meta:name:[mono] Green
+meta:name:[gradient] [monochrome] Green
 meta:id:mG
 meta:mapped:true
 meta:image:extra
