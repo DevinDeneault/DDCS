@@ -132,7 +132,7 @@
                </HBox>
                <HBox alignment="CENTER">
                   <VBox alignment="CENTER">
-                     <TextArea fx:id="txaColorList" maxWidth="104.0" minHeight="192.0" minWidth="104.0" prefHeight="192.0" text="255,255,255">
+                     <TextArea fx:id="txaColorList" maxWidth="120.0" minHeight="192.0" minWidth="120.0" prefHeight="192.0" text="255,255,255">
                         <VBox.margin>
                            <Insets bottom="2.0" />
                         </VBox.margin>
@@ -143,7 +143,7 @@
                               <ImageView fx:id="imgBtnViewPalette" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" />
                            </graphic>
                            <HBox.margin>
-                              <Insets right="16.0" />
+                              <Insets right="32.0" />
                            </HBox.margin>
                         </Button>
                         <Button fx:id="btnOpenPalette" maxHeight="28.0" maxWidth="28.0" minHeight="28.0" minWidth="28.0" mnemonicParsing="false" onAction="#handlerButtons">
@@ -310,7 +310,7 @@
                            <Font name="System Bold" size="12.0" />
                         </font>
                      </Label>
-                     <ToggleButton fx:id="tgbExtraPalettesToggle" focusTraversable="false" maxHeight="28.0" maxWidth="34.0" minHeight="28.0" minWidth="34.0" mnemonicParsing="false" onAction="#handlerButtons">
+                     <ToggleButton fx:id="tgbExtraPalettesToggle" focusTraversable="false" maxHeight="28.0" maxWidth="40.0" minHeight="28.0" minWidth="40.0" mnemonicParsing="false" onAction="#handlerButtons">
                         <HBox.margin>
                            <Insets left="16.0" />
                         </HBox.margin>

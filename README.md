@@ -1,6 +1,6 @@
 # DDCS
 
-#### Current version requires Windows and the Java SE runtime version 9.
+#### Current version requires Java SE runtime version 9.
 
 A Java program that will take an image, convert it to a new palette of colors, and apply dithering.
 
