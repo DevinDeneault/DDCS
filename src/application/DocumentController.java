@@ -101,7 +101,6 @@ public class DocumentController implements Initializable {
 
         imgBase.setImage(logicController.getNullImage());
         imgProcessed.setImage(logicController.getNullImage());
-        //imgPalettePreview.setImage(new Image(this.getClass().getResourceAsStream("/palette_images/blank.png")));//===========================================================================================================
 
         progressWorker.setDaemon(true);        //thread will end with program close (if only daemon threads remain, JVM will close them all and terminate)
         progressWorker.start();
@@ -222,9 +221,6 @@ public class DocumentController implements Initializable {
 
             txtColorCount.setText("" + logicController.getPaletteSize());
             logicController.updateColorListDisplay();
-
-            //=====================================================================================================================================================================================================
-            //imgPalettePreview.setImage(logicController.getPaletteImage(paletteNumber));
 
         } else if( source == cmbDitherSelect )
             logicController.updateSelectedDither(cmbDitherSelect.getValue());
@@ -414,7 +410,8 @@ public class DocumentController implements Initializable {
     @FXML private ToggleButton tgbExtraPalettesToggle;  //toggle button to show or hide the extra palettes in the palette list
 
     @FXML private ComboBox<String> cmbPaletteSelect;    //ComboBox to select a palette
-    @FXML private ImageView imgPalettePreview;          //small image showing a preview of the palette
+    @FXML private TextArea txaColorList;                //the text area under the cmbPaletteSelect that will list all the colors in the palette
+    @FXML private Canvas cnvPaletteCanvas;              //a small canvas in the palette section that displays a visual representation of the palette
     @FXML private TextField txtColorCount;              //TextField showing the number of colors in the current palette and allows the user to choose the number of colors in an optimized palette
     @FXML private Button btnOpenPalette;                //button to open a text file containing palette data
     @FXML private Button btnSavePalette;                //button to save the text in the txaColoList to a text file
@@ -448,9 +445,6 @@ public class DocumentController implements Initializable {
 
     @FXML private ScrollPane scpLeftPane;               //the left scroll pane where the base image is shown
     @FXML private ScrollPane scpRightPane;              //the right scroll pane where the processed image is shown
-
-    @FXML private TextArea txaColorList;                //the text area under the cmbPaletteSelect that will list all the colors in the palette
-    @FXML private Canvas cnvPaletteCanvas;              //a small canvas in the palette section that displays a visual representation of the palette
 
     @FXML private TextArea txtHelpAbout;                //a text area positioned in front of the left scroll pane that can be toggled between hidden and visible
     //================================================================================================================================================

@@ -318,7 +318,6 @@
                   </HBox>
                </VBox>
             </VBox>
-            <ImageView fx:id="imgPalettePreview" disable="true" fitHeight="32.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" />
          </VBox>
       </ScrollPane>
    </VBox>

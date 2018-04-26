@@ -159,11 +159,6 @@ public class LogicController {
         return index;
     }
 
-//=========================================================================================================================================================================================================================
-//    public Image getPaletteImage(int index) {   //take the name of the palette currently selected and return the preview image
-//        return new Image(this.getClass().getResourceAsStream("/palette_images/" + paletteList.get(getPaletteIndex(visiblePalettes[index])).imageName() + ".png"));
-//    }
-
     //there are a number of more specialized/gimmicky/experimental palettes built in, but they aren't shown to prevent overloading the user with options
     //  this will toggle between showing and hiding them
     public String[] toggleExtraPalettes(boolean showAll) {
