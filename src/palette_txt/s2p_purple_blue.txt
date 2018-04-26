@@ -1,7 +1,7 @@
-meta:name:[gradient] [s2p] Purple to Blue
+meta:name:[gradient] [s2p] Purple-Blue
 meta:id:s2pPB
 meta:mapped:true
-meta:image:extra
+meta:image:!,1,32,64,1,4
 meta:hidden:true
 0,0,0
 1,0,1

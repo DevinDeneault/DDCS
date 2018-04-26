@@ -1,7 +1,7 @@
 meta:name:[greyscale]  1-bit
 meta:id:g1b
 meta:mapped:true
-meta:image:grey_1b
+meta:image:!,32,32,2,1,1
 meta:hidden:false
 0,0,0
 255,255,255

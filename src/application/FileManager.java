@@ -116,7 +116,7 @@ public class FileManager {
             } catch (IOException e) { e.printStackTrace();}
         }
 
-        return paletteInfo.toArray(new String[paletteInfo.size()]);
+        return paletteInfo.toArray(new String[0]);
     }
 
     public int[][] validatePalette(String fileLocation, Boolean externalFile) {    //read and validate all the color values from a palette file

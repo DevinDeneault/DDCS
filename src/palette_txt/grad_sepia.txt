@@ -1,7 +1,7 @@
 meta:name:[gradient]  Sepia
 meta:id:grSepia
 meta:mapped:true
-meta:image:grad_sepia
+meta:image:!,1,32,64,1,4
 meta:hidden:false
 0,0,0
 1,0,0

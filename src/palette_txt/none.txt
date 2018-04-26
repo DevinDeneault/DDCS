@@ -1,6 +1,6 @@
 meta:name:- None -
 meta:id:none
 meta:mapped:true
-meta:image:blank
+meta:image:!,64,32,1,1,1
 meta:hidden:false
 0,0,0

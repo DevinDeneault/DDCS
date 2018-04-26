@@ -1,7 +1,7 @@
-meta:name:[gradient] [s2p] Yellow to Green
+meta:name:[gradient] [s2p] Yellow-Green
 meta:id:s2pYG
 meta:mapped:true
-meta:image:extra
+meta:image:!,1,32,64,1,4
 meta:hidden:true
 0,0,0
 1,1,0

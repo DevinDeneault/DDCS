@@ -60,15 +60,16 @@ public class LogicController {
     public void loadUserPalette() {     //load and validate the user defined palette
 
         int[][] userPalette = fileManager.loadUserPalette();
-
-        if( userPalette.length > 1 )
-            bridgeClass.updateColorList(userPalette);
-        else
-            if( !(userPalette[0][0] == 0 && userPalette[0][1] == 0 && userPalette[0][2] == 0) )
-                bridgeClass.updateColorList(userPalette);
+        bridgeClass.updateColorDisplay(userPalette, "user");  //paletteList.get(getPaletteIndex("user")).imageName()
     }
 
-    public void updateSelectedPalette(int index) { selectedPalette = paletteList.get(index); }
+    public void updateSelectedPalette(int index, boolean fromVisible) {
+
+        if( fromVisible )   //is the index referring to the list of visible palettes or the list of all palettes?
+            selectedPalette = paletteList.get(getPaletteIndex(visiblePalettes[index]));
+        else
+            selectedPalette = paletteList.get(index);
+    }
 
     public void updateSelectedDither(String name) { selectedDither = name; }
 
@@ -88,11 +89,11 @@ public class LogicController {
                 false,
                 adaptivePaletteCalc.getAdaptivePalette(colorCount, image)));
 
-        updateSelectedPalette(index);
+        updateSelectedPalette(index, false);
     }
 
     public void updateColorListDisplay() {
-        bridgeClass.updateColorList(selectedPalette.get());
+        bridgeClass.updateColorDisplay(selectedPalette.get(), selectedPalette.imageName());
     }
 
     public void saveUserColorList(String colorsString) {
@@ -117,7 +118,7 @@ public class LogicController {
                 false,
                 colorArray));
 
-        updateSelectedPalette(index);
+        updateSelectedPalette(index, false);
     }
 
 
@@ -158,10 +159,10 @@ public class LogicController {
         return index;
     }
 
-
-    public Image getPaletteImage(int index) {   //take the name of the palette currently selected and return the preview image
-        return new Image(this.getClass().getResourceAsStream("/palette_images/" + paletteList.get(getPaletteIndex(visiblePalettes[index])).imageName() + ".png"));
-    }
+//=========================================================================================================================================================================================================================
+//    public Image getPaletteImage(int index) {   //take the name of the palette currently selected and return the preview image
+//        return new Image(this.getClass().getResourceAsStream("/palette_images/" + paletteList.get(getPaletteIndex(visiblePalettes[index])).imageName() + ".png"));
+//    }
 
     //there are a number of more specialized/gimmicky/experimental palettes built in, but they aren't shown to prevent overloading the user with options
     //  this will toggle between showing and hiding them
@@ -169,7 +170,7 @@ public class LogicController {
         ArrayList<String> paletteNames = new ArrayList<>();
 
         for( Palette palette : paletteList )
-            if( (!palette.hidden()) || (palette.hidden() && showAll) ) { paletteNames.add(palette.name()); }
+            if( !palette.hidden() || (palette.hidden() && showAll) ) { paletteNames.add(palette.name()); }
 
         visiblePalettes = new String[paletteNames.size()];
         visiblePalettes = paletteNames.toArray(visiblePalettes);

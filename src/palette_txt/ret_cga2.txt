@@ -1,7 +1,7 @@
 meta:name:[retro]  CGA mode4-2h
 meta:id:rCga2
 meta:mapped:false
-meta:image:ret_cga2
+meta:image:!,16,32,4,1,1
 meta:hidden:false
 0,0,0
 85,255,85

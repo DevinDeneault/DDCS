@@ -1,7 +1,7 @@
 meta:name:[retro]  Apple II
 meta:id:rApp
 meta:mapped:false
-meta:image:ret_apple_ii
+meta:image:!,8,16,8,2,1
 meta:hidden:false
 0,0,0
 108,41,64
@@ -13,6 +13,7 @@ meta:hidden:false
 191,180,248
 64,75,7
 217,104,15
+128,128,128
 236,168,191
 38,195,15
 191,202,135

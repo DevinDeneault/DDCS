@@ -1,7 +1,7 @@
 meta:name:[color]  6-bit
 meta:id:c6b
 meta:mapped:false
-meta:image:color_6b
+meta:image:!,4,8,16,4,1
 meta:hidden:false
 0,0,0
 0,0,85

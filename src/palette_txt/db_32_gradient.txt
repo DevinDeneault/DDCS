@@ -1,7 +1,7 @@
 meta:name:[misc] DB32 full gradient
 meta:id:mDb32Full
 meta:mapped:true
-meta:image:extra
+meta:image:!,1,32,64,1,4
 meta:hidden:true
 0,0,0
 2,2,4

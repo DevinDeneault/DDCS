@@ -1,7 +1,7 @@
-meta:name:[gradient] [monochrome] Blue
+meta:name:[gradient] [mono] Blue
 meta:id:mB
 meta:mapped:true
-meta:image:extra
+meta:image:!,1,32,64,1,4
 meta:hidden:true
 0,0,0
 0,0,1

@@ -13,6 +13,7 @@ import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -83,23 +84,31 @@ public class DocumentController implements Initializable {
         scpRightPane.hvalueProperty().addListener(
                 (observable, oldValue, newValue) -> scpLeftPane.setHvalue(1 - (double) newValue));
 
+        //this listener will cause the colors in the user's custom defined palette list to be evaluated and saved in real-time
+        txaColorList.textProperty().addListener((obs,old,niu) -> {
+            if( cmbPaletteSelect.getValue().equals("- User defined palette -") ){
+                logicController.updateUserPalette(txaColorList.getText());
+                txtColorCount.setText("" + logicController.getPaletteSize());
+            }
+        });
+
         //pass references to controls in this class to the bridge class
         //  initializing the class here because only 'null' is passed prior to the javaFX document controller initializer being reached;
         Bridge bridgeClass = Bridge.getInstance();
-        bridgeClass.initialize(progressInfo, txaColorList);
+        bridgeClass.initialize(progressInfo, txaColorList, cnvPaletteCanvas);
 
         logicController = new LogicController();
 
         imgBase.setImage(logicController.getNullImage());
         imgProcessed.setImage(logicController.getNullImage());
-        imgPalettePreview.setImage(new Image(this.getClass().getResourceAsStream("/palette_images/blank.png")));
+        //imgPalettePreview.setImage(new Image(this.getClass().getResourceAsStream("/palette_images/blank.png")));//===========================================================================================================
 
         progressWorker.setDaemon(true);        //thread will end with program close (if only daemon threads remain, JVM will close them all and terminate)
         progressWorker.start();
 
         paletteOptions.addAll(logicController.loadPalettes());  //load all of the built in palettes (converting them from text files)
         cmbPaletteSelect.setValue(paletteOptions.get(0));
-        logicController.updateSelectedPalette(0);
+        logicController.updateSelectedPalette(0, true);
 
         logicController.updateSelectedDither(cmbDitherSelect.getValue());
 
@@ -174,7 +183,7 @@ public class DocumentController implements Initializable {
 
             //changing the list messes with the index values, so just select the top value
             cmbPaletteSelect.setValue(paletteOptions.get(0));
-            logicController.updateSelectedPalette(0);
+            logicController.updateSelectedPalette(0, true);
 
         }
     }
@@ -209,14 +218,13 @@ public class DocumentController implements Initializable {
             else
                 txtColorCount.setDisable(true);
 
-            logicController.updateSelectedPalette(paletteNumber);
+            logicController.updateSelectedPalette(paletteNumber, true);
 
-            if( !paletteName.equals("- User defined palette -") ) {
-                txtColorCount.setText("" + logicController.getPaletteSize());
-                logicController.updateColorListDisplay();
-            }
+            txtColorCount.setText("" + logicController.getPaletteSize());
+            logicController.updateColorListDisplay();
 
-            imgPalettePreview.setImage(logicController.getPaletteImage(paletteNumber));
+            //=====================================================================================================================================================================================================
+            //imgPalettePreview.setImage(logicController.getPaletteImage(paletteNumber));
 
         } else if( source == cmbDitherSelect )
             logicController.updateSelectedDither(cmbDitherSelect.getValue());
@@ -306,9 +314,6 @@ public class DocumentController implements Initializable {
                 if( cmbPaletteSelect.getValue().equals("Adaptive Palette") ) {
                     logicController.generateAdaptivePalette(validateColorCount());
                     logicController.updateColorListDisplay();
-                } else if( cmbPaletteSelect.getValue().equals("- User defined palette -") ) {
-                    logicController.updateUserPalette(txaColorList.getText());
-                    txtColorCount.setText("" + logicController.getPaletteSize());
                 }
 
                 imgProcessed.setImage(logicController.processImage());
@@ -445,6 +450,7 @@ public class DocumentController implements Initializable {
     @FXML private ScrollPane scpRightPane;              //the right scroll pane where the processed image is shown
 
     @FXML private TextArea txaColorList;                //the text area under the cmbPaletteSelect that will list all the colors in the palette
+    @FXML private Canvas cnvPaletteCanvas;              //a small canvas in the palette section that displays a visual representation of the palette
 
     @FXML private TextArea txtHelpAbout;                //a text area positioned in front of the left scroll pane that can be toggled between hidden and visible
     //================================================================================================================================================

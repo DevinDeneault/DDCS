@@ -1,7 +1,7 @@
 meta:name:[greyscale]  8-bit
 meta:id:g8b
 meta:mapped:true
-meta:image:grey_8b
+meta:image:!,1,32,64,1,4
 meta:hidden:false
 0,0,0
 1,1,1

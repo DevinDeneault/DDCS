@@ -1,7 +1,7 @@
 meta:name:[color]  3-bit
 meta:id:c3b
 meta:mapped:false
-meta:image:color_3b
+meta:image:!,16,16,4,2,1
 meta:hidden:false
 0,0,0
 0,0,255

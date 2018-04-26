@@ -1,7 +1,7 @@
 meta:name:[b2s2b2p] Teal to Green
 meta:id:b2s2b2pTG
 meta:mapped:true
-meta:image:extra
+meta:image:!,1,32,64,1,4
 meta:hidden:true
 0,0,0
 0,3,3

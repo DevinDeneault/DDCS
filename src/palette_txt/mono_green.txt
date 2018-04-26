@@ -1,7 +1,7 @@
-meta:name:[gradient] [monochrome] Green
+meta:name:[gradient] [mono] Green
 meta:id:mG
 meta:mapped:true
-meta:image:extra
+meta:image:!,1,32,64,1,4
 meta:hidden:true
 0,0,0
 0,1,0

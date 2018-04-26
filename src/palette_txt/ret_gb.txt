@@ -1,7 +1,7 @@
 meta:name:[retro]  Game Boy
 meta:id:rGb
 meta:mapped:false
-meta:image:ret_gb
+meta:image:!,16,32,4,1,1
 meta:hidden:false
 80,80,50
 124,121,79

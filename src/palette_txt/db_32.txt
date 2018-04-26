@@ -1,7 +1,7 @@
 meta:name:[misc] DawnBringer's 32
 meta:id:db32
 meta:mapped:false
-meta:image:db_32
+meta:image:!,8,8,8,4,1
 meta:hidden:true
 0,0,0
 34,32,52

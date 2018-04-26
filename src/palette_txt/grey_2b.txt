@@ -1,7 +1,7 @@
 meta:name:[greyscale]  2-bit
 meta:id:g2b
 meta:mapped:true
-meta:image:grey_2b
+meta:image:!,16,32,4,1,1
 meta:hidden:false
 0,0,0
 85,85,85

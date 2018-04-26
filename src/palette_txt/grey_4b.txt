@@ -1,7 +1,7 @@
 meta:name:[greyscale]  4-bit
 meta:id:g4b
 meta:mapped:true
-meta:image:grey_4b
+meta:image:!,4,32,16,1,1
 meta:hidden:false
 0,0,0
 17,17,17

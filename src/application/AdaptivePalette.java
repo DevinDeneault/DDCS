@@ -47,7 +47,7 @@ public class AdaptivePalette {
         listColorArrays.add(image.colors());
         int[][] colorArray;
 
-        if( listColorArrays.get(0).length < colorCount ) {              //if there are already fewer colors in the image than the number we want to create it will break things, just return the existing colors
+        if( listColorArrays.get(0).length <= colorCount ) {              //if there are already fewer colors in the image than the number we want to create it will break things, just return the existing colors
 
             int[][] arrayColorArrays = new int[listColorArrays.get(0).length][3];
 
