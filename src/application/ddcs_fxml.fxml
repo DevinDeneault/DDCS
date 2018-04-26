@@ -208,7 +208,7 @@
                   <VBox.margin>
                      <Insets top="6.0" />
                   </VBox.margin>
-                  <Label text="Matching Behavior:">
+                  <Label text="Force Matching Behavior:">
                      <padding>
                         <Insets left="4.0" />
                      </padding>
@@ -224,12 +224,12 @@
                         <ToggleGroup fx:id="tGroup1" />
                      </toggleGroup>
                   </RadioButton>
-                  <RadioButton fx:id="rbtMatchSearch" mnemonicParsing="false" onAction="#handlerRadioButtons" text="Always search for best match." toggleGroup="$tGroup1">
+                  <RadioButton fx:id="rbtMatchSearch" mnemonicParsing="false" onAction="#handlerRadioButtons" text="Search for best match." toggleGroup="$tGroup1">
                      <padding>
                         <Insets left="4.0" />
                      </padding>
                   </RadioButton>
-                  <RadioButton fx:id="rbtMatchMap" mnemonicParsing="false" onAction="#handlerRadioButtons" text="Always map new palette to image." toggleGroup="$tGroup1">
+                  <RadioButton fx:id="rbtMatchMap" mnemonicParsing="false" onAction="#handlerRadioButtons" text="Map palette to image." toggleGroup="$tGroup1">
                      <padding>
                         <Insets left="4.0" />
                      </padding>
