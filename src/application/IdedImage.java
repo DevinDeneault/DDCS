@@ -50,10 +50,9 @@ public class IdedImage extends Image {
                 //color values are received as a value between 0 to 1, so convert them to 0 to 255
                 //  then collapse them into a single int
                 //  this is SIGNIFICANTLY better performing than a HashSet of int[]
-                colorHashSet.add((0xFF << 24) |
-                        ((int) (255 * color.getRed()) << 16) |
-                        ((int) (255 * color.getGreen()) << 8) |
-                        ((int) (255 * color.getBlue())) );
+                colorHashSet.add(   ((int) (255 * color.getRed()) << 16) |
+                                    ((int) (255 * color.getGreen()) << 8) |
+                                    ((int) (255 * color.getBlue())) );
             }
         }
 

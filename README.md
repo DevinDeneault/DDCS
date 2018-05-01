@@ -37,4 +37,4 @@ original image - 25255 colors:
 
 
 
-#### Note: If you are attempting to run the executable JAR file on Windows you may need to unblock it. (right click > go to "Properties" >  "General" tab > at the bottom will be "This file came from another computer and might be blocked to help protect this computer." with an "Unlock" checkbox next to it.) Failing to do this will cause the program to be unable to load or save images.
+#### Note: Most operating systems my prevent executable jar files from unknown sources from running or functioning fully. You may need to alter security settings to allow this program.
