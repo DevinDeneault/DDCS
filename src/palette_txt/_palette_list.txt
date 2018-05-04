@@ -11,6 +11,7 @@ color_6b
 color_332b
 color_9b
 grad_sepia
+grad_heat
 mono_blue
 mono_green
 mono_purple
