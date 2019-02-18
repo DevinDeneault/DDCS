@@ -1,6 +1,6 @@
 # DDCS
 
-#### Current version requires Java SE runtime version 9.
+# Due to changes in JavaFX and the fact that it is no longer packaged with the standard Java runtime environment the program is currently not functional. Update coming soon.
 
 A Java program that will take an image, convert it to a new palette of colors, and apply dithering.
 
